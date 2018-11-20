@@ -4,8 +4,7 @@
 #include "Game.h"
 
 int main(int argc, char* argv[]){
-	//This will cause compilation to fail for a 64-bit build
-	//static_assert(sizeof(void*) == 4, "This program is not ready for 64-bit build");
+	static_assert(PizzaBox::GameManager::version == 2018'11'20, "Incompatible engine version!");
 
 	//Create the Game
 	GamePackage::Game* game = new GamePackage::Game("ProtoType");
