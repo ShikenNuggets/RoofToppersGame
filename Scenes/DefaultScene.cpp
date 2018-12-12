@@ -54,18 +54,5 @@ bool DefaultScene::Initialize(){
 }
 
 void DefaultScene::Destroy(){
-	for(PizzaBox::GameObject* go : gameObjectList){
-		go->Destroy();
-		delete go;
-		go = nullptr;
-	}
-
-	gameObjectList.clear();
-	gameObjectList.shrink_to_fit();
-
-	if(sky != nullptr){
-		sky->Destroy();
-		delete sky;
-		sky = nullptr;
-	}
+	Scene::Destroy();
 }
