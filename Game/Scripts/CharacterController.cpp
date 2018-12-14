@@ -32,9 +32,13 @@ void CharacterController::Update(const float deltaTime_){
 	PizzaBox::Euler currentRotation = gameObject->GetTransform()->GetRotation();
 	float rotateX = PizzaBox::InputManager::GetAxis("RotateX");
 	float rotateY = PizzaBox::InputManager::GetAxis("RotateY");
-	float rotateZ = PizzaBox::InputManager::GetAxis("RotateZ");
-	PizzaBox::Euler rotateAxis = PizzaBox::Euler(90.0f * rotateX, 90.0f * rotateY, 90.0f * rotateZ) * PizzaBox::Time::RealDeltaTime();
+	PizzaBox::Euler rotateAxis = PizzaBox::Euler(90.0f * rotateX, 90.0f * rotateY, 0.0f) * PizzaBox::Time::RealDeltaTime();
 	gameObject->GetTransform()->Rotate(rotateAxis);
+
+	//Remove any Z axis rotation
+	currentRotation = gameObject->GetTransform()->GetRotation();
+	currentRotation.z = 0.0f;
+	gameObject->SetRotation(currentRotation);
 
 	//----------------------------------------------------------------------------------//
 
