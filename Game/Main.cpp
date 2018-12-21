@@ -4,7 +4,7 @@
 #include "Game.h"
 
 int main(int argc, char* argv[]){
-	static_assert(PizzaBox::GameManager::version == 2018'12'20, "Incompatible engine version!");
+	static_assert(PizzaBox::GameManager::version == 2018'12'21, "Incompatible engine version!");
 
 	//Create the Game
 	GamePackage::Game* game = new GamePackage::Game("ProtoType");
