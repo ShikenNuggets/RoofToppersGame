@@ -72,26 +72,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\Intermediate\$(Configuration)\$(Platform)\</IntDir>
-    <IncludePath>$(MasterDir)PizzaBox;$(MasterDir)SDK\SDL2-2.0.8\include;$(MasterDir)SDK\SDL2_image-2.0.3\include;$(MasterDir)SDK\glew-2.1.0\include\GL;$(MasterDir)SDK\freetype-2.9.1\include;$(MasterDir)SDK\FMOD-1.10.08\lowlevel\inc;$(MasterDir)SDK\FMOD-1.10.08\studio\inc;$(MasterDir)SDK\AssImp\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(MasterDir)SDK\SDL2-2.0.8\lib\$(Platform);$(MasterDir)SDK\SDL2_image-2.0.3\lib\$(Platform);$(MasterDir)SDK\glew-2.1.0\lib\Release\$(Platform);$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration);$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform);$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform);$(MasterDir)Build\PizzaBox\$(Configuration)\$(Platform);$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(MasterDir)PizzaBox;$(MasterDir)SDK\SDL2-2.0.8\include;$(MasterDir)SDK\SDL2_image-2.0.3\include;$(MasterDir)SDK\glew-2.1.0\include\GL;$(MasterDir)SDK\freetype-2.9.1\include;$(MasterDir)SDK\FMOD-1.10.08\lowlevel\inc;$(MasterDir)SDK\FMOD-1.10.08\studio\inc;$(MasterDir)SDK\AssImp\include;$(MasterDir)SDK\ReactPhysics-0.7.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(MasterDir)SDK\SDL2-2.0.8\lib\$(Platform);$(MasterDir)SDK\SDL2_image-2.0.3\lib\$(Platform);$(MasterDir)SDK\glew-2.1.0\lib\Release\$(Platform);$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration);$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform);$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform);$(MasterDir)Build\PizzaBox\$(Configuration)\$(Platform);$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform);$(MasterDir)SDK\ReactPhysics-0.7.0\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\Intermediate\$(Configuration)\$(Platform)\</IntDir>
-    <IncludePath>$(MasterDir)PizzaBox;$(MasterDir)SDK\SDL2-2.0.8\include;$(MasterDir)SDK\SDL2_image-2.0.3\include;$(MasterDir)SDK\glew-2.1.0\include\GL;$(MasterDir)SDK\freetype-2.9.1\include;$(MasterDir)SDK\FMOD-1.10.08\lowlevel\inc;$(MasterDir)SDK\FMOD-1.10.08\studio\inc;$(MasterDir)SDK\AssImp\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(MasterDir)SDK\SDL2-2.0.8\lib\$(Platform);$(MasterDir)SDK\SDL2_image-2.0.3\lib\$(Platform);$(MasterDir)SDK\glew-2.1.0\lib\Release\$(Platform);$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration);$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform);$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform);$(MasterDir)Build\PizzaBox\$(Configuration)\$(Platform);$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(MasterDir)PizzaBox;$(MasterDir)SDK\SDL2-2.0.8\include;$(MasterDir)SDK\SDL2_image-2.0.3\include;$(MasterDir)SDK\glew-2.1.0\include\GL;$(MasterDir)SDK\freetype-2.9.1\include;$(MasterDir)SDK\FMOD-1.10.08\lowlevel\inc;$(MasterDir)SDK\FMOD-1.10.08\studio\inc;$(MasterDir)SDK\AssImp\include;$(MasterDir)SDK\ReactPhysics-0.7.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(MasterDir)SDK\SDL2-2.0.8\lib\$(Platform);$(MasterDir)SDK\SDL2_image-2.0.3\lib\$(Platform);$(MasterDir)SDK\glew-2.1.0\lib\Release\$(Platform);$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration);$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform);$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform);$(MasterDir)Build\PizzaBox\$(Configuration)\$(Platform);$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform);$(MasterDir)SDK\ReactPhysics-0.7.0\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\Intermediate\$(Configuration)\$(Platform)\</IntDir>
-    <IncludePath>$(MasterDir)PizzaBox;$(MasterDir)SDK\SDL2-2.0.8\include;$(MasterDir)SDK\SDL2_image-2.0.3\include;$(MasterDir)SDK\glew-2.1.0\include\GL;$(MasterDir)SDK\freetype-2.9.1\include;$(MasterDir)SDK\FMOD-1.10.08\lowlevel\inc;$(MasterDir)SDK\FMOD-1.10.08\studio\inc;$(MasterDir)SDK\AssImp\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(MasterDir)SDK\SDL2-2.0.8\lib\$(Platform);$(MasterDir)SDK\SDL2_image-2.0.3\lib\$(Platform);$(MasterDir)SDK\glew-2.1.0\lib\Release\$(Platform);$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration);$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform);$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform);$(MasterDir)Build\PizzaBox\$(Configuration)\$(Platform);$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(MasterDir)PizzaBox;$(MasterDir)SDK\SDL2-2.0.8\include;$(MasterDir)SDK\SDL2_image-2.0.3\include;$(MasterDir)SDK\glew-2.1.0\include\GL;$(MasterDir)SDK\freetype-2.9.1\include;$(MasterDir)SDK\FMOD-1.10.08\lowlevel\inc;$(MasterDir)SDK\FMOD-1.10.08\studio\inc;$(MasterDir)SDK\AssImp\include;$(MasterDir)SDK\ReactPhysics-0.7.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(MasterDir)SDK\SDL2-2.0.8\lib\$(Platform);$(MasterDir)SDK\SDL2_image-2.0.3\lib\$(Platform);$(MasterDir)SDK\glew-2.1.0\lib\Release\$(Platform);$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration);$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform);$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform);$(MasterDir)Build\PizzaBox\$(Configuration)\$(Platform);$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform);$(MasterDir)SDK\ReactPhysics-0.7.0\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)Build\$(ProjectName)\$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)Build\$(ProjectName)\Intermediate\$(Configuration)\$(Platform)\</IntDir>
-    <IncludePath>$(MasterDir)PizzaBox;$(MasterDir)SDK\SDL2-2.0.8\include;$(MasterDir)SDK\SDL2_image-2.0.3\include;$(MasterDir)SDK\glew-2.1.0\include\GL;$(MasterDir)SDK\freetype-2.9.1\include;$(MasterDir)SDK\FMOD-1.10.08\lowlevel\inc;$(MasterDir)SDK\FMOD-1.10.08\studio\inc;$(MasterDir)SDK\AssImp\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(MasterDir)SDK\SDL2-2.0.8\lib\$(Platform);$(MasterDir)SDK\SDL2_image-2.0.3\lib\$(Platform);$(MasterDir)SDK\glew-2.1.0\lib\Release\$(Platform);$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration);$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform);$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform);$(MasterDir)Build\PizzaBox\$(Configuration)\$(Platform);$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(MasterDir)PizzaBox;$(MasterDir)SDK\SDL2-2.0.8\include;$(MasterDir)SDK\SDL2_image-2.0.3\include;$(MasterDir)SDK\glew-2.1.0\include\GL;$(MasterDir)SDK\freetype-2.9.1\include;$(MasterDir)SDK\FMOD-1.10.08\lowlevel\inc;$(MasterDir)SDK\FMOD-1.10.08\studio\inc;$(MasterDir)SDK\AssImp\include;$(MasterDir)SDK\ReactPhysics-0.7.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(MasterDir)SDK\SDL2-2.0.8\lib\$(Platform);$(MasterDir)SDK\SDL2_image-2.0.3\lib\$(Platform);$(MasterDir)SDK\glew-2.1.0\lib\Release\$(Platform);$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration);$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform);$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform);$(MasterDir)Build\PizzaBox\$(Configuration)\$(Platform);$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform);$(MasterDir)SDK\ReactPhysics-0.7.0\lib\$(Configuration)\$(Platform);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -101,10 +101,11 @@
       <ConformanceMode>true</ConformanceMode>
       <TreatSpecificWarningsAsErrors>4715;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;glew32.lib;glew32s.lib;opengl32.lib;freetype.lib;assimp-vc140-mt.lib;fmodL_vc.lib;fmodstudioL_vc.lib;PizzaBox.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;glew32.lib;glew32s.lib;opengl32.lib;freetype.lib;assimp-vc140-mt.lib;reactphysics3d.lib;fmodL_vc.lib;fmodstudioL_vc.lib;PizzaBox.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -133,10 +134,11 @@ echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
       <ConformanceMode>true</ConformanceMode>
       <TreatSpecificWarningsAsErrors>4715;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;glew32.lib;glew32s.lib;opengl32.lib;freetype.lib;assimp-vc140-mt.lib;fmodL64_vc.lib;fmodstudioL64_vc.lib;PizzaBox.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;glew32.lib;glew32s.lib;opengl32.lib;freetype.lib;assimp-vc140-mt.lib;reactphysics3d.lib;fmodL64_vc.lib;fmodstudioL64_vc.lib;PizzaBox.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -167,12 +169,13 @@ echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
       <ConformanceMode>true</ConformanceMode>
       <TreatSpecificWarningsAsErrors>4715;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;glew32.lib;glew32s.lib;opengl32.lib;freetype.lib;assimp-vc140-mt.lib;fmod_vc.lib;fmodstudio_vc.lib;PizzaBox.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;glew32.lib;glew32s.lib;opengl32.lib;freetype.lib;assimp-vc140-mt.lib;reactphysics3d.lib;fmod_vc.lib;fmodstudio_vc.lib;PizzaBox.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
@@ -203,12 +206,13 @@ echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
       <ConformanceMode>true</ConformanceMode>
       <TreatSpecificWarningsAsErrors>4715;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;glew32.lib;glew32s.lib;opengl32.lib;freetype.lib;assimp-vc140-mt.lib;fmod64_vc.lib;fmodstudio64_vc.lib;PizzaBox.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_image.lib;glew32.lib;glew32s.lib;opengl32.lib;freetype.lib;assimp-vc140-mt.lib;reactphysics3d.lib;fmod64_vc.lib;fmodstudio64_vc.lib;PizzaBox.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>

@@ -2,7 +2,7 @@
 
 #include <Core/GameManager.h>
 #include <Core/Time.h>
-#include <Graphics/MeshRender.h>
+#include <Graphics/Models/MeshRender.h>
 #include <Input/InputManager.h>
 #include <Object/GameObject.h>
 #include <Tools/Debug.h>

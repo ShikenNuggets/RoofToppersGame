@@ -4,7 +4,7 @@
 #include <Audio/AudioSource.h>
 #include <Graphics/Sky/SkyBox.h>
 #include <Graphics/Camera.h>
-#include <Graphics/MeshRender.h>
+#include <Graphics/Models/MeshRender.h>
 #include <Physics/Collider.h>
 #include <Physics/Rigidbody.h>
 
