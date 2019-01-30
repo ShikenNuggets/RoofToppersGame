@@ -102,6 +102,7 @@
       <TreatSpecificWarningsAsErrors>4715;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -135,6 +136,7 @@ echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
       <TreatSpecificWarningsAsErrors>4715;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -170,6 +172,7 @@ echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
       <TreatSpecificWarningsAsErrors>4715;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -207,6 +210,7 @@ echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
       <TreatSpecificWarningsAsErrors>4715;%(TreatSpecificWarningsAsErrors)</TreatSpecificWarningsAsErrors>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -234,15 +238,37 @@ echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animators\MonsterAnimator.cpp" />
     <ClCompile Include="Scenes\DefaultScene.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Scenes\LogoScene.cpp" />
+    <ClCompile Include="Scenes\MainMenuScene.cpp" />
+    <ClCompile Include="Scripts\Building.cpp" />
+    <ClCompile Include="Scripts\CameraController.cpp" />
     <ClCompile Include="Scripts\CharacterController.cpp" />
+    <ClCompile Include="Scripts\LogoManager.cpp" />
+    <ClCompile Include="Scripts\MainMenuController.cpp" />
+    <ClCompile Include="Scripts\Missile.cpp" />
+    <ClCompile Include="Scripts\MonsterController.cpp" />
+    <ClCompile Include="Scripts\QuitButtonScript.cpp" />
+    <ClCompile Include="Scripts\SAMController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animators\MonsterAnimator.h" />
     <ClInclude Include="Scenes\DefaultScene.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Scenes\LogoScene.h" />
+    <ClInclude Include="Scenes\MainMenuScene.h" />
+    <ClInclude Include="Scripts\Building.h" />
+    <ClInclude Include="Scripts\CameraController.h" />
     <ClInclude Include="Scripts\CharacterController.h" />
+    <ClInclude Include="Scripts\LogoManager.h" />
+    <ClInclude Include="Scripts\MainMenuController.h" />
+    <ClInclude Include="Scripts\Missile.h" />
+    <ClInclude Include="Scripts\MonsterController.h" />
+    <ClInclude Include="Scripts\QuitButtonScript.h" />
+    <ClInclude Include="Scripts\SAMController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
