@@ -15,10 +15,7 @@ LogoScene::LogoScene() : Scene(){}
 
 LogoScene::~LogoScene(){}
 
-bool LogoScene::Initialize(){
-	PizzaBox::RenderEngine::SetWindowResolution(1920, 1080);
-	PizzaBox::RenderEngine::SetWindowBorderless(false);
-	PizzaBox::Time::SetFrameRate(0);
+bool LogoScene::Initialize(){ 
 
 	PizzaBox::GameObject* mainCamera = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 0.0f, 20.0f));
 	mainCamera->AddComponent(new PizzaBox::Camera(PizzaBox::ViewportRect::fullScreen, PizzaBox::Camera::RenderMode::Perspective));
