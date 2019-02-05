@@ -6,7 +6,7 @@
 #include "CameraController.h"
 #include "MonsterController.h"
 
-using namespace GGJ;
+using namespace GamePackage;
 
 Building::Building(float collapseTime_) : health(0.0f), wasHitThisFrame(false), isBeingDestroyed(false), collapseSpeed(0.0f), collapseTimer(0.0f), collapseTime(collapseTime_){
 }

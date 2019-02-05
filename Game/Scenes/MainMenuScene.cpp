@@ -8,7 +8,7 @@
 #include "Scripts/MainMenuController.h"
 #include "Scripts/QuitButtonScript.h"
 
-using namespace GGJ;
+using namespace GamePackage;
 
 MainMenuScene::MainMenuScene(){
 }

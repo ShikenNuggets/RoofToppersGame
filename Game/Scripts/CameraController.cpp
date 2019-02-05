@@ -9,7 +9,7 @@
 #include <Tools/Debug.h>
 #include <Tools/Random.h>
 
-using namespace GGJ;
+using namespace GamePackage;
 
 CameraController::CameraController() : camera(nullptr), isShaking(false), shakeStartPos(), shakeDuration(0.0f), shakeFrequency(0.0f), shakeDir(), shakeTargetPos(), shakeTimer(0.0f), shakeTime(0.0f), rotateSpeed(0.0f){
 }

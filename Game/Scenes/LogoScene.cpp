@@ -9,7 +9,7 @@
 
 #include "Scripts/LogoManager.h"
 
-using namespace GGJ;
+using namespace GamePackage;
 
 LogoScene::LogoScene() : Scene(){}
 

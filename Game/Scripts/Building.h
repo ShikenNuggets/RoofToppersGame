@@ -4,7 +4,7 @@
 #include <Object/GameObject.h>
 #include <Script/Script.h>
 
-namespace GGJ{
+namespace GamePackage {
 	class Building : public PizzaBox::Script{
 	public:
 		Building(float collapseTime_ = 5.0f);

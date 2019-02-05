@@ -249,10 +249,8 @@ echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     <ClCompile Include="Scripts\CharacterController.cpp" />
     <ClCompile Include="Scripts\LogoManager.cpp" />
     <ClCompile Include="Scripts\MainMenuController.cpp" />
-    <ClCompile Include="Scripts\Missile.cpp" />
     <ClCompile Include="Scripts\MonsterController.cpp" />
     <ClCompile Include="Scripts\QuitButtonScript.cpp" />
-    <ClCompile Include="Scripts\SAMController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animators\MonsterAnimator.h" />
@@ -265,10 +263,8 @@ echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     <ClInclude Include="Scripts\CharacterController.h" />
     <ClInclude Include="Scripts\LogoManager.h" />
     <ClInclude Include="Scripts\MainMenuController.h" />
-    <ClInclude Include="Scripts\Missile.h" />
     <ClInclude Include="Scripts\MonsterController.h" />
     <ClInclude Include="Scripts\QuitButtonScript.h" />
-    <ClInclude Include="Scripts\SAMController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,7 +4,7 @@
 #include <Script/Script.h>
 #include <Graphics/UI/ImageUI.h>
 
-namespace GGJ{
+namespace GamePackage {
 	class LogoManager : public PizzaBox::Script{
 	public:
 		LogoManager(PizzaBox::ImageUI* image_, float endTime_ = 20.0f, float waitTime_ = 2.0f);

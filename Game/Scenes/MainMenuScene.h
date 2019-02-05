@@ -3,7 +3,7 @@
 
 #include <Core/Scene.h>
 
-namespace GGJ{
+namespace GamePackage {
 	class MainMenuScene : public PizzaBox::Scene{
 	public:
 		MainMenuScene();

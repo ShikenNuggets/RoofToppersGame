@@ -8,7 +8,7 @@
 
 #include "Animators/MonsterAnimator.h"
 
-namespace GGJ{
+namespace GamePackage {
 	class MonsterController : public PizzaBox::Script{
 	public:
 		MonsterController(PizzaBox::Camera* camera_, MonsterAnimator* animator_, PizzaBox::Collider* punchCollider_, PizzaBox::AudioSource* punch1_, PizzaBox::AudioSource* punch2_, PizzaBox::AudioSource* walk_);

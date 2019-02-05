@@ -3,7 +3,7 @@
 
 #include <Core/Scene.h>
 
-namespace GGJ{
+namespace GamePackage {
 	class LogoScene : public PizzaBox::Scene{
 	public:
 		LogoScene();

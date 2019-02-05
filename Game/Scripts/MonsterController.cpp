@@ -7,7 +7,7 @@
 #include <Object/GameObject.h>
 #include <Tools/Random.h>
 
-using namespace GGJ;
+using namespace GamePackage;
 
 MonsterController::MonsterController(PizzaBox::Camera* camera_, MonsterAnimator* animator_, PizzaBox::Collider* collider_, PizzaBox::AudioSource* punch1_, PizzaBox::AudioSource* punch2_, PizzaBox::AudioSource* walk_) : camera(camera_), animator(animator_), punchCollider(collider_), punch1(punch1_), punch2(punch2_), walk(walk_), isWalking(false), isPunching(false), maxRotationPerSecond(0.0f), isGrowing(false), isShrinking(false), growSpeed(0.1f), shrinkSpeed(0.05f), oldScale(0.0f), sizeTimer(0.0f){
 }

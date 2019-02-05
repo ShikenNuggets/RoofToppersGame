@@ -4,7 +4,7 @@
 #include <Animation/Animator.h>
 #include <Animation/AnimModel.h>
 
-namespace GGJ{
+namespace GamePackage {
 	class MonsterAnimator : public PizzaBox::Animator{
 	public:
 		MonsterAnimator();

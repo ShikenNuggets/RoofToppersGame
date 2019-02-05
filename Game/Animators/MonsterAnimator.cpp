@@ -1,6 +1,6 @@
 #include "MonsterAnimator.h"
 
-using namespace GGJ;
+using namespace GamePackage;
 
 MonsterAnimator::MonsterAnimator() : moveValue(0.0f), hasStartedJump(false), isJumping(false), hasStartedPunch(false), isPunching(false){
 }

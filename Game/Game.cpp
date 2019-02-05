@@ -1,6 +1,6 @@
-#include "Game.h"
-#include "Scenes/DefaultScene.h"
-
+#include "Game.h" 
+#include "Scenes/LogoScene.h"
+#include "Scenes/MainMenuScene.h"
 #include <Core/SceneManager.h>
 #include <Input/InputManager.h>
 
@@ -14,7 +14,9 @@ Game::~Game(){
 
 bool Game::Initialize(){
 	//Add scenes to the SceneManager
-	PizzaBox::SceneManager::AddScene(new DefaultScene());
+
+	PizzaBox::SceneManager::AddScene(new LogoScene());
+	PizzaBox::SceneManager::AddScene(new MainMenuScene());
 
 	return true;
 }

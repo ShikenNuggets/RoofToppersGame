@@ -48,16 +48,10 @@
     <ClCompile Include="Scripts\MainMenuController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\Missile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scripts\MonsterController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\QuitButtonScript.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\SAMController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,16 +86,10 @@
     <ClInclude Include="Scripts\MainMenuController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Missile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Scripts\MonsterController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\QuitButtonScript.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\SAMController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
