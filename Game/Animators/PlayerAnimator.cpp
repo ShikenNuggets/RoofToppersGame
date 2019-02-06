@@ -1,14 +1,14 @@
-#include "MonsterAnimator.h"
+#include "PlayerAnimator.h"
 
 using namespace GamePackage;
 
-MonsterAnimator::MonsterAnimator() : moveValue(0.0f), hasStartedJump(false), isJumping(false), hasStartedPunch(false), isPunching(false){
+PlayerAnimator::PlayerAnimator() : moveValue(0.0f), hasStartedJump(false), isJumping(false), hasStartedPunch(false), isPunching(false){
 }
 
-MonsterAnimator::~MonsterAnimator(){
+PlayerAnimator::~PlayerAnimator(){
 }
 
-bool MonsterAnimator::Initialize(PizzaBox::AnimModel* model_){
+bool PlayerAnimator::Initialize(PizzaBox::AnimModel* model_){
 	AddClip("IdleAnim"); //0
 	AddClip("WalkingAnim"); //1
 	AddClip("JumpAnim"); //2
@@ -23,11 +23,11 @@ bool MonsterAnimator::Initialize(PizzaBox::AnimModel* model_){
 	return Animator::Initialize(model_);
 }
 
-void MonsterAnimator::Destroy(){
+void PlayerAnimator::Destroy(){
 	Animator::Destroy();
 }
 
-void MonsterAnimator::Update(float deltaTime_){
+void PlayerAnimator::Update(float deltaTime_){
 	constexpr unsigned int idleID = 0;
 	constexpr unsigned int runningID = 1;
 
