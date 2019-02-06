@@ -124,7 +124,8 @@ copy "$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform)\fmodL.dll" "$(Target
 copy "$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform)\fmodStudioL.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration)\freetype.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform)\assimp-vc140-mt.dll" "$(TargetDir)"
-echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
+echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E
+echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -158,7 +159,8 @@ copy "$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform)\fmodL64.dll" "$(Targ
 copy "$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform)\fmodStudioL64.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration)\freetype.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform)\assimp-vc140-mt.dll" "$(TargetDir)"
-echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
+echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E
+echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -196,7 +198,8 @@ copy "$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform)\fmod.dll" "$(TargetD
 copy "$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform)\fmodStudio.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration)\freetype.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform)\assimp-vc140-mt.dll" "$(TargetDir)"
-echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
+echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E
+echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -234,7 +237,8 @@ copy "$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform)\fmod64.dll" "$(Targe
 copy "$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform)\fmodStudio64.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration)\freetype.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform)\assimp-vc140-mt.dll" "$(TargetDir)"
-echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
+echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E
+echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
