@@ -11,14 +11,11 @@ PlayerAnimator::~PlayerAnimator(){
 bool PlayerAnimator::Initialize(PizzaBox::AnimModel* model_){
 	AddClip("IdleAnim"); //0
 	AddClip("WalkingAnim"); //1
-	AddClip("JumpAnim"); //2
-	AddClip("PunchAnim"); //3
+	AddClip("JumpAnim"); //2 
 
 	moveValue = 0.0f;
 	isJumping = false;
-	hasStartedJump = false;
-	isPunching = false;
-	hasStartedPunch = false;
+	hasStartedJump = false; 
 
 	return Animator::Initialize(model_);
 }
@@ -36,13 +33,7 @@ void PlayerAnimator::Update(float deltaTime_){
 	if(isJumping && !hasStartedJump && !isPunching){
 		hasStartedJump = true;
 		BeginTransition("JumpAnim", 0.25f);
-	}
-
-	if(isPunching && !hasStartedPunch && !isJumping){
-		hasStartedPunch = true;
-		BeginTransition("PunchAnim", 0.25f);
-	}
-
+	} 
 	if(!IsTransitioning() && !isJumping && !isPunching){
 		if(currentClip == idleID && (moveValue > min || moveValue < -min)){
 			BeginTransition("WalkingAnim", 0.25f);
@@ -54,12 +45,6 @@ void PlayerAnimator::Update(float deltaTime_){
 	if(isJumping && hasStartedJump && globalTime + deltaTime_ >= clips[currentClip]->GetLength()){
 		isJumping = false;
 		hasStartedJump = false;
-		BeginTransition("IdleAnim", 0.25f);
-	}
-
-	if(isPunching && hasStartedPunch && globalTime + deltaTime_ >= clips[currentClip]->GetLength()){
-		isPunching = false;
-		hasStartedPunch = false;
 		BeginTransition("IdleAnim", 0.25f);
 	}
 
