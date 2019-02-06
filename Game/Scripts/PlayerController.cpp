@@ -30,9 +30,6 @@ void PlayerController::Update(const float deltaTime_){
 	}
 	 
 	if(animator != nullptr && animator->isJumping){ 
-		if (MoveY > 0.0f) {
-			//MoveY -= 1.0f;
-		}
 		gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetUp() * MoveY * moveSpeed * deltaTime_);
 		return;
 	}
@@ -75,6 +72,7 @@ void PlayerController::Update(const float deltaTime_){
 		}
 
 		gameObject->GetTransform()->Rotate(PizzaBox::Euler(0.0f, finalAngle, 0.0f));
+
 	}
 	  
 	float moveValue = (fabs(moveX) + fabs(moveZ)) / 2.0f;
@@ -89,14 +87,16 @@ void PlayerController::Update(const float deltaTime_){
 	}
 
 	gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetForward() * -fabs(moveValue) * moveSpeed * scaleFactor * deltaTime_);
+	/*auto rb = gameObject->GetComponent<PizzaBox::Rigidbody>();
+	PizzaBox::Vector3 impulse = gameObject->GetTransform()->GetForward() * -fabs(moveValue) * moveSpeed * scaleFactor * deltaTime_;
+	impulse *= 100.0f;
+	rb->Impulse(impulse);*/
 	
 	if(PizzaBox::InputManager::GetButtonDown("JumpButton") && animator != nullptr && !animator->IsTransitioning()){
 		animator->isJumping = true; 
 		MoveY = 0.8f;
 	}
-	
-	
-
+	 
 	if(animator != nullptr){
 		animator->moveValue = moveValue;
 	}
