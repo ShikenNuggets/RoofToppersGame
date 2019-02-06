@@ -14,6 +14,7 @@
 // Script Includes
 #include "Scripts/CameraController.h"
 #include "Scripts/PlayerController.h"
+#include "Scripts/MovingPlatform.h"
 
 // Animator Includes
 #include "Animators/PlayerAnimator.h"
@@ -47,18 +48,24 @@ bool Level1::Initialize() {
 	Player->SetTag("Player");
 	PlayerAnimator* animator = new PlayerAnimator();
 	Player->AddComponent(new PizzaBox::AnimMeshRender("BotModel", PizzaBox::Color(0.1f, 0.1f, 0.8f), animator));
-	auto rb = new PizzaBox::Rigidbody(10000.0f, true, true);
+	auto rb = new PizzaBox::Rigidbody(1.0f, true, true);
 	rb->AddCollider(new PizzaBox::CapsuleCollider(5.0f, 10.0f), PizzaBox::Vector3(0.0f, 10.0f, 0.0f));
 	Player->AddComponent(rb);
 	Player->AddComponent(new PlayerController(cam, animator));
 
 	// Test Static platfrom
-	PizzaBox::GameObject* Platfrom = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 2.0f, 20.0f));
+	PizzaBox::GameObject* Platfrom = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 2.0f, 50.0f));
 	Platfrom->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Green)));
 	Platfrom->AddComponent(new PizzaBox::Collider(Platfrom->GetTransform()->GlobalScale()));
 
 	// Test Moving Platform
-
+	PizzaBox::GameObject* Platfrom2 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 10.0f, -10.0f), PizzaBox::Euler(), PizzaBox::Vector3(10.0f, 2.0f, 10.0f));
+	Platfrom2->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Red)));
+	Platfrom2->AddComponent(new PizzaBox::Collider(Platfrom2->GetTransform()->GlobalScale()));
+	auto mp = new MovingPlatform();
+	mp->SetDistance(5.0f);
+	mp->SetDirectionSpeed(10.0f);
+	Platfrom2->AddComponent(mp);
 
 	// Test Death Object
 
