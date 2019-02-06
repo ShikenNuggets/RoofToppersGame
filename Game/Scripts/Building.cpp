@@ -4,7 +4,7 @@
 #include <Graphics/Particles/ParticleSystem.h>
 
 #include "CameraController.h"
-#include "MonsterController.h"
+#include "PlayerController.h"
 
 using namespace GamePackage;
 
@@ -57,7 +57,7 @@ void Building::BeginDestruction(){
 	
 	auto player = PizzaBox::SceneManager::CurrentScene()->FindWithTag("Player");
 	if(player != nullptr){
-		player->GetComponent<MonsterController>()->BeginGrow();
+		//player->GetComponent<PlayerController>()->BeginGrow();
 	}
 
 	auto camera = PizzaBox::SceneManager::CurrentScene()->FindWithTag("Camera");
