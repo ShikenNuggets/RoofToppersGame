@@ -2,7 +2,7 @@
 // Scene Includes
 #include "Scenes/LogoScene.h"
 #include "Scenes/MainMenuScene.h"
-
+#include "Scenes/Level1.h"
 // Engine Includes
 #include <Core/SceneManager.h>
 #include <Core/Time.h>
@@ -39,7 +39,7 @@ bool Game::Initialize(){
 
 	//MainMenuSet
 	uiSet = new PizzaBox::UISet("MainMenuSet");
-	uiSet->elements.push_back(new PizzaBox::TextUI("GameName", PizzaBox::Rect(0.355, 0.5, 0.1, 0.125), "Protype Name", "ArialFont"));
+	uiSet->elements.push_back(new PizzaBox::TextUI("GameName", PizzaBox::Rect(0.35, 0.5, 0.1, 0.125), "Protype Name", "ArialFont"));
 	uiSet->elements.push_back(new PizzaBox::ButtonUI("PlayButton", PizzaBox::Rect(0.425, 0.35, 0.15, 0.125)));
 	uiSet->elements.push_back(new PizzaBox::ButtonUI("QuitButton", PizzaBox::Rect(0.425, 0.2, 0.15, 0.125)));
 	PizzaBox::UIManager::AddSet(uiSet);
@@ -47,6 +47,7 @@ bool Game::Initialize(){
 	//Add scenes to the SceneManager 
 	PizzaBox::SceneManager::AddScene(new LogoScene());
 	PizzaBox::SceneManager::AddScene(new MainMenuScene());
+	PizzaBox::SceneManager::AddScene(new Level1());
 
 	return true;
 }
