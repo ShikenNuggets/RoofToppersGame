@@ -17,7 +17,7 @@ MainMenuScene::~MainMenuScene(){
 }
 
 bool MainMenuScene::Initialize(){
-	SetSky(new PizzaBox::SkyBox("DarkSkybox"));
+	SetSky(new PizzaBox::SkyBox("DarkSkybox","SkyBoxShader", 30.0f));
 
 	PizzaBox::GameObject* mainCamera = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 0.0f, 20.0f), PizzaBox::Euler(-45.0f, 0.0f, 0.0f));
 	mainCamera->AddComponent(new PizzaBox::Camera(PizzaBox::ViewportRect::fullScreen, PizzaBox::Camera::RenderMode::Perspective));

@@ -238,7 +238,8 @@ echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Animators\MonsterAnimator.cpp" />
+    <ClCompile Include="Animators\PlayerAnimator.cpp" />
+    <ClCompile Include="Scenes\Level1.cpp" />
     <ClCompile Include="Scenes\DefaultScene.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -249,11 +250,12 @@ echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     <ClCompile Include="Scripts\CharacterController.cpp" />
     <ClCompile Include="Scripts\LogoManager.cpp" />
     <ClCompile Include="Scripts\MainMenuController.cpp" />
-    <ClCompile Include="Scripts\MonsterController.cpp" />
+    <ClCompile Include="Scripts\PlayerController.cpp" />
     <ClCompile Include="Scripts\QuitButtonScript.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animators\MonsterAnimator.h" />
+    <ClInclude Include="Animators\PlayerAnimator.h" />
+    <ClInclude Include="Scenes\Level1.h" />
     <ClInclude Include="Scenes\DefaultScene.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Scenes\LogoScene.h" />
@@ -263,7 +265,7 @@ echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     <ClInclude Include="Scripts\CharacterController.h" />
     <ClInclude Include="Scripts\LogoManager.h" />
     <ClInclude Include="Scripts\MainMenuController.h" />
-    <ClInclude Include="Scripts\MonsterController.h" />
+    <ClInclude Include="Scripts\PlayerController.h" />
     <ClInclude Include="Scripts\QuitButtonScript.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

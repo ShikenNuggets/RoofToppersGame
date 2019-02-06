@@ -27,9 +27,6 @@
     <ClCompile Include="Scenes\DefaultScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Animators\MonsterAnimator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scenes\LogoScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -48,10 +45,16 @@
     <ClCompile Include="Scripts\MainMenuController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\MonsterController.cpp">
+    <ClCompile Include="Scripts\QuitButtonScript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\QuitButtonScript.cpp">
+    <ClCompile Include="Animators\PlayerAnimator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\PlayerController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Level1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -63,9 +66,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\DefaultScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Animators\MonsterAnimator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\LogoScene.h">
@@ -86,10 +86,16 @@
     <ClInclude Include="Scripts\MainMenuController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\MonsterController.h">
+    <ClInclude Include="Scripts\QuitButtonScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\QuitButtonScript.h">
+    <ClInclude Include="Animators\PlayerAnimator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\PlayerController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Level1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
