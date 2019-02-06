@@ -6,6 +6,7 @@
 #include <Math/Math.h>
 #include <Object/GameObject.h>
 #include <Tools/Random.h>
+#include <Physics/Rigidbody.h>
 
 using namespace GamePackage;
 
@@ -17,23 +18,25 @@ PlayerController::~PlayerController(){
 
 void PlayerController::OnStart(){
 	maxRotationPerSecond = 180.0f;
+	MoveY = 0.0f;
 }
 
 void PlayerController::Update(const float deltaTime_){
-	float moveSpeed = 15.0f;
+	float moveSpeed = 20.0f;
 	float rotateSpeed = 90.0f;
 
 	if(PizzaBox::InputManager::GetKeyHeld(SDLK_LCTRL) && PizzaBox::InputManager::GetKeyHeld(SDLK_r)){
 		PizzaBox::SceneManager::LoadScene(0);
 	}
 	 
-	if(animator != nullptr && animator->isJumping){
+	if(animator != nullptr && animator->isJumping){ 
+		if (MoveY > 0.0f) {
+			//MoveY -= 1.0f;
+		}
+		gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetUp() * MoveY * moveSpeed * deltaTime_);
 		return;
 	}
 
-	if(animator != nullptr && animator->isPunching){
-		return;
-	}
 
 	float moveX = -PizzaBox::InputManager::GetAxis("Horizontal");
 	float moveZ = -PizzaBox::InputManager::GetAxis("Depth");
@@ -86,11 +89,14 @@ void PlayerController::Update(const float deltaTime_){
 	}
 
 	gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetForward() * -fabs(moveValue) * moveSpeed * scaleFactor * deltaTime_);
-	 
+	
 	if(PizzaBox::InputManager::GetButtonDown("JumpButton") && animator != nullptr && !animator->IsTransitioning()){
-		animator->isJumping = true;
+		animator->isJumping = true; 
+		MoveY = 0.8f;
 	}
-	 
+	
+	
+
 	if(animator != nullptr){
 		animator->moveValue = moveValue;
 	}

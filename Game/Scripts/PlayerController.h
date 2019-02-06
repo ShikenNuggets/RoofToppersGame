@@ -25,7 +25,7 @@ namespace GamePackage {
 
 		bool isWalking; 
 
-		float maxRotationPerSecond;   
+		float maxRotationPerSecond, MoveY;
 	};
 }
 

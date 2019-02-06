@@ -43,17 +43,17 @@ bool Level1::Initialize() {
 	dirLight->AddComponent(new PizzaBox::DirectionalLight(2.0f));
 
 	// Player 
-	PizzaBox::GameObject* Player = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 20.0f, -50.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f), PizzaBox::Vector3(0.1f, 0.1f, 0.1f));
+	PizzaBox::GameObject* Player = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 0.0f, 0.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f), PizzaBox::Vector3(0.1f, 0.1f, 0.1f));
 	Player->SetTag("Player");
 	PlayerAnimator* animator = new PlayerAnimator();
 	Player->AddComponent(new PizzaBox::AnimMeshRender("BotModel", PizzaBox::Color(0.1f, 0.1f, 0.8f), animator));
-	auto rb = new PizzaBox::Rigidbody(100.0f, true, true);
+	auto rb = new PizzaBox::Rigidbody(10000.0f, true, true);
 	rb->AddCollider(new PizzaBox::CapsuleCollider(5.0f, 10.0f), PizzaBox::Vector3(0.0f, 10.0f, 0.0f));
 	Player->AddComponent(rb);
 	Player->AddComponent(new PlayerController(cam, animator));
 
 	// Test Static platfrom
-	PizzaBox::GameObject* Platfrom = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -10.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 2.0f, 20.0f));
+	PizzaBox::GameObject* Platfrom = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 2.0f, 20.0f));
 	Platfrom->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Green)));
 	Platfrom->AddComponent(new PizzaBox::Collider(Platfrom->GetTransform()->GlobalScale()));
 
