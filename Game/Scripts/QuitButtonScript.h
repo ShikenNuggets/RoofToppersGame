@@ -12,7 +12,7 @@ namespace GamePackage {
 		void OnStart() override{}
 		void Update(const float deltaTime_) override{}
 		void OnDestroy() override{}
-		virtual void OnUI(UIEvent event_);
+		virtual void OnUI(PizzaBox::UIEvent event_);
 	};
 }
 

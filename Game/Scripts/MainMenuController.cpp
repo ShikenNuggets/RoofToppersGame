@@ -12,8 +12,8 @@ void MainMenuController::OnStart(){
 	}
 }
 
-void MainMenuController::OnUI(UIEvent event_){
-	if(event_ == UIEvent::OnClick){
+void MainMenuController::OnUI(PizzaBox::UIEvent event_){
+	if(event_ == PizzaBox::UIEvent::OnClick){
 		PizzaBox::SceneManager::LoadScene(2);
 	}
 }

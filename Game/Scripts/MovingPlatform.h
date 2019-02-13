@@ -13,6 +13,7 @@ namespace GamePackage {
 		virtual void Update(const float deltaTime_) override;
 		virtual void OnDestroy() override;
 
+		virtual void OnCollision(PizzaBox::GameObject* other_) override;
 		//Setters
 		void SetDirection(PizzaBox::Vector3 dir);
 		void SetDirectionSpeed(float speed_);

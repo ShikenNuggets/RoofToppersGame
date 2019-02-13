@@ -8,8 +8,8 @@ QuitButtonScript::QuitButtonScript(){}
 
 QuitButtonScript::~QuitButtonScript(){}
 
-void QuitButtonScript::OnUI(UIEvent event_){
-	if(event_ == UIEvent::OnClick){
+void QuitButtonScript::OnUI(PizzaBox::UIEvent event_){
+	if(event_ == PizzaBox::UIEvent::OnClick){
 		PizzaBox::GameManager::Stop();
 	}
 }

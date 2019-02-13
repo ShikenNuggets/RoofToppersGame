@@ -64,3 +64,7 @@ void MovingPlatform::SetDirectionSpeed(float speed_) {
 void MovingPlatform::SetDistance(float dis) {
 	distance = dis;
 }
+
+void MovingPlatform::OnCollision(PizzaBox::GameObject* other_) {
+
+}

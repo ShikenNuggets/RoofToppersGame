@@ -105,6 +105,6 @@ void PlayerController::Update(const float deltaTime_){
 void PlayerController::OnDestroy(){
 }
 
-void PlayerController::OnCollision(const PizzaBox::GameObject* const other_){
+void PlayerController::OnCollision(PizzaBox::GameObject* other_){
 
 }
