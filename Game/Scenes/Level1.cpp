@@ -59,7 +59,7 @@ bool Level1::Initialize() {
 	Platfrom->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Green)));
 	Platfrom->AddComponent(new PizzaBox::Collider(Platfrom->GetTransform()->GlobalScale())); 
 	auto rb2 = new PizzaBox::Rigidbody(1.0f, false, true);
-	rb2->SetMaterial(PizzaBox::PhysicsMaterial(1.0f, 0.0f));
+	rb2->SetMaterial(PizzaBox::PhysicsMaterial(0.2f, 0.2f));
 	Platfrom->AddComponent(rb2);
 
 	// Test Moving Platform

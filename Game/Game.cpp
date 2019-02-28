@@ -30,7 +30,7 @@ bool Game::Initialize(){
 
 	//Audio Channels
 	//PizzaBox::AudioManager::CreateVolumeChannel("Music");
-
+	/*
 	//Logo
 	PizzaBox::UISet* uiSet = new PizzaBox::UISet("LogoSet");
 	PizzaBox::ImageUI* logo = new PizzaBox::ImageUI("Logo", "LogoHDImage", PizzaBox::Rect(0.0f, 0.0f, 1.0f, 1.0f));
@@ -43,10 +43,10 @@ bool Game::Initialize(){
 	uiSet->elements.push_back(new PizzaBox::ButtonUI("PlayButton", PizzaBox::Rect(0.425, 0.35, 0.15, 0.125)));
 	uiSet->elements.push_back(new PizzaBox::ButtonUI("QuitButton", PizzaBox::Rect(0.425, 0.2, 0.15, 0.125)));
 	PizzaBox::UIManager::AddSet(uiSet);
-
+	*/
 	//Add scenes to the SceneManager 
-	PizzaBox::SceneManager::AddScene(new LogoScene());
-	PizzaBox::SceneManager::AddScene(new MainMenuScene());
+	//PizzaBox::SceneManager::AddScene(new LogoScene());
+	//PizzaBox::SceneManager::AddScene(new MainMenuScene());
 	PizzaBox::SceneManager::AddScene(new Level1());
 
 	return true;

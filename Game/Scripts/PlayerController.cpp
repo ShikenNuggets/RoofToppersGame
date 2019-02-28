@@ -22,18 +22,20 @@ void PlayerController::OnStart(){
 }
 
 void PlayerController::Update(const float deltaTime_){
+	auto rb = gameObject->GetComponent<PizzaBox::Rigidbody>();
 	float moveSpeed = 20.0f;
 	float rotateSpeed = 90.0f;
 
 	if(PizzaBox::InputManager::GetKeyHeld(SDLK_LCTRL) && PizzaBox::InputManager::GetKeyHeld(SDLK_r)){
 		PizzaBox::SceneManager::LoadScene(0);
 	}
-	 
+
+	/*
 	if(animator != nullptr && animator->isJumping){ 
-		gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetUp() * MoveY * moveSpeed * deltaTime_);
+		//gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetUp() * MoveY * moveSpeed * deltaTime_);
 		return;
 	}
-
+	*/
 
 	float moveX = -PizzaBox::InputManager::GetAxis("Horizontal");
 	float moveZ = -PizzaBox::InputManager::GetAxis("Depth");
@@ -86,15 +88,16 @@ void PlayerController::Update(const float deltaTime_){
 		//walk->PlayContinuous();				// audio
 	}
 
-	gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetForward() * -fabs(moveValue) * moveSpeed * scaleFactor * deltaTime_);
-	/*auto rb = gameObject->GetComponent<PizzaBox::Rigidbody>();
-	PizzaBox::Vector3 impulse = gameObject->GetTransform()->GetForward() * -fabs(moveValue) * moveSpeed * scaleFactor * deltaTime_;
-	impulse *= 100.0f;
-	rb->Impulse(impulse);*/
+	//gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetForward() * -fabs(moveValue) * moveSpeed * scaleFactor * deltaTime_);
+	PizzaBox::Vector3 impulse = -gameObject->GetTransform()->GetForward() * moveValue;
+	rb->Impulse(impulse*100);
+
 	
 	if(PizzaBox::InputManager::GetButtonDown("JumpButton") && animator != nullptr && !animator->IsTransitioning()){
 		animator->isJumping = true; 
 		MoveY = 0.8f;
+		PizzaBox::Vector3 jumpImpulse = gameObject->GetTransform()->GetUp() * 3000;
+		rb->Impulse(jumpImpulse);
 	}
 	 
 	if(animator != nullptr){
