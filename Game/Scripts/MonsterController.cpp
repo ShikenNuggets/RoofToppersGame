@@ -152,7 +152,7 @@ void MonsterController::Update(const float deltaTime_){
 void MonsterController::OnDestroy(){
 }
 
-void MonsterController::OnCollision(const PizzaBox::GameObject* const other_){
+void MonsterController::OnCollision(PizzaBox::GameObject* other_){
 	if(other_->HasTag("EnemyProjectile") && !isShrinking){
 		isShrinking = true;
 		isGrowing = false;
