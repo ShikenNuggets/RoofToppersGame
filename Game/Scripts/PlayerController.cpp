@@ -7,6 +7,7 @@
 #include <Object/GameObject.h>
 #include <Tools/Random.h>
 #include <Physics/Rigidbody.h>
+#include <Tools/Debug.h>
 
 using namespace GamePackage;
 
@@ -88,14 +89,15 @@ void PlayerController::Update(const float deltaTime_){
 		//walk->PlayContinuous();				// audio
 	}
 
+	PizzaBox::Debug::Log(rb->GetLinearVelocity().ToString());
+
 	//gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetForward() * -fabs(moveValue) * moveSpeed * scaleFactor * deltaTime_);
 	PizzaBox::Vector3 impulse = -gameObject->GetTransform()->GetForward() * moveValue;
-	rb->Impulse(impulse*100);
-
+	rb->Impulse(impulse * 7500.0f * deltaTime_);
 	
 	if(PizzaBox::InputManager::GetButtonDown("JumpButton") && animator != nullptr && !animator->IsTransitioning()){
 		animator->isJumping = true; 
-		MoveY = 0.8f;
+		//MoveY = 0.8f;
 		PizzaBox::Vector3 jumpImpulse = gameObject->GetTransform()->GetUp() * 3000;
 		rb->Impulse(jumpImpulse);
 	}
@@ -109,5 +111,4 @@ void PlayerController::OnDestroy(){
 }
 
 void PlayerController::OnCollision(PizzaBox::GameObject* other_){
-
 }
