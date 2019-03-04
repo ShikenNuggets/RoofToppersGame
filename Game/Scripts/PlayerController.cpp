@@ -38,6 +38,11 @@ void PlayerController::Update(const float deltaTime_){
 
 	if(PizzaBox::InputManager::GetKeyDown(SDLK_v)){
 		isSwinging = !isSwinging;
+		if(isSwinging){
+			SwitchToSwinging();
+		}else{
+			SwitchToGroundMovement();
+		}
 	}
 
 	/*
@@ -175,4 +180,28 @@ void PlayerController::Swinging(float deltaTime_){
 
 	gameObject->SetRotation(PizzaBox::Quaternion::LookAt(gameObject->GlobalPosition(), grapplePoint->GlobalPosition()));
 	gameObject->Rotate(-90.0f, 0.0f, -180.0f);
+}
+
+void PlayerController::SwitchToSwinging(){
+	rigidbody->SetLinearVelocityDamping(0.0f);
+	rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
+
+	PizzaBox::GameObject* grapplePoint = PizzaBox::SceneManager::CurrentScene()->GetComponentInScene<GrapplePoint>()->GetGameObject();
+	if(grapplePoint == nullptr){
+		return;
+	}
+
+	gameObject->SetPosition(grapplePoint->GlobalPosition() + PizzaBox::Vector3(0.0f, -grapplePoint->GetComponent<GrapplePoint>()->swingDistance, 0.0f));
+}
+
+void PlayerController::SwitchToGroundMovement(){
+	gameObject->SetRotation(0.0f, 180.0f, 0.0f);
+
+	if(!isGrounded){
+		rigidbody->SetLinearVelocityDamping(0.0f);
+		rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
+	}else{
+		rigidbody->SetLinearVelocityDamping(0.98f);
+		rigidbody->SetLinearVelocityLimits(-2.5f, 2.5f);
+	}
 }

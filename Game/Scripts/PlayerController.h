@@ -34,6 +34,9 @@ namespace GamePackage {
 
 		void GroundMovement(float deltaTime_);
 		void Swinging(float deltaTime_);
+
+		void SwitchToSwinging();
+		void SwitchToGroundMovement();
 	};
 }
 
