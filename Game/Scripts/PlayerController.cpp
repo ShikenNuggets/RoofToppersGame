@@ -11,7 +11,7 @@
 
 using namespace GamePackage;
 
-PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_) : camera(camera_), animator(animator_), isWalking(false), maxRotationPerSecond(0.0f) {
+PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_) : camera(camera_), animator(animator_), isWalking(false), maxRotationPerSecond(0.0f), MoveY(0.0f) {
 }
 
 PlayerController::~PlayerController(){
@@ -93,12 +93,12 @@ void PlayerController::Update(const float deltaTime_){
 
 	//gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetForward() * -fabs(moveValue) * moveSpeed * scaleFactor * deltaTime_);
 	PizzaBox::Vector3 impulse = -gameObject->GetTransform()->GetForward() * moveValue;
-	rb->Impulse(impulse * 7500.0f * deltaTime_);
+	rb->Impulse(impulse * 7500.0f * 80.0f * deltaTime_);
 	
 	if(PizzaBox::InputManager::GetButtonDown("JumpButton") && animator != nullptr && !animator->IsTransitioning()){
 		animator->isJumping = true; 
 		//MoveY = 0.8f;
-		PizzaBox::Vector3 jumpImpulse = gameObject->GetTransform()->GetUp() * 3000;
+		PizzaBox::Vector3 jumpImpulse = gameObject->GetTransform()->GetUp() * 10000.0f * 80.0f;
 		rb->Impulse(jumpImpulse);
 	}
 	 

@@ -48,8 +48,8 @@ bool Level1::Initialize() {
 	Player->SetTag("Player");
 	PlayerAnimator* animator = new PlayerAnimator();
 	Player->AddComponent(new PizzaBox::AnimMeshRender("BotModel", PizzaBox::Color(0.1f, 0.1f, 0.8f), animator));
-	auto rb = new PizzaBox::Rigidbody(1.0f, true, true);
-	rb->SetMaterial(PizzaBox::PhysicsMaterial(0.25f, 0.0f));
+	auto rb = new PizzaBox::Rigidbody(80.0f, true, true);
+	rb->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
 	rb->AddCollider(new PizzaBox::CapsuleCollider(5.0f, 10.0f), PizzaBox::Vector3(0.0f, 10.0f, 0.0f));
 	Player->AddComponent(rb);
 	Player->AddComponent(new PlayerController(cam, animator));
@@ -59,7 +59,7 @@ bool Level1::Initialize() {
 	platform->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Green)));
 	//platform->AddComponent(new PizzaBox::Collider(platform->GetTransform()->GlobalScale())); 
 	auto rb2 = new PizzaBox::Rigidbody(1.0f, false, true);
-	rb2->SetMaterial(PizzaBox::PhysicsMaterial(0.25f, 0.0f));
+	rb2->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
 	rb2->AddCollider(new PizzaBox::BoxCollider(platform->GetScale()));
 	platform->AddComponent(rb2);
 	platform->SetStatic(true);
@@ -73,9 +73,10 @@ bool Level1::Initialize() {
 	mp->SetDirectionSpeed(10.0f);
 	platform2->AddComponent(mp); 
 	auto rb3 = new PizzaBox::Rigidbody(1.0f, false, true);
-	rb3->SetMaterial(PizzaBox::PhysicsMaterial(0.25f, 0.0f));
+	rb3->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
 	rb3->AddCollider(new PizzaBox::BoxCollider(platform2->GetScale()));
 	platform2->AddComponent(rb3);
+	platform2->SetStatic(true);
 
 	// Test Death Object
 
