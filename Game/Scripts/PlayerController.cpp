@@ -163,8 +163,8 @@ void PlayerController::Swinging(float deltaTime_){
 	float forwardRotate = PizzaBox::InputManager::GetAxis("Depth");
 	float sideRotate = PizzaBox::InputManager::GetAxis("Horizontal");
 
-	rigidbody->Impulse(-forwardRotate * camera->GetGameObject()->GetTransform()->GetForward() * 10.0f * rigidbody->GetMass());
-	rigidbody->Impulse(sideRotate * camera->GetGameObject()->GetTransform()->GetRight() * 10.0f * rigidbody->GetMass());
+	rigidbody->Impulse(-forwardRotate * camera->GetGameObject()->GetTransform()->GetForward() * 10.0f * rigidbody->GetMass() * 120.0f * deltaTime_);
+	rigidbody->Impulse(sideRotate * camera->GetGameObject()->GetTransform()->GetRight() * 10.0f * rigidbody->GetMass() * 120.0f * deltaTime_);
 
 	// Start the physics stuff
 	//Where are we after the update
