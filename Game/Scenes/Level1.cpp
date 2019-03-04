@@ -13,6 +13,7 @@
 
 // Script Includes
 #include "Scripts/CameraController.h"
+#include "Scripts/GrapplePoint.h"
 #include "Scripts/PlayerController.h"
 #include "Scripts/MovingPlatform.h"
 
@@ -53,6 +54,11 @@ bool Level1::Initialize() {
 	rb->AddCollider(new PizzaBox::CapsuleCollider(5.0f, 10.0f), PizzaBox::Vector3(0.0f, 10.0f, 0.0f));
 	Player->AddComponent(rb);
 	Player->AddComponent(new PlayerController(cam, animator));
+
+	//Grapple Point
+	auto grapplePoint = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 50.0f, -50.0f), PizzaBox::Euler(), PizzaBox::Vector3::Fill(2.0f));
+	grapplePoint->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+	grapplePoint->AddComponent(new GrapplePoint());
 
 	// Test Static platfrom
 	PizzaBox::GameObject* platform = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 2.0f, 50.0f));
