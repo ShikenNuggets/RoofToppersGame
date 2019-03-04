@@ -9,6 +9,8 @@
 #include <Physics/Rigidbody.h>
 #include <Tools/Debug.h>
 
+#include "GrapplePoint.h"
+
 using namespace GamePackage;
 
 PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_) : camera(camera_), animator(animator_), rigidbody(nullptr), isWalking(false), isGrounded(false), maxRotationPerSecond(0.0f), MoveY(0.0f) {
@@ -132,4 +134,29 @@ void PlayerController::OnCollisionExit(PizzaBox::GameObject* other_){
 		rigidbody->SetLinearVelocityDamping(0.0f);
 		rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
 	}
+}
+
+void PlayerController::Swinging(float deltaTime_){
+	PizzaBox::GameObject* grapplePoint;
+
+	float forwardRotate = PizzaBox::InputManager::GetAxis("Depth");
+	float sideRotate = PizzaBox::InputManager::GetAxis("Horizontal");
+
+	rigidbody->Impulse(-forwardRotate * camera->GetGameObject()->GetTransform()->GetForward() * 10.0f);
+	rigidbody->Impulse(sideRotate * camera->GetGameObject()->GetTransform()->GetRight() * 10.0f);
+
+	// Start the physics stuff
+	//Where are we after the update
+	PizzaBox::Vector3 nextPosition = gameObject->GlobalPosition() + (rigidbody->GetLinearVelocity() * deltaTime_);
+	//Is that new position outside the swing limits
+	if((nextPosition - grapplePoint->GlobalPosition()).Magnitude() > grapplePoint->GetComponent<GrapplePoint>()->swingDistance){
+		//Pull back in if it is
+		nextPosition = grapplePoint->GlobalPosition() + ((nextPosition - grapplePoint->GlobalPosition()).Normalized() * grapplePoint->GetComponent<GrapplePoint>()->swingDistance);
+
+	}
+	rigidbody->SetLinearVelocity((nextPosition - gameObject->GlobalPosition()) / deltaTime_);
+	gameObject->SetPosition(nextPosition);
+
+	gameObject->SetRotation(PizzaBox::Quaternion::LookAt(gameObject->GlobalPosition(), grapplePoint->GlobalPosition()));
+	gameObject->Rotate(90.0f, 0.0f, 0.0f);
 }

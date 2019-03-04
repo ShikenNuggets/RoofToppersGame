@@ -22,6 +22,8 @@ namespace GamePackage {
 		virtual void OnCollisionExit(PizzaBox::GameObject* other_) override;
 
 	private:
+		void Swinging(float deltaTime_);
+
 		PizzaBox::Camera* camera;
 		PlayerAnimator* animator;
 		PizzaBox::Rigidbody* rigidbody;
