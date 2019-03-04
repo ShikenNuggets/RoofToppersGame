@@ -58,7 +58,7 @@ bool Level1::Initialize() {
 	//Grapple Point
 	auto grapplePoint = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 50.0f, -50.0f), PizzaBox::Euler(), PizzaBox::Vector3::Fill(2.0f));
 	grapplePoint->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
-	grapplePoint->AddComponent(new GrapplePoint());
+	grapplePoint->AddComponent(new GrapplePoint(35.0f));
 
 	// Test Static platfrom
 	PizzaBox::GameObject* platform = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 2.0f, 50.0f));

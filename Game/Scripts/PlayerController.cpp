@@ -36,6 +36,10 @@ void PlayerController::Update(const float deltaTime_){
 		PizzaBox::SceneManager::LoadScene(0);
 	}
 
+	if(PizzaBox::InputManager::GetKeyDown(SDLK_v)){
+		isSwinging = !isSwinging;
+	}
+
 	/*
 	if(animator != nullptr && animator->isJumping){ 
 		//gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetUp() * MoveY * moveSpeed * deltaTime_);
@@ -43,6 +47,33 @@ void PlayerController::Update(const float deltaTime_){
 	}
 	*/
 
+	if(!isSwinging){
+		GroundMovement(deltaTime_);
+	}else{
+		Swinging(deltaTime_);
+	}
+}
+
+void PlayerController::OnDestroy(){
+}
+
+void PlayerController::OnCollision(PizzaBox::GameObject* other_){
+	if(other_->HasTag("Platform")){
+		isGrounded = true;
+		rigidbody->SetLinearVelocityDamping(0.98f);
+		rigidbody->SetLinearVelocityLimits(-2.5f, 2.5f);
+	}
+}
+
+void PlayerController::OnCollisionExit(PizzaBox::GameObject* other_){
+	if(other_->HasTag("Platform")){
+		isGrounded = false;
+		rigidbody->SetLinearVelocityDamping(0.0f);
+		rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
+	}
+}
+
+void PlayerController::GroundMovement(float deltaTime_){
 	float moveX = -PizzaBox::InputManager::GetAxis("Horizontal");
 	float moveZ = -PizzaBox::InputManager::GetAxis("Depth");
 
@@ -94,8 +125,6 @@ void PlayerController::Update(const float deltaTime_){
 		//walk->PlayContinuous();				// audio
 	}
 
-	PizzaBox::Debug::Log(rigidbody->GetLinearVelocity().ToString());
-
 	//gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetForward() * -fabs(moveValue) * moveSpeed * scaleFactor * deltaTime_);
 	PizzaBox::Vector3 impulse = -gameObject->GetTransform()->GetForward() * moveValue;
 
@@ -117,33 +146,20 @@ void PlayerController::Update(const float deltaTime_){
 	}
 }
 
-void PlayerController::OnDestroy(){
-}
-
-void PlayerController::OnCollision(PizzaBox::GameObject* other_){
-	if(other_->HasTag("Platform")){
-		isGrounded = true;
-		rigidbody->SetLinearVelocityDamping(0.98f);
-		rigidbody->SetLinearVelocityLimits(-2.5f, 2.5f);
-	}
-}
-
-void PlayerController::OnCollisionExit(PizzaBox::GameObject* other_){
-	if(other_->HasTag("Platform")){
-		isGrounded = false;
-		rigidbody->SetLinearVelocityDamping(0.0f);
-		rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
-	}
-}
-
 void PlayerController::Swinging(float deltaTime_){
-	PizzaBox::GameObject* grapplePoint;
+	rigidbody->SetLinearVelocityDamping(0.0f);
+	rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
+
+	PizzaBox::GameObject* grapplePoint = PizzaBox::SceneManager::CurrentScene()->GetComponentInScene<GrapplePoint>()->GetGameObject();
+	if(grapplePoint == nullptr){
+		return;
+	}
 
 	float forwardRotate = PizzaBox::InputManager::GetAxis("Depth");
 	float sideRotate = PizzaBox::InputManager::GetAxis("Horizontal");
 
-	rigidbody->Impulse(-forwardRotate * camera->GetGameObject()->GetTransform()->GetForward() * 10.0f);
-	rigidbody->Impulse(sideRotate * camera->GetGameObject()->GetTransform()->GetRight() * 10.0f);
+	rigidbody->Impulse(-forwardRotate * camera->GetGameObject()->GetTransform()->GetForward() * 10.0f * rigidbody->GetMass());
+	rigidbody->Impulse(sideRotate * camera->GetGameObject()->GetTransform()->GetRight() * 10.0f * rigidbody->GetMass());
 
 	// Start the physics stuff
 	//Where are we after the update
@@ -158,5 +174,5 @@ void PlayerController::Swinging(float deltaTime_){
 	gameObject->SetPosition(nextPosition);
 
 	gameObject->SetRotation(PizzaBox::Quaternion::LookAt(gameObject->GlobalPosition(), grapplePoint->GlobalPosition()));
-	gameObject->Rotate(90.0f, 0.0f, 0.0f);
+	gameObject->Rotate(-90.0f, 0.0f, -180.0f);
 }
