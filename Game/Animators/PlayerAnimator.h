@@ -1,14 +1,14 @@
-#ifndef MONSTER_ANIMATOR_H
-#define MONSTER_ANIMATOR_H
+#ifndef PLAYER_ANIMATOR_H
+#define PLAYER_ANIMATOR_H
 
 #include <Animation/Animator.h>
 #include <Animation/AnimModel.h>
 
-namespace GGJ{
-	class MonsterAnimator : public PizzaBox::Animator{
+namespace GamePackage {
+	class PlayerAnimator : public PizzaBox::Animator{
 	public:
-		MonsterAnimator();
-		~MonsterAnimator();
+		PlayerAnimator();
+		~PlayerAnimator();
 
 		virtual bool Initialize(PizzaBox::AnimModel* model_);
 		virtual void Destroy();

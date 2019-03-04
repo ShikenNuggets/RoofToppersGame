@@ -2,7 +2,7 @@
 
 #include <Core/GameManager.h>
 
-using namespace GGJ;
+using namespace GamePackage;
 
 QuitButtonScript::QuitButtonScript(){}
 

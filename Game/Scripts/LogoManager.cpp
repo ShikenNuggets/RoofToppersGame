@@ -5,7 +5,7 @@
 #include <Core/Time.h>
 #include <Core/SceneManager.h>
 
-using namespace GGJ;
+using namespace GamePackage;
 
 LogoManager::LogoManager(PizzaBox::ImageUI* image_, float endTime_, float waitTime_) : image(image_), currentTime(0.0f), transparency(0.0f), endTime(endTime_), waitTime(waitTime_){
 	_ASSERT(image != nullptr);

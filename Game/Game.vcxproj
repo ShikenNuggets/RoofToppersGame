@@ -124,7 +124,8 @@ copy "$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform)\fmodL.dll" "$(Target
 copy "$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform)\fmodStudioL.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration)\freetype.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform)\assimp-vc140-mt.dll" "$(TargetDir)"
-echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
+echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E
+echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -158,7 +159,8 @@ copy "$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform)\fmodL64.dll" "$(Targ
 copy "$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform)\fmodStudioL64.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration)\freetype.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform)\assimp-vc140-mt.dll" "$(TargetDir)"
-echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
+echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E
+echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -196,7 +198,8 @@ copy "$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform)\fmod.dll" "$(TargetD
 copy "$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform)\fmodStudio.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration)\freetype.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform)\assimp-vc140-mt.dll" "$(TargetDir)"
-echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
+echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E
+echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -234,41 +237,40 @@ copy "$(MasterDir)SDK\FMOD-1.10.08\lowlevel\lib\$(Platform)\fmod64.dll" "$(Targe
 copy "$(MasterDir)SDK\FMOD-1.10.08\studio\lib\$(Platform)\fmodStudio64.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\freetype-2.9.1\lib\$(Platform)\$(Configuration)\freetype.dll" "$(TargetDir)"
 copy "$(MasterDir)SDK\AssImp\lib\$(Configuration)\$(Platform)\assimp-vc140-mt.dll" "$(TargetDir)"
-echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
+echo D|xcopy "$(MasterDir)Resources\*.*" "$(TargetDir)Resources" /y /E
+echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Animators\MonsterAnimator.cpp" />
+    <ClCompile Include="Animators\PlayerAnimator.cpp" />
+    <ClCompile Include="Scripts\MovingPlatform.cpp" />
+    <ClCompile Include="Scenes\Level1.cpp" />
     <ClCompile Include="Scenes\DefaultScene.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Scenes\LogoScene.cpp" />
     <ClCompile Include="Scenes\MainMenuScene.cpp" />
-    <ClCompile Include="Scripts\Building.cpp" />
     <ClCompile Include="Scripts\CameraController.cpp" />
     <ClCompile Include="Scripts\CharacterController.cpp" />
     <ClCompile Include="Scripts\LogoManager.cpp" />
     <ClCompile Include="Scripts\MainMenuController.cpp" />
-    <ClCompile Include="Scripts\Missile.cpp" />
-    <ClCompile Include="Scripts\MonsterController.cpp" />
+    <ClCompile Include="Scripts\PlayerController.cpp" />
     <ClCompile Include="Scripts\QuitButtonScript.cpp" />
-    <ClCompile Include="Scripts\SAMController.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Animators\MonsterAnimator.h" />
+    <ClInclude Include="Animators\PlayerAnimator.h" />
+    <ClInclude Include="Scripts\MovingPlatform.h" />
+    <ClInclude Include="Scenes\Level1.h" />
     <ClInclude Include="Scenes\DefaultScene.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Scenes\LogoScene.h" />
     <ClInclude Include="Scenes\MainMenuScene.h" />
-    <ClInclude Include="Scripts\Building.h" />
     <ClInclude Include="Scripts\CameraController.h" />
     <ClInclude Include="Scripts\CharacterController.h" />
     <ClInclude Include="Scripts\LogoManager.h" />
     <ClInclude Include="Scripts\MainMenuController.h" />
-    <ClInclude Include="Scripts\Missile.h" />
-    <ClInclude Include="Scripts\MonsterController.h" />
+    <ClInclude Include="Scripts\PlayerController.h" />
     <ClInclude Include="Scripts\QuitButtonScript.h" />
-    <ClInclude Include="Scripts\SAMController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

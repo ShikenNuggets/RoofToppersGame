@@ -3,7 +3,7 @@
 #include <Audio/AudioSource.h>
 #include <Core/SceneManager.h>
 
-using namespace GGJ;
+using namespace GamePackage;
 
 void MainMenuController::OnStart(){
 	auto musicPlayer = gameObject->GetComponent<PizzaBox::AudioSource>();

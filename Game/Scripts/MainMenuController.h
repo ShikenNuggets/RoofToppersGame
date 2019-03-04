@@ -3,7 +3,7 @@
 
 #include <Script/Script.h>
 
-namespace GGJ{
+namespace GamePackage {
 	class MainMenuController : public PizzaBox::Script{
 	public:
 		MainMenuController(){}

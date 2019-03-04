@@ -3,7 +3,7 @@
 
 #include <Script/Script.h>
 
-namespace GGJ{
+namespace GamePackage {
 	class QuitButtonScript : public PizzaBox::Script{
 	public:
 		QuitButtonScript();

@@ -27,16 +27,10 @@
     <ClCompile Include="Scenes\DefaultScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Animators\MonsterAnimator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scenes\LogoScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\MainMenuScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\Building.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\CameraController.cpp">
@@ -48,16 +42,19 @@
     <ClCompile Include="Scripts\MainMenuController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\Missile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\MonsterController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scripts\QuitButtonScript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\SAMController.cpp">
+    <ClCompile Include="Animators\PlayerAnimator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\PlayerController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\Level1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scripts\MovingPlatform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,16 +68,10 @@
     <ClInclude Include="Scenes\DefaultScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Animators\MonsterAnimator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Scenes\LogoScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\MainMenuScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\Building.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\CameraController.h">
@@ -92,16 +83,19 @@
     <ClInclude Include="Scripts\MainMenuController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\Missile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\MonsterController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Scripts\QuitButtonScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\SAMController.h">
+    <ClInclude Include="Animators\PlayerAnimator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\PlayerController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Level1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\MovingPlatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

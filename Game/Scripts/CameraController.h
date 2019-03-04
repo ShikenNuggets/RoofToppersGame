@@ -5,7 +5,7 @@
 #include <Object/GameObject.h>
 #include <Script/Script.h>
 
-namespace GGJ{
+namespace GamePackage {
 	class CameraController : public PizzaBox::Script{
 	public:
 		CameraController();
