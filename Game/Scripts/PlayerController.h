@@ -4,6 +4,7 @@
 #include <Audio/AudioSource.h>
 #include <Graphics/Camera.h>
 #include <Physics/Collider.h>
+#include <Physics/Rigidbody.h>
 #include <Script/Script.h>
 
 #include "Animators/PlayerAnimator.h"
@@ -18,12 +19,15 @@ namespace GamePackage {
 		virtual void Update(const float deltaTime_) override;
 		virtual void OnDestroy() override;
 		virtual void OnCollision(PizzaBox::GameObject* other_) override; 
+		virtual void OnCollisionExit(PizzaBox::GameObject* other_) override;
 
 	private:
 		PizzaBox::Camera* camera;
-		PlayerAnimator* animator;  
+		PlayerAnimator* animator;
+		PizzaBox::Rigidbody* rigidbody;
 
-		bool isWalking; 
+		bool isWalking;
+		bool isGrounded;
 
 		float maxRotationPerSecond, MoveY;
 	};

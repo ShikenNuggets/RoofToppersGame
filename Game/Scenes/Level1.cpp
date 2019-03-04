@@ -56,6 +56,7 @@ bool Level1::Initialize() {
 
 	// Test Static platfrom
 	PizzaBox::GameObject* platform = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 2.0f, 50.0f));
+	platform->SetTag("Platform");
 	platform->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Green)));
 	//platform->AddComponent(new PizzaBox::Collider(platform->GetTransform()->GlobalScale())); 
 	auto rb2 = new PizzaBox::Rigidbody(1.0f, false, true);
@@ -65,7 +66,8 @@ bool Level1::Initialize() {
 	platform->SetStatic(true);
 
 	// Test Moving Platform
-	PizzaBox::GameObject* platform2 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 10.0f, -15.0f), PizzaBox::Euler(), PizzaBox::Vector3(10.0f, 2.0f, 10.0f));
+	PizzaBox::GameObject* platform2 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 10.0f, -100.0f), PizzaBox::Euler(), PizzaBox::Vector3(10.0f, 2.0f, 10.0f));
+	platform2->SetTag("Platform");
 	platform2->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Red)));
 	//platform2->AddComponent(new PizzaBox::Collider(platform2->GetTransform()->GlobalScale()));
 	auto mp = new MovingPlatform();
