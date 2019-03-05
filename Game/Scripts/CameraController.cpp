@@ -8,11 +8,12 @@
 #include <Tools/EngineStats.h>
 #include <Tools/Debug.h>
 #include <Tools/Random.h>
+#include <Graphics/RenderEngine.h>
 
 using namespace GamePackage;
 
 CameraController::CameraController(PizzaBox::GameObject* target_) : camera(nullptr), isShaking(false), shakeStartPos(), shakeDuration(0.0f), shakeFrequency(0.0f), shakeDir(), shakeTargetPos(), shakeTimer(0.0f), shakeTime(0.0f), rotateSpeed(0.0f){
-	target = target;
+	target = target_;
 }
 
 void CameraController::OnStart(){
@@ -25,6 +26,9 @@ void CameraController::OnStart(){
 
 	shakeTime = 0.05f;
 	rotateSpeed = 45.0f;
+	PizzaBox::RenderEngine::ShowCursor(false);
+	// TODO: Set up ini mouse sensitivity settings and usage
+	mouseSensitivity = 100.0f;
 }
 
 void CameraController::OnDestroy(){
@@ -45,11 +49,18 @@ void CameraController::Update(const float deltaTime_){
 		gameObject->SetPosition(shakeStartPos);
 	}
 
+	// Camera Movement, occurs only if there is no target
 	float moveY = PizzaBox::InputManager::GetAxis("RotateZ");
 	float moveZ = PizzaBox::InputManager::GetAxis("RotateY");
 
 	gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetUp() * rotateSpeed * moveY * PizzaBox::Time::RealDeltaTime());
 	gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetRight() * -rotateSpeed * moveZ * PizzaBox::Time::RealDeltaTime());
+
+	// Camera Rotation
+	float rotX = -PizzaBox::InputManager::GetAxis("MouseX");
+	float rotY = PizzaBox::InputManager::GetAxis("MouseY");
+	
+	gameObject->GetTransform()->Rotate(rotY * mouseSensitivity, rotX * mouseSensitivity, 0.0f);
 
 	//v1 is camera facing direction
 	PizzaBox::Vector3 cameraForward = camera->GetGameObject()->GetTransform()->GetForward();

@@ -30,6 +30,7 @@ namespace GamePackage {
 		float shakeTimer;
 		float shakeTime;
 		PizzaBox::GameObject* target;
+		float mouseSensitivity;
 
 		void Shake();
 		PizzaBox::Vector3 NewRandomDirection() const;
