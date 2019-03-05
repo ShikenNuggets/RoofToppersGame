@@ -29,8 +29,10 @@ namespace GamePackage {
 		bool isWalking;
 		bool isGrounded;
 		bool isSwinging;
+		bool isSwitchingToSwinging;
 
 		float maxRotationPerSecond, MoveY;
+		float transitionVelocityLimit;
 
 		void GroundMovement(float deltaTime_);
 		void Swinging(float deltaTime_);
