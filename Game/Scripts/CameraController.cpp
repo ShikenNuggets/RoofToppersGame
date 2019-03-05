@@ -58,7 +58,7 @@ void CameraController::Update(const float deltaTime_){
 
 	// Camera Rotation
 	float rotX = -PizzaBox::InputManager::GetAxis("MouseX");
-	float rotY = PizzaBox::InputManager::GetAxis("MouseY");
+	float rotY = -PizzaBox::InputManager::GetAxis("MouseY");
 	
 	gameObject->GetTransform()->Rotate(rotY * mouseSensitivity, rotX * mouseSensitivity, 0.0f);
 

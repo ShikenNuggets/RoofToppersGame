@@ -23,8 +23,8 @@ Game::~Game(){
 }
 
 bool Game::Initialize(){ 
-	PizzaBox::RenderEngine::SetWindowResolution(1920, 1080);
-	PizzaBox::RenderEngine::SetWindowBorderless(true);
+	PizzaBox::RenderEngine::SetWindowResolution(1280, 720);
+	PizzaBox::RenderEngine::SetWindowBorderless(false);
 	PizzaBox::RenderEngine::SetVSYNC(PizzaBox::Window::VSYNC::Off);
 	PizzaBox::Time::SetFrameRate(0);
 

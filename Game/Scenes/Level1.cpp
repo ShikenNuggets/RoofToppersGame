@@ -35,8 +35,9 @@ bool Level1::Initialize() {
 	// Camera
 	PizzaBox::GameObject* mainCamera = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
 	auto cam = new PizzaBox::Camera(PizzaBox::ViewportRect::fullScreen, PizzaBox::Camera::RenderMode::Perspective);
-	mainCamera->AddComponent(cam); 
-	mainCamera->AddComponent(new CameraController());
+	mainCamera->AddComponent(cam);
+	auto controller = new CameraController();
+	mainCamera->AddComponent(controller);
 	//mainCamera->AddComponent(new PizzaBox::AudioListener());
 	//mainCamera->AddComponent(new PizzaBox::AudioSource("GameplayMusic", PizzaBox::AudioSource::SoundType::_2D, "Music"));
 
@@ -54,6 +55,8 @@ bool Level1::Initialize() {
 	rb->AddCollider(new PizzaBox::CapsuleCollider(5.0f, 10.0f), PizzaBox::Vector3(0.0f, 10.0f, 0.0f));
 	Player->AddComponent(rb);
 	Player->AddComponent(new PlayerController(cam, animator));
+
+	controller->SetTarget(Player);
 
 	//Grapple Point
 	auto grapplePoint = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 50.0f, -50.0f), PizzaBox::Euler(), PizzaBox::Vector3::Fill(2.0f));
