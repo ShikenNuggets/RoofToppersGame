@@ -8,7 +8,7 @@
 namespace GamePackage {
 	class CameraController : public PizzaBox::Script{
 	public:
-		CameraController();
+		CameraController(PizzaBox::GameObject* target_ = nullptr);
 
 		void OnStart() override;
 		void Update(const float deltaTime_) override;
@@ -16,6 +16,8 @@ namespace GamePackage {
 
 		void BeginShaking(float duration_, float frequency_);
 
+		PizzaBox::GameObject* GetTarget();
+		void SetTarget(PizzaBox::GameObject* target_);
 	private:
 		PizzaBox::Camera* camera;
 		float rotateSpeed;
@@ -27,6 +29,7 @@ namespace GamePackage {
 		PizzaBox::Vector3 shakeTargetPos;
 		float shakeTimer;
 		float shakeTime;
+		PizzaBox::GameObject* target;
 
 		void Shake();
 		PizzaBox::Vector3 NewRandomDirection() const;

@@ -11,7 +11,8 @@
 
 using namespace GamePackage;
 
-CameraController::CameraController() : camera(nullptr), isShaking(false), shakeStartPos(), shakeDuration(0.0f), shakeFrequency(0.0f), shakeDir(), shakeTargetPos(), shakeTimer(0.0f), shakeTime(0.0f), rotateSpeed(0.0f){
+CameraController::CameraController(PizzaBox::GameObject* target_) : camera(nullptr), isShaking(false), shakeStartPos(), shakeDuration(0.0f), shakeFrequency(0.0f), shakeDir(), shakeTargetPos(), shakeTimer(0.0f), shakeTime(0.0f), rotateSpeed(0.0f){
+	target = target;
 }
 
 void CameraController::OnStart(){
@@ -53,29 +54,6 @@ void CameraController::Update(const float deltaTime_){
 	//v1 is camera facing direction
 	PizzaBox::Vector3 cameraForward = camera->GetGameObject()->GetTransform()->GetForward();
 
-	auto target = PizzaBox::SceneManager::CurrentScene()->FindWithTag("Player");
-	if(target == nullptr){
-		return;
-	}
-
-	PizzaBox::Vector3 targetPos = target->GetTransform()->GetPosition();
-	//Target's center is it's feet, so we'll adjust our target position based on half it's scale
-	//Fudge factor of ~100 because our model is weird
-	targetPos.y += (target->GlobalScale().y / 2.0f) * 100.0f;
-
-	////build v2 using v1 and difference between camera position and target
-	//PizzaBox::Vector3 targetRotation = targetPos - camera->GetGameObject()->GetTransform()->GetPosition();
-	//float angle = PizzaBox::Vector3::Dot(cameraForward, targetRotation);
-	////Clamp the value to ensure that we get a numerical result
-	//float angle2 = PizzaBox::Math::Acos(PizzaBox::Math::Clamp(-1.0f, 1.0f, angle / (cameraForward.Magnitude() * targetRotation.Magnitude())));
-	//if(std::isnan(angle2)){
-	//	PizzaBox::Debug::LogWarning("Angle was NaN!", __FILE__, __LINE__);
-	//	return;
-	//}
-
-	float desiredFollowDistance = 130.0f;
-	PizzaBox::Vector3 newPosition = targetPos + (-camera->GetGameObject()->GetTransform()->GetForward() * desiredFollowDistance);
-	camera->GetGameObject()->SetPosition(newPosition);
 	 
 	//Get rid of any roll since that doesn't work so well for cameras
 	auto currentRotation = gameObject->GetTransform()->GetRotation();
@@ -85,6 +63,22 @@ void CameraController::Update(const float deltaTime_){
 	if(isShaking){
 		Shake();
 	}
+	// If there is no target, do not skip this stuff
+	if (target == nullptr) {
+		return;
+	}
+	// Quick reference to target's global position
+	PizzaBox::Vector3 targetPos = target->GetTransform()->GlobalPosition();
+
+	//Target's center is it's feet, so we'll adjust our target position based on half it's scale
+	//Fudge factor of ~100 because our model is weird
+	targetPos.y += (target->GlobalScale().y / 2.0f) * 100.0f;
+
+	// Sets camera position based on camera rotation and target position
+	float desiredFollowDistance = 130.0f;
+	PizzaBox::Vector3 newPosition = targetPos + (-camera->GetGameObject()->GetTransform()->GetForward() * desiredFollowDistance);
+	camera->GetGameObject()->SetPosition(newPosition);
+
 }
 
 void CameraController::BeginShaking(float duration_, float frequency_){
@@ -126,18 +120,13 @@ PizzaBox::Vector3 CameraController::NewRandomDirection() const{
 	result.x = -PizzaBox::Random::Range(-shakeFrequency, shakeFrequency);
 	result.y = -PizzaBox::Random::Range(-shakeFrequency, shakeFrequency);
 
-	//int choose = PizzaBox::Random::Range(1, 3);
-	//switch(choose){
-	//	case 1:
-	//		result.x = -PizzaBox::Random::Range(-shakeFrequency, shakeFrequency);
-	//		break;
-	//	case 2:
-	//		result.y = -PizzaBox::Random::Range(-shakeFrequency, shakeFrequency);
-	//		break;
-	//	case 3:
-	//		//result.z = -PizzaBox::Random::Range(-freq, freq);
-	//		break;
-	//}
-
 	return result;
+}
+
+PizzaBox::GameObject* CameraController::GetTarget() {
+	return target;
+}
+
+void CameraController::SetTarget(PizzaBox::GameObject* target_) {
+	target = target_;
 }
