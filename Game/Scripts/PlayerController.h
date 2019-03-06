@@ -32,7 +32,7 @@ namespace GamePackage {
 		bool isSwitchingToSwinging;
 
 		float maxRotationPerSecond, MoveY;
-		float transitionVelocityLimit;
+		float pullSpeed, currentGrappleLength;
 
 		void GroundMovement(float deltaTime_);
 		void Swinging(float deltaTime_);

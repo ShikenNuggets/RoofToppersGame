@@ -25,7 +25,7 @@ void PlayerController::OnStart(){
 	rigidbody = gameObject->GetComponent<PizzaBox::Rigidbody>();
 
 	isSwitchingToSwinging = false;
-	transitionVelocityLimit = 0.1f;
+	pullSpeed = 0.4f;
 }
 
 void PlayerController::Update(const float deltaTime_){
@@ -173,22 +173,22 @@ void PlayerController::Swinging(float deltaTime_){
 	//Where are we after the update
 	PizzaBox::Vector3 nextPosition = gameObject->GlobalPosition() + (rigidbody->GetLinearVelocity() * deltaTime_);
 	//Is that new position outside the swing limits
-	if((nextPosition - grapplePoint->GlobalPosition()).Magnitude() > grapplePoint->GetComponent<GrapplePoint>()->swingDistance){
+	if((nextPosition - grapplePoint->GlobalPosition()).Magnitude() > currentGrappleLength){
 		//Pull back in if it is
-		nextPosition = grapplePoint->GlobalPosition() + ((nextPosition - grapplePoint->GlobalPosition()).Normalized() * grapplePoint->GetComponent<GrapplePoint>()->swingDistance);
+		nextPosition = grapplePoint->GlobalPosition() + ((nextPosition - grapplePoint->GlobalPosition()).Normalized() * currentGrappleLength);
 
 	}
 	rigidbody->SetLinearVelocity((nextPosition - gameObject->GlobalPosition()) / deltaTime_);
 
 	if(isSwitchingToSwinging){
-		if((nextPosition - gameObject->GlobalPosition()).Magnitude() < transitionVelocityLimit){
+		if(currentGrappleLength <= grapplePoint->GetComponent<GrapplePoint>()->swingDistance){
+			currentGrappleLength = grapplePoint->GetComponent<GrapplePoint>()->swingDistance;
 			isSwitchingToSwinging = false;
 		}else{
-			gameObject->Translate((nextPosition - gameObject->GlobalPosition()).Normalized() * transitionVelocityLimit);
+			currentGrappleLength = (gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude() - pullSpeed;
 		}
-	}else{
-		gameObject->SetPosition(nextPosition);
 	}
+	gameObject->SetPosition(nextPosition);
 
 	gameObject->SetRotation(PizzaBox::Quaternion::LookAt(gameObject->GlobalPosition(), grapplePoint->GlobalPosition()));
 	gameObject->Rotate(-90.0f, 0.0f, -180.0f);
@@ -204,7 +204,7 @@ void PlayerController::SwitchToSwinging(){
 	}
 
 	//gameObject->SetPosition(grapplePoint->GlobalPosition() + PizzaBox::Vector3(0.0f, -grapplePoint->GetComponent<GrapplePoint>()->swingDistance, 0.0f));
-
+	currentGrappleLength = (gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude();
 	isSwitchingToSwinging = true;
 }
 
