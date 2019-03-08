@@ -176,7 +176,9 @@ void PlayerController::Swinging(float deltaTime_){
 	if((nextPosition - grapplePoint->GlobalPosition()).Magnitude() > currentGrappleLength){
 		//Pull back in if it is
 		nextPosition = grapplePoint->GlobalPosition() + ((nextPosition - grapplePoint->GlobalPosition()).Normalized() * currentGrappleLength);
-
+	}
+	else if ((nextPosition - grapplePoint->GlobalPosition()).Magnitude() < grapplePoint->GetComponent<GrapplePoint>()->swingDistance * 0.99f) {
+		nextPosition = grapplePoint->GlobalPosition() + ((nextPosition - grapplePoint->GlobalPosition()).Normalized() * (grapplePoint->GetComponent<GrapplePoint>()->swingDistance * 0.99f));
 	}
 	rigidbody->SetLinearVelocity((nextPosition - gameObject->GlobalPosition()) / deltaTime_);
 
@@ -185,6 +187,7 @@ void PlayerController::Swinging(float deltaTime_){
 			currentGrappleLength = grapplePoint->GetComponent<GrapplePoint>()->swingDistance;
 			isSwitchingToSwinging = false;
 		}else{
+			pullSpeed = ((gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude() - grapplePoint->GetComponent<GrapplePoint>()->swingDistance) / 100;
 			currentGrappleLength = (gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude() - pullSpeed;
 		}
 	}
