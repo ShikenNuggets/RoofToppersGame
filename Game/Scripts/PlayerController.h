@@ -8,6 +8,7 @@
 #include <Script/Script.h>
 
 #include "Animators/PlayerAnimator.h"
+#include "GrapplePoint.h"
 
 namespace GamePackage {
 	class PlayerController : public PizzaBox::Script{
@@ -33,12 +34,15 @@ namespace GamePackage {
 
 		float maxRotationPerSecond, MoveY;
 		float pullSpeed, currentGrappleLength;
+		float maxGrappleLength = 80.0f;
 
 		void GroundMovement(float deltaTime_);
 		void Swinging(float deltaTime_);
 
 		void SwitchToSwinging();
 		void SwitchToGroundMovement();
+		
+		GrapplePoint* FindNearestGrapple();
 	};
 }
 

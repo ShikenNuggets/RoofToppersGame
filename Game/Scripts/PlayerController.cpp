@@ -10,7 +10,6 @@
 #include <Physics/PhysicsEngine.h>
 #include <Tools/Debug.h>
 
-#include "GrapplePoint.h"
 
 using namespace GamePackage;
 
@@ -182,7 +181,7 @@ void PlayerController::Swinging(float deltaTime_){
 		nextPosition = grapplePoint->GlobalPosition() + ((nextPosition - grapplePoint->GlobalPosition()).Normalized() * (grapplePoint->GetComponent<GrapplePoint>()->swingDistance * 0.99f));
 	}
 	PizzaBox::Vector3 raycastNextPos = gameObject->GlobalPosition() + (nextPosition - gameObject->GlobalPosition()) * 2;
-	std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(raycastNextPos, gameObject->GlobalPosition());
+	std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(gameObject->GlobalPosition(), raycastNextPos);
 	if (!info.empty()) {
 		PizzaBox::RaycastInfo closest;
 		closest.hitFraction = PizzaBox::Math::Infinity();
@@ -218,11 +217,12 @@ void PlayerController::Swinging(float deltaTime_){
 void PlayerController::SwitchToSwinging(){
 	rigidbody->SetLinearVelocityDamping(0.0f);
 	rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
-
-	PizzaBox::GameObject* grapplePoint = PizzaBox::SceneManager::CurrentScene()->GetComponentInScene<GrapplePoint>()->GetGameObject();
-	if(grapplePoint == nullptr){
+	GrapplePoint* nearGrapple = FindNearestGrapple();
+	if (nearGrapple == nullptr) {
+		isSwinging = false;
 		return;
 	}
+	PizzaBox::GameObject* grapplePoint = nearGrapple->GetGameObject();
 
 	currentGrappleLength = (gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude();
 	isSwitchingToSwinging = true;
@@ -238,4 +238,46 @@ void PlayerController::SwitchToGroundMovement(){
 		rigidbody->SetLinearVelocityDamping(0.98f);
 		rigidbody->SetLinearVelocityLimits(-2.5f, 2.5f);
 	}
+}
+
+GrapplePoint* PlayerController::FindNearestGrapple() {
+	std::vector<GrapplePoint*> grapplePoints = PizzaBox::SceneManager::CurrentScene()->GetComponentsInScene<GrapplePoint>();
+	GrapplePoint* grappleTarget = nullptr;
+	float mostForward;
+	for (auto point : grapplePoints) {
+		bool valid = true;
+		if ((point->GetGameObject()->GlobalPosition() - gameObject->GlobalPosition()).Magnitude() > maxGrappleLength) {
+			valid = false;
+		}
+
+		if (!valid) {
+			continue;
+		}
+
+		std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(gameObject->GlobalPosition(), point->GetGameObject()->GlobalPosition());
+		if (!info.empty()) {
+			for (auto in : info) {
+				if (in.other->HasTag("Player")) {
+					continue;
+				}
+				valid = false;
+			}
+		}
+
+		if (!valid) {
+			continue;
+		}
+
+		if (grappleTarget != nullptr) {
+			if (PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), gameObject->GetTransform()->GetForward()) > mostForward) {
+				grappleTarget = point;
+				mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), gameObject->GetTransform()->GetForward());
+			}
+		}
+		else {
+			grappleTarget = point;
+			mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), gameObject->GetTransform()->GetForward());
+		}
+	}
+	return grappleTarget;
 }
