@@ -7,6 +7,7 @@
 #include <Object/GameObject.h>
 #include <Tools/Random.h>
 #include <Physics/Rigidbody.h>
+#include <Physics/PhysicsEngine.h>
 #include <Tools/Debug.h>
 
 #include "GrapplePoint.h"
@@ -180,6 +181,23 @@ void PlayerController::Swinging(float deltaTime_){
 	else if ((nextPosition - grapplePoint->GlobalPosition()).Magnitude() < grapplePoint->GetComponent<GrapplePoint>()->swingDistance * 0.99f) {
 		nextPosition = grapplePoint->GlobalPosition() + ((nextPosition - grapplePoint->GlobalPosition()).Normalized() * (grapplePoint->GetComponent<GrapplePoint>()->swingDistance * 0.99f));
 	}
+	PizzaBox::Vector3 raycastNextPos = gameObject->GlobalPosition() + (nextPosition - gameObject->GlobalPosition()) * 2;
+	std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(raycastNextPos, gameObject->GlobalPosition());
+	if (!info.empty()) {
+		PizzaBox::RaycastInfo closest;
+		closest.hitFraction = PizzaBox::Math::Infinity();
+		for (PizzaBox::RaycastInfo ri : info) {
+			if (ri.other->HasTag("Player")) {
+				break;
+			}
+			if (ri.hitFraction < closest.hitFraction) {
+				closest = ri;
+			}
+		}
+		if (closest.other != nullptr) {
+			nextPosition += closest.normal * deltaTime_;
+		}
+	}
 	rigidbody->SetLinearVelocity((nextPosition - gameObject->GlobalPosition()) / deltaTime_);
 
 	if(isSwitchingToSwinging){
@@ -206,7 +224,6 @@ void PlayerController::SwitchToSwinging(){
 		return;
 	}
 
-	//gameObject->SetPosition(grapplePoint->GlobalPosition() + PizzaBox::Vector3(0.0f, -grapplePoint->GetComponent<GrapplePoint>()->swingDistance, 0.0f));
 	currentGrappleLength = (gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude();
 	isSwitchingToSwinging = true;
 }
