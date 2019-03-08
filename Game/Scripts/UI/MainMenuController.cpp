@@ -13,7 +13,7 @@ void MainMenuController::OnStart(){
 }
 
 void MainMenuController::OnUI(PizzaBox::UIEvent event_){
-	if(event_ == PizzaBox::UIEvent::OnClick){
-		PizzaBox::SceneManager::LoadScene(2);
+	if(event_ == PizzaBox::UIEvent::OnRelease){
+		PizzaBox::SceneManager::LoadNextScene();
 	}
 }
