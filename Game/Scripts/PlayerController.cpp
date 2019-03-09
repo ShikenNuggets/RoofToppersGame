@@ -13,7 +13,7 @@
 
 using namespace GamePackage;
 
-PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_) : camera(camera_), animator(animator_), rigidbody(nullptr), isWalking(false), isGrounded(false), maxRotationPerSecond(0.0f), MoveY(0.0f) {
+PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_) : camera(camera_), animator(animator_), rigidbody(nullptr), isWalking(false), maxRotationPerSecond(0.0f), MoveY(0.0f) {
 }
 
 PlayerController::~PlayerController(){
@@ -67,7 +67,6 @@ void PlayerController::OnDestroy(){
 
 void PlayerController::OnCollision(const PizzaBox::CollisionInfo& other_){
 	if(other_.other->HasTag("Platform")){
-		isGrounded = true;
 		rigidbody->SetLinearVelocityDamping(0.98f);
 		rigidbody->SetLinearVelocityLimits(-2.5f, 2.5f);
 	}
@@ -75,7 +74,6 @@ void PlayerController::OnCollision(const PizzaBox::CollisionInfo& other_){
 
 void PlayerController::OnCollisionExit(PizzaBox::GameObject* other_){
 	if(other_->HasTag("Platform")){
-		isGrounded = false;
 		rigidbody->SetLinearVelocityDamping(0.0f);
 		rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
 	}
@@ -136,7 +134,7 @@ void PlayerController::GroundMovement(float deltaTime_){
 	//gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetForward() * -fabs(moveValue) * moveSpeed * scaleFactor * deltaTime_);
 	PizzaBox::Vector3 impulse = -gameObject->GetTransform()->GetForward() * moveValue;
 
-	if(isGrounded){
+	if(IsOnGround()){
 		rigidbody->Impulse(impulse * 7500.0f * 80.0f * 2.5f * deltaTime_);
 	}else{
 		rigidbody->Impulse(impulse * 7500.0f * 80.0f * deltaTime_);
@@ -238,7 +236,7 @@ void PlayerController::SwitchToSwinging(){
 void PlayerController::SwitchToGroundMovement(){
 	gameObject->SetRotation(0.0f, 180.0f, 0.0f);
 
-	if(!isGrounded){
+	if(!IsOnGround()){
 		rigidbody->SetLinearVelocityDamping(0.0f);
 		rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
 	}else{

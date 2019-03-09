@@ -28,7 +28,6 @@ namespace GamePackage {
 		PizzaBox::Rigidbody* rigidbody;
 
 		bool isWalking;
-		bool isGrounded;
 		bool isSwinging;
 		bool isSwitchingToSwinging;
 
