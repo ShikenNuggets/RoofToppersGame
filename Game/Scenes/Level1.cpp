@@ -6,6 +6,7 @@
 #include <Graphics/Camera.h>
 #include <Graphics/Models/MeshRender.h>
 #include <Graphics/Materials/ColorMaterial.h>
+#include <Graphics/Materials/TexturedMaterial.h>
 #include <Physics/Collider.h>
 #include <Physics/Rigidbody.h>
 //#include <Audio/AudioListener.h>
@@ -46,10 +47,18 @@ bool Level1::Initialize() {
 	dirLight->AddComponent(new PizzaBox::DirectionalLight(2.0f));
 
 	// Player 
-	PizzaBox::GameObject* Player = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 10.0f, 0.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f), PizzaBox::Vector3(0.1f, 0.1f, 0.1f));
+	PizzaBox::GameObject* Player = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 10.0f, 0.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f), PizzaBox::Vector3(0.05f, 0.05f, 0.05f));
 	Player->SetTag("Player");
 	PlayerAnimator* animator = new PlayerAnimator();
-	Player->AddComponent(new PizzaBox::AnimMeshRender("BotModel", PizzaBox::Color(0.1f, 0.1f, 0.8f), animator));
+	std::vector<PizzaBox::MeshMaterial*> materials;
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyBody", true));
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyBody", true));
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyBody", true));
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyHair", true));
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyBottom", true));
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyTop", true));
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyShoes", true));
+	Player->AddComponent(new PizzaBox::AnimMeshRender("DudeModel", materials, animator));
 	auto rb = new PizzaBox::Rigidbody(80.0f, true, true);
 	rb->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
 	rb->AddCollider(new PizzaBox::CapsuleCollider(5.0f, 10.0f), PizzaBox::Vector3(0.0f, 10.0f, 0.0f));
