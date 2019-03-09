@@ -23,8 +23,8 @@ Game::~Game(){
 }
 
 bool Game::Initialize(){ 
-	PizzaBox::RenderEngine::SetWindowResolution(1280, 720);
-	PizzaBox::RenderEngine::SetWindowBorderless(false);
+	//PizzaBox::RenderEngine::SetWindowResolution(1280, 720);
+	//PizzaBox::RenderEngine::SetWindowBorderless(false);
 	PizzaBox::RenderEngine::SetVSYNC(PizzaBox::Window::VSYNC::Off);
 	PizzaBox::Time::SetFrameRate(0);
 
@@ -42,8 +42,48 @@ bool Game::Initialize(){
 	uiSet->elements.push_back(new PizzaBox::TextUI("GameName", PizzaBox::Rect(0.325f, 0.5f, 0.15f, 0.175f), "Roof Toppers", "ArialFont"));
 	uiSet->elements.push_back(new PizzaBox::ButtonUI("PlayButton", PizzaBox::Rect(0.425f, 0.35f, 0.15f, 0.125f)));
 	uiSet->elements.push_back(new PizzaBox::TextUI("PlayText", PizzaBox::Rect(0.36f, 0.24f, 0.15f, 0.125f), "Play", "ArialFont"));
-	uiSet->elements.push_back(new PizzaBox::ButtonUI("QuitButton", PizzaBox::Rect(0.425f, 0.2f, 0.15f, 0.125f)));
-	uiSet->elements.push_back(new PizzaBox::TextUI("QuitText", PizzaBox::Rect(0.36f, 0.15f, 0.15f, 0.125f), "Quit", "ArialFont"));
+	uiSet->elements.push_back(new PizzaBox::ButtonUI("OptionsButton", PizzaBox::Rect(0.425f, 0.2f, 0.15f, 0.125f)));
+	uiSet->elements.push_back(new PizzaBox::TextUI("OptionsText", PizzaBox::Rect(0.36f, 0.15f, 0.15f, 0.125f), "Options", "ArialFont"));
+	PizzaBox::UIManager::AddSet(uiSet);
+
+	//Stats Set
+	uiSet = new PizzaBox::UISet("StatsSet");
+	uiSet->elements.push_back(new PizzaBox::StatsTextUI("StatsTextUI", PizzaBox::Rect(0.01f, 0.56f, 0.08f, 0.08f), "ArialFont"));
+	PizzaBox::UIManager::AddSet(uiSet);
+
+	auto fullScreenButtonFunc = std::function<void(PizzaBox::UIEvent)>([](PizzaBox::UIEvent e){
+		if(e == PizzaBox::UIEvent::OnRelease){
+			if(PizzaBox::RenderEngine::GetWindowBorderless()){
+				PizzaBox::RenderEngine::SetWindowResolution(1280, 720);
+				PizzaBox::RenderEngine::SetWindowBorderless(false);
+			}else{
+				PizzaBox::RenderEngine::SetWindowResolution(1920, 1080);
+				PizzaBox::RenderEngine::SetWindowBorderless(true);
+			}
+		}
+	});
+
+	auto vsyncButtonFunc = std::function<void(PizzaBox::UIEvent)>([](PizzaBox::UIEvent e){
+		if(e == PizzaBox::UIEvent::OnRelease){
+			if(PizzaBox::RenderEngine::GetVSYNC() == PizzaBox::Window::VSYNC::Off){
+				PizzaBox::Debug::Log("Enable VSYNC");
+				PizzaBox::RenderEngine::SetVSYNC(PizzaBox::Window::VSYNC::On);
+			}else{
+				PizzaBox::Debug::Log("Disable VSYNC");
+				PizzaBox::RenderEngine::SetVSYNC(PizzaBox::Window::VSYNC::Off);
+			}
+		}
+	});
+
+	//Options Set
+	uiSet = new PizzaBox::UISet("OptionsSet");
+	uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.325f, 0.5f, 0.15f, 0.175f), "Options", "ArialFont"));
+	uiSet->elements.push_back(new PizzaBox::ButtonUI("FullscreenButton", fullScreenButtonFunc, PizzaBox::Rect(0.425f, 0.35f, 0.15f, 0.125f)));
+	uiSet->elements.push_back(new PizzaBox::TextUI("FullScreenText", PizzaBox::Rect(0.36f, 0.24f, 0.15f, 0.125f), "Fullscreen", "ArialFont"));
+
+	uiSet->elements.push_back(new PizzaBox::ButtonUI("VsyncButton", vsyncButtonFunc, PizzaBox::Rect(0.425f, 0.25f, 0.15f, 0.125f)));
+	uiSet->elements.push_back(new PizzaBox::TextUI("VsyncText", PizzaBox::Rect(0.36f, 0.14f, 0.15f, 0.125f), "Vsync", "ArialFont"));
+
 	PizzaBox::UIManager::AddSet(uiSet);
 	
 	//Add scenes to the SceneManager 
