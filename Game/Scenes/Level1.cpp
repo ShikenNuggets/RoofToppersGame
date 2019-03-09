@@ -29,7 +29,7 @@ Level1::~Level1() {
 
 bool Level1::Initialize() {
 	// SkyBox
-	SetSky(new PizzaBox::SkyBox("LakeSkybox", "SkyBoxShader", 68000.0f));
+	SetSky(new PizzaBox::SkyBox("CloudSkybox", "SkyBoxShader", 68000.0f));
 
 	// Camera
 	PizzaBox::GameObject* mainCamera = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));

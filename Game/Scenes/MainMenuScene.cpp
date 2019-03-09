@@ -5,8 +5,9 @@
 #include <Graphics/Sky/SkyBox.h>
 #include <Graphics/UI/UIManager.h>
 
-#include "Scripts/MainMenuController.h"
-#include "Scripts/QuitButtonScript.h"
+#include "Scripts/UI/MainMenuController.h"
+#include "Scripts/UI/OptionsButtonScript.h"
+#include "Scripts/UI/QuitButtonScript.h"
 
 using namespace GamePackage;
 
@@ -17,7 +18,7 @@ MainMenuScene::~MainMenuScene(){
 }
 
 bool MainMenuScene::Initialize(){
-	SetSky(new PizzaBox::SkyBox("DarkSkybox","SkyBoxShader", 30.0f));
+	SetSky(new PizzaBox::SkyBox("CloudSkybox", "SkyBoxShader", 30.0f));
 
 	PizzaBox::GameObject* mainCamera = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 0.0f, 20.0f), PizzaBox::Euler(-45.0f, 0.0f, 0.0f));
 	mainCamera->AddComponent(new PizzaBox::Camera(PizzaBox::ViewportRect::fullScreen, PizzaBox::Camera::RenderMode::Perspective));
@@ -26,16 +27,17 @@ bool MainMenuScene::Initialize(){
 	// Button related Scripts
 	auto scrp1 = new MainMenuController();
 	mainCamera->AddComponent(scrp1);
-	auto scrp2 = new QuitButtonScript();
+	auto scrp2 = new OptionsButtonScript();
 	mainCamera->AddComponent(scrp2);
 	
 	// Background music 
 	//mainCamera->AddComponent(new PizzaBox::AudioSource("MainMenuMusic", PizzaBox::AudioSource::SoundType::_2D, "Music"));
 
 	PizzaBox::UIManager::EnableSet("MainMenuSet");
+	PizzaBox::UIManager::EnableSet("StatsSet");
 
 	PizzaBox::UIManager::GetElementFromSet<PizzaBox::UIElement>("MainMenuSet", "PlayButton")->SetScript(scrp1);
-	PizzaBox::UIManager::GetElementFromSet<PizzaBox::UIElement>("MainMenuSet", "QuitButton")->SetScript(scrp2);
+	PizzaBox::UIManager::GetElementFromSet<PizzaBox::UIElement>("MainMenuSet", "OptionsButton")->SetScript(scrp2);
 
 	return true;
 }

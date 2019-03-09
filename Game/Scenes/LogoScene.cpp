@@ -7,7 +7,7 @@
 #include <Graphics/UI/ImageUI.h>
 #include <Graphics/RenderEngine.h>
 
-#include "Scripts/LogoManager.h"
+#include "Scripts/UI/LogoManager.h"
 
 using namespace GamePackage;
 
