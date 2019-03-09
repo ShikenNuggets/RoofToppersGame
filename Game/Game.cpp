@@ -42,8 +42,8 @@ bool Game::Initialize(){
 	uiSet->elements.push_back(new PizzaBox::TextUI("GameName", PizzaBox::Rect(0.325f, 0.5f, 0.15f, 0.175f), "Roof Toppers", "ArialFont"));
 	uiSet->elements.push_back(new PizzaBox::ButtonUI("PlayButton", PizzaBox::Rect(0.425f, 0.35f, 0.15f, 0.125f)));
 	uiSet->elements.push_back(new PizzaBox::TextUI("PlayText", PizzaBox::Rect(0.36f, 0.24f, 0.15f, 0.125f), "Play", "ArialFont"));
-	uiSet->elements.push_back(new PizzaBox::ButtonUI("OptionsButton", PizzaBox::Rect(0.425f, 0.2f, 0.15f, 0.125f)));
-	uiSet->elements.push_back(new PizzaBox::TextUI("OptionsText", PizzaBox::Rect(0.36f, 0.15f, 0.15f, 0.125f), "Options", "ArialFont"));
+	uiSet->elements.push_back(new PizzaBox::ButtonUI("OptionsButton", PizzaBox::Rect(0.425f, 0.2f, 0.16f, 0.125f)));
+	uiSet->elements.push_back(new PizzaBox::TextUI("OptionsText", PizzaBox::Rect(0.34f, 0.15f, 0.15f, 0.125f), "Options", "ArialFont"));
 	PizzaBox::UIManager::AddSet(uiSet);
 
 	//Stats Set
@@ -77,12 +77,12 @@ bool Game::Initialize(){
 
 	//Options Set
 	uiSet = new PizzaBox::UISet("OptionsSet");
-	uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.325f, 0.5f, 0.15f, 0.175f), "Options", "ArialFont"));
-	uiSet->elements.push_back(new PizzaBox::ButtonUI("FullscreenButton", fullScreenButtonFunc, PizzaBox::Rect(0.425f, 0.35f, 0.15f, 0.125f)));
-	uiSet->elements.push_back(new PizzaBox::TextUI("FullScreenText", PizzaBox::Rect(0.36f, 0.24f, 0.15f, 0.125f), "Fullscreen", "ArialFont"));
+	uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.33f, 0.5f, 0.15f, 0.175f), "Options", "ArialFont"));
+	uiSet->elements.push_back(new PizzaBox::ButtonUI("FullscreenButton", fullScreenButtonFunc, PizzaBox::Rect(0.41f, 0.35f, 0.22f, 0.125f)));
+	uiSet->elements.push_back(new PizzaBox::TextUI("FullScreenText", PizzaBox::Rect(0.33f, 0.24f, 0.15f, 0.125f), "Fullscreen", "ArialFont"));
 
 	uiSet->elements.push_back(new PizzaBox::ButtonUI("VsyncButton", vsyncButtonFunc, PizzaBox::Rect(0.425f, 0.25f, 0.15f, 0.125f)));
-	uiSet->elements.push_back(new PizzaBox::TextUI("VsyncText", PizzaBox::Rect(0.36f, 0.14f, 0.15f, 0.125f), "Vsync", "ArialFont"));
+	uiSet->elements.push_back(new PizzaBox::TextUI("VsyncText", PizzaBox::Rect(0.342f, 0.175f, 0.15f, 0.125f), "Vsync", "ArialFont"));
 
 	PizzaBox::UIManager::AddSet(uiSet);
 	
