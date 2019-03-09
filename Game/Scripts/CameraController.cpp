@@ -57,10 +57,15 @@ void CameraController::Update(const float deltaTime_){
 	gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetRight() * -rotateSpeed * moveZ * PizzaBox::Time::RealDeltaTime());
 
 	// Camera Rotation
-	float rotX = -PizzaBox::InputManager::GetAxis("MouseX");
-	float rotY = -PizzaBox::InputManager::GetAxis("MouseY");
+	float rotX = -PizzaBox::InputManager::GetAxis("MouseX") * mouseSensitivity;
+	float rotY = -PizzaBox::InputManager::GetAxis("MouseY") * mouseSensitivity;
+
+	if(PizzaBox::Math::NearZero(rotX) && PizzaBox::Math::NearZero(rotY)){
+		rotX = -PizzaBox::InputManager::GetAxis("RightStickX") * 2.5f;
+		rotY = -PizzaBox::InputManager::GetAxis("RightStickY") * 2.5f;
+	}
 	
-	gameObject->GetTransform()->Rotate(rotY * mouseSensitivity, rotX * mouseSensitivity, 0.0f);
+	gameObject->GetTransform()->Rotate(rotY, rotX, 0.0f);
 
 	//v1 is camera facing direction
 	PizzaBox::Vector3 cameraForward = camera->GetGameObject()->GetTransform()->GetForward();
