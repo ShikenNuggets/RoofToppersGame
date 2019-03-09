@@ -35,6 +35,7 @@ namespace GamePackage {
 		float maxRotationPerSecond, MoveY;
 		float pullSpeed, currentGrappleLength;
 		float maxGrappleLength = 80.0f;
+		float fallBooster = 2.0f;
 
 		void GroundMovement(float deltaTime_);
 		void Swinging(float deltaTime_);
@@ -43,6 +44,7 @@ namespace GamePackage {
 		void SwitchToGroundMovement();
 		
 		GrapplePoint* FindNearestGrapple();
+		bool IsOnGround();
 	};
 }
 

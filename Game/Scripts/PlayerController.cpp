@@ -142,13 +142,20 @@ void PlayerController::GroundMovement(float deltaTime_){
 		rigidbody->Impulse(impulse * 7500.0f * 80.0f * deltaTime_);
 	}
 
-	if(PizzaBox::InputManager::GetButtonDown("JumpButton") && animator != nullptr && !animator->IsTransitioning()){
-		animator->isJumping = true; 
-		//MoveY = 0.8f;
-		PizzaBox::Vector3 jumpImpulse = gameObject->GetTransform()->GetUp() * 10000.0f * 80.0f;
-		rigidbody->Impulse(jumpImpulse);
+	if (PizzaBox::InputManager::GetButtonDown("JumpButton") && animator != nullptr && !animator->IsTransitioning()) {
+		if (IsOnGround()) {
+			animator->isJumping = true;
+			PizzaBox::Vector3 jumpImpulse = gameObject->GetTransform()->GetUp() * 10000.0f * 80.0f;
+			rigidbody->Impulse(jumpImpulse);
+		}
 	}
-	 
+
+	if (!IsOnGround()) {
+		if (!PizzaBox::InputManager::GetButtonHeld("JumpButton") || rigidbody->GetLinearVelocity().y < 0) {
+			rigidbody->SetLinearVelocity(rigidbody->GetLinearVelocity() + (gameObject->GetTransform()->GetUp() * -fallBooster));
+		}
+	}
+
 	if(animator != nullptr){
 		animator->moveValue = moveValue;
 	}
@@ -245,12 +252,7 @@ GrapplePoint* PlayerController::FindNearestGrapple() {
 	GrapplePoint* grappleTarget = nullptr;
 	float mostForward;
 	for (auto point : grapplePoints) {
-		bool valid = true;
 		if ((point->GetGameObject()->GlobalPosition() - gameObject->GlobalPosition()).Magnitude() > maxGrappleLength) {
-			valid = false;
-		}
-
-		if (!valid) {
 			continue;
 		}
 
@@ -260,12 +262,8 @@ GrapplePoint* PlayerController::FindNearestGrapple() {
 				if (in.other->HasTag("Player")) {
 					continue;
 				}
-				valid = false;
+				continue;
 			}
-		}
-
-		if (!valid) {
-			continue;
 		}
 
 		if (grappleTarget != nullptr) {
@@ -280,4 +278,14 @@ GrapplePoint* PlayerController::FindNearestGrapple() {
 		}
 	}
 	return grappleTarget;
+}
+
+bool PlayerController::IsOnGround() {
+	std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(gameObject->GlobalPosition() + PizzaBox::Vector3(0.0f, 1.0f, 0.0f), gameObject->GlobalPosition() + PizzaBox::Vector3(0.0f, -2.0f, 0.0f));
+	for (auto in : info) {
+		if (in.other->HasTag("Platform")) {
+			return true;
+		}
+	}
+	return false;
 }
