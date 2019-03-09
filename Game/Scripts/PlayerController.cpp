@@ -92,7 +92,7 @@ void PlayerController::Update(const float deltaTime_){
 		//walk->PlayContinuous();				// audio
 	}
 
-	PizzaBox::Debug::Log(rigidbody->GetLinearVelocity().ToString());
+	//PizzaBox::Debug::Log(rigidbody->GetLinearVelocity().ToString());
 
 	//gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetForward() * -fabs(moveValue) * moveSpeed * scaleFactor * deltaTime_);
 	PizzaBox::Vector3 impulse = -gameObject->GetTransform()->GetForward() * moveValue;
@@ -118,8 +118,8 @@ void PlayerController::Update(const float deltaTime_){
 void PlayerController::OnDestroy(){
 }
 
-void PlayerController::OnCollision(PizzaBox::GameObject* other_){
-	if(other_->HasTag("Platform")){
+void PlayerController::OnCollision(const PizzaBox::CollisionInfo& other_){
+	if(other_.other->HasTag("Platform")){
 		isGrounded = true;
 		rigidbody->SetLinearVelocityDamping(0.98f);
 		rigidbody->SetLinearVelocityLimits(-2.5f, 2.5f);
