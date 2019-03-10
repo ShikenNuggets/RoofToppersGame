@@ -160,21 +160,33 @@ bool Level1::Initialize() {
 
 	PizzaBox::GameObject* grapplePoint1 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 80.0f, -80.0f), PizzaBox::Euler(), PizzaBox::Vector3(2.0f, 2.0f, 2.0f));
 	grapplePoint1->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+		auto child = CreateObject<PizzaBox::GameObject>(grapplePoint1, PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
+		child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 
 	PizzaBox::GameObject* grapplePoint2 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 80.0f, -200.0f), PizzaBox::Euler(), PizzaBox::Vector3(2.0f, 2.0f, 2.0f));
 	grapplePoint2->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+		child = CreateObject<PizzaBox::GameObject>(grapplePoint2, PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
+		child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 
 	PizzaBox::GameObject* grapplePoint3 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 80.0f, -380.0f), PizzaBox::Euler(), PizzaBox::Vector3(2.0f, 2.0f, 2.0f));
 	grapplePoint3->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+		child = CreateObject<PizzaBox::GameObject>(grapplePoint3, PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
+		child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 
 	PizzaBox::GameObject* grapplePoint4 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 80.0f, -470.0f), PizzaBox::Euler(), PizzaBox::Vector3(2.0f, 2.0f, 2.0f));
 	grapplePoint4->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+		child = CreateObject<PizzaBox::GameObject>(grapplePoint4, PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
+		child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 
 	PizzaBox::GameObject* grapplePoint5 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 80.0f, -560.0f), PizzaBox::Euler(), PizzaBox::Vector3(2.0f, 2.0f, 2.0f));
 	grapplePoint5->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+		child = CreateObject<PizzaBox::GameObject>(grapplePoint5, PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
+		child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 
 	PizzaBox::GameObject* grapplePoint6 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 100.0f, -660.0f), PizzaBox::Euler(), PizzaBox::Vector3(2.0f, 2.0f, 2.0f));
 	grapplePoint6->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+		child = CreateObject<PizzaBox::GameObject>(grapplePoint6, PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
+		child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 
 	// Test Water Object
 	PizzaBox::GameObject* baseWater = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 0.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(70.0f, 20.0f, 70.0f));
