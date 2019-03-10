@@ -6,6 +6,7 @@
 #include <Graphics/Camera.h>
 #include <Graphics/Models/MeshRender.h>
 #include <Graphics/Materials/ColorMaterial.h>
+#include <Graphics/Materials/TexturedMaterial.h>
 #include <Physics/Collider.h>
 #include <Physics/Rigidbody.h>
 //#include <Audio/AudioListener.h>
@@ -62,7 +63,8 @@ bool Level1::Initialize() {
 	// Platform Level
 	PizzaBox::GameObject* platform = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 50.0f, 50.0f));
 	platform->SetTag("Platform");
-	platform->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Green)));
+	auto texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
+	platform->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
 	//platform->AddComponent(new PizzaBox::Collider(platform->GetTransform()->GlobalScale())); 
 	auto rb2 = new PizzaBox::Rigidbody(1.0f, false, true);
 	rb2->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
@@ -82,7 +84,8 @@ bool Level1::Initialize() {
 
 	PizzaBox::GameObject* platform3 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, -300.0f), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 50.0f, 50.0f));
 	platform3->SetTag("Platform");
-	platform3->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Green)));
+	texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
+	platform3->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
 	//platform->AddComponent(new PizzaBox::Collider(platform->GetTransform()->GlobalScale())); 
 	auto rb4 = new PizzaBox::Rigidbody(1.0f, false, true);
 	rb4->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
@@ -102,7 +105,8 @@ bool Level1::Initialize() {
 
 	PizzaBox::GameObject* platform5 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, -450.0f), PizzaBox::Euler(-25.0f), PizzaBox::Vector3(50.0f, 50.0f, 50.0f));
 	platform5->SetTag("Platform");
-	platform5->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Green)));
+	texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
+	platform5->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
 	//platform->AddComponent(new PizzaBox::Collider(platform->GetTransform()->GlobalScale())); 
 	auto rb6 = new PizzaBox::Rigidbody(1.0f, false, true);
 	rb6->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
@@ -132,7 +136,8 @@ bool Level1::Initialize() {
 
 	PizzaBox::GameObject* platform8 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, -780.0f), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 150.0f, 50.0f));
 	platform8->SetTag("Platform");
-	platform8->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Green)));
+	texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
+	platform8->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
 	//platform->AddComponent(new PizzaBox::Collider(platform->GetTransform()->GlobalScale())); 
 	auto rb9 = new PizzaBox::Rigidbody(1.0f, false, true);
 	rb9->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
@@ -183,13 +188,15 @@ bool Level1::Initialize() {
 	int backgroundbuildingCount = 30;
 	for (int i = 0; i < 30; i++) {
 		PizzaBox::GameObject* backgroundHouse1 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(-400.0f, -5.0f, 400.0f - (i * 250)), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 150.0f, 50.0f));
-		backgroundHouse1->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Green)));
+		texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
+		backgroundHouse1->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
 		//platform->AddComponent(new PizzaBox::Collider(platform->GetTransform()->GlobalScale())); 
 	}
 
 	for (int i = 0; i < 30; i++) {
 		PizzaBox::GameObject* backgroundHouse2 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(400.0f, -5.0f, 400.0f - (i * 250)), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 150.0f, 50.0f));
-		backgroundHouse2->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Green)));
+		texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
+		backgroundHouse2->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
 		//platform->AddComponent(new PizzaBox::Collider(platform->GetTransform()->GlobalScale())); 
 	}
 
