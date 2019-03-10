@@ -65,6 +65,6 @@ void MovingPlatform::SetDistance(float dis) {
 	distance = dis;
 }
 
-void MovingPlatform::OnCollision(PizzaBox::GameObject* other_) {
+void MovingPlatform::OnCollision(const PizzaBox::CollisionInfo& info_) {
 
 }
