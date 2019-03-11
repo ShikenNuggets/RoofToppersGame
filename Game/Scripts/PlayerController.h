@@ -19,7 +19,7 @@ namespace GamePackage {
 		virtual void OnStart() override;
 		virtual void Update(const float deltaTime_) override;
 		virtual void OnDestroy() override;
-		virtual void OnCollision(const PizzaBox::CollisionInfo& other_) override; 
+		virtual void OnCollision(const PizzaBox::CollisionInfo& other_) override;
 		virtual void OnCollisionExit(PizzaBox::GameObject* other_) override;
 
 	private:
