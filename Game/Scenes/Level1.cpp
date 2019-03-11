@@ -9,8 +9,8 @@
 #include <Graphics/Materials/TexturedMaterial.h>
 #include <Physics/Collider.h>
 #include <Physics/Rigidbody.h>
-//#include <Audio/AudioListener.h>
-//#include <Audio/AudioSource.h>
+#include <Audio/AudioListener.h>
+#include <Audio/AudioSource.h>
 
 // Script Includes
 
@@ -43,8 +43,9 @@ bool Level1::Initialize() {
 	mainCamera->AddComponent(cam);
 	auto controller = new CameraController();
 	mainCamera->AddComponent(controller);
-	//mainCamera->AddComponent(new PizzaBox::AudioListener());
-	//mainCamera->AddComponent(new PizzaBox::AudioSource("GameplayMusic", PizzaBox::AudioSource::SoundType::_2D, "Music"));
+	mainCamera->AddComponent(new PizzaBox::AudioListener());
+	auto as1 = new PizzaBox::AudioSource("GameplayMusic1", PizzaBox::AudioSource::SoundType::_2D, "Music");
+	mainCamera->AddComponent(as1);
 
 	// Directional Light
 	auto dirLight = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(), PizzaBox::Euler(-35.0f, 12.0f, 0.0f));
@@ -66,8 +67,15 @@ bool Level1::Initialize() {
 	auto rb = new PizzaBox::Rigidbody(80.0f, true, true);
 	rb->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
 	rb->AddCollider(new PizzaBox::CapsuleCollider(5.0f, 10.0f), PizzaBox::Vector3(0.0f, 10.0f, 0.0f));
+
+	auto grappleSFX = new PizzaBox::AudioSource("GrappleSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
+	auto jumpSFX = new PizzaBox::AudioSource("JumpingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
+	auto walkSFX = new PizzaBox::AudioSource("WalkingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
+	auto landingSFX = new PizzaBox::AudioSource("LandingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
+	auto swingingSFX = new PizzaBox::AudioSource("SwingingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
+
 	Player->AddComponent(rb);
-	Player->AddComponent(new PlayerController(cam, animator));
+	Player->AddComponent(new PlayerController(cam, animator,walkSFX,grappleSFX,jumpSFX,landingSFX,swingingSFX));
 
 	controller->SetTarget(Player);
 
