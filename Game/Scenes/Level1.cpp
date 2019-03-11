@@ -25,6 +25,9 @@
 // Animator Includes
 #include "Animators/PlayerAnimator.h"
 
+#include "Objects/Building.h"
+#include "Objects/Player.h"
+
 using namespace GamePackage;
 
 Level1::Level1() : Scene() {
@@ -64,38 +67,9 @@ bool Level1::Initialize() {
 	auto dirLight = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(), PizzaBox::Euler(-35.0f, 12.0f, 0.0f));
 	dirLight->AddComponent(new PizzaBox::DirectionalLight(2.0f));
 
-	//Player 
-	PizzaBox::GameObject* Player = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 60.0f, 0.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f), PizzaBox::Vector3(0.01f, 0.01f, 0.01f));
-	Player->SetTag("Player");
-	PlayerAnimator* animator = new PlayerAnimator();
-	std::vector<PizzaBox::MeshMaterial*> materials;
-	materials.push_back(new PizzaBox::TexturedMaterial("RemyBody", true));
-	materials.push_back(new PizzaBox::TexturedMaterial("RemyBody", true));
-	materials.push_back(new PizzaBox::TexturedMaterial("RemyBody", true));
-	materials.push_back(new PizzaBox::TexturedMaterial("RemyHair", true));
-	materials.push_back(new PizzaBox::TexturedMaterial("RemyBottom", true));
-	materials.push_back(new PizzaBox::TexturedMaterial("RemyTop", true));
-	materials.push_back(new PizzaBox::TexturedMaterial("RemyShoes", true));
-	Player->AddComponent(new PizzaBox::AnimMeshRender("DudeModel", materials, animator));
-	auto rb = new PizzaBox::Rigidbody(80.0f, true, true);
-	rb->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
-	rb->AddCollider(new PizzaBox::CapsuleCollider(5.0f, 10.0f), PizzaBox::Vector3(0.0f, 10.0f, 0.0f));
-
-	auto grappleSFX = new PizzaBox::AudioSource("GrappleSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
-	auto jumpSFX = new PizzaBox::AudioSource("JumpingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
-	auto walkSFX = new PizzaBox::AudioSource("WalkingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
-	auto landingSFX = new PizzaBox::AudioSource("LandingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
-	auto swingingSFX = new PizzaBox::AudioSource("SwingingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
-
-	Player->AddComponent(rb);
-	Player->AddComponent(grappleSFX);
-	Player->AddComponent(jumpSFX);
-	Player->AddComponent(walkSFX);
-	Player->AddComponent(landingSFX);
-	Player->AddComponent(swingingSFX);
-	Player->AddComponent(new PlayerController(cam, animator,walkSFX,grappleSFX,jumpSFX,landingSFX,swingingSFX));
-	
-	controller->SetTarget(Player);
+	//player 
+	PizzaBox::GameObject* player = CreateObject<Player>(PizzaBox::Vector3(0.0f, 60.0f, 0.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f), PizzaBox::Vector3(0.01f, 0.01f, 0.01f));
+	controller->SetTarget(player);
 
 	//Grapple Point
 	//auto grapplePoint = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 50.0f, -50.0f), PizzaBox::Euler(), PizzaBox::Vector3::Fill(2.0f));
@@ -103,16 +77,7 @@ bool Level1::Initialize() {
 	//grapplePoint->AddComponent(new GrapplePoint(35.0f));
 
 	//Test Static platfrom
-	PizzaBox::GameObject* platform = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 100.0f, 20.0f));
-	platform->SetTag("Platform");
-	auto texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
-	platform->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
-	//platform->AddComponent(new PizzaBox::Collider(platform->GetTransform()->GlobalScale())); 
-	auto rb2 = new PizzaBox::Rigidbody(1.0f, false, true);
-	rb2->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
-	rb2->AddCollider(new PizzaBox::BoxCollider(platform->GetScale()));
-	platform->AddComponent(rb2);
-	platform->SetStatic(true);
+	PizzaBox::GameObject* platform = CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 100.0f, 20.0f));
 
 	PizzaBox::GameObject* platform2 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 40.0f, -60.0f), PizzaBox::Euler(), PizzaBox::Vector3(12.0f, 4.0f, 12.0f));
 	platform2->SetTag("Platform");
@@ -124,16 +89,7 @@ bool Level1::Initialize() {
 	platform2->AddComponent(rb3);
 	platform2->SetStatic(true);
 
-	PizzaBox::GameObject* platform3 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, -120.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 100.0f, 20.0f));
-	platform3->SetTag("Platform");
-	texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
-	platform3->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
-	//platform->AddComponent(new PizzaBox::Collider(platform->GetTransform()->GlobalScale())); 
-	auto rb4 = new PizzaBox::Rigidbody(1.0f, false, true);
-	rb4->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
-	rb4->AddCollider(new PizzaBox::BoxCollider(platform3->GetScale()));
-	platform3->AddComponent(rb4);
-	platform3->SetStatic(true);
+	PizzaBox::GameObject* platform3 = CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -120.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 100.0f, 20.0f));
 
 	PizzaBox::GameObject* platform4 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 40.0f, -170.0f), PizzaBox::Euler(), PizzaBox::Vector3(12.0f, 4.0f, 32.0f));
 	platform4->SetTag("Platform");
@@ -145,16 +101,7 @@ bool Level1::Initialize() {
 	platform4->AddComponent(rb5);
 	platform4->SetStatic(true);
 
-	PizzaBox::GameObject* platform5 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, -270.0f), PizzaBox::Euler(/*-25.0f*/), PizzaBox::Vector3(20.0f, 100.0f, 20.0f));
-	platform5->SetTag("Platform");
-	texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
-	platform5->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
-	//platform->AddComponent(new PizzaBox::Collider(platform->GetTransform()->GlobalScale())); 
-	auto rb6 = new PizzaBox::Rigidbody(1.0f, false, true);
-	rb6->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
-	rb6->AddCollider(new PizzaBox::BoxCollider(platform5->GetScale()));
-	platform5->AddComponent(rb6);
-	platform5->SetStatic(true);
+	PizzaBox::GameObject* platform5 = CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -270.0f), PizzaBox::Euler(/*-25.0f*/), PizzaBox::Vector3(20.0f, 100.0f, 20.0f));
 
 	PizzaBox::GameObject* platform6 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 40.0f, -355.0f), PizzaBox::Euler(), PizzaBox::Vector3(8.0f, 4.0f, 8.0f));
 	platform6->SetTag("Platform");
@@ -176,16 +123,7 @@ bool Level1::Initialize() {
 	platform7->AddComponent(rb8);
 	platform7->SetStatic(true);
 
-	PizzaBox::GameObject* platform8 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, -600.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 300.0f, 20.0f));
-	platform8->SetTag("Platform");
-	texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
-	platform8->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
-	//platform->AddComponent(new PizzaBox::Collider(platform->GetTransform()->GlobalScale())); 
-	auto rb9 = new PizzaBox::Rigidbody(1.0f, false, true);
-	rb9->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
-	rb9->AddCollider(new PizzaBox::BoxCollider(platform8->GetScale()));
-	platform8->AddComponent(rb9);
-	platform8->SetStatic(true);
+	PizzaBox::GameObject* platform8 = CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -600.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 300.0f, 20.0f));
 
 	PizzaBox::GameObject* platform9 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 45.0f, -600.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 10.0f, 32.0f));
 	platform9->SetTag("Platform");
@@ -244,13 +182,8 @@ bool Level1::Initialize() {
 
 	//Background Design
 	for(int i = 0; i < 30; i++){
-		PizzaBox::GameObject* backgroundHouse1 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(-400.0f, -5.0f, 400.0f - (i * 150.0f)), PizzaBox::Euler(), PizzaBox::Vector3(100.0f, 300.0f, 100.0f));
-		texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
-		backgroundHouse1->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
-
-		PizzaBox::GameObject* backgroundHouse2 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(400.0f, -5.0f, 400.0f - (i * 150.0f)), PizzaBox::Euler(), PizzaBox::Vector3(100.0f, 300.0f, 100.0f));
-		texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
-		backgroundHouse2->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
+		PizzaBox::GameObject* backgroundHouse1 = CreateObject<Building>(PizzaBox::Vector3(-400.0f, -5.0f, 400.0f - (i * 150.0f)), PizzaBox::Euler(), PizzaBox::Vector3(100.0f, 300.0f, 100.0f));
+		PizzaBox::GameObject* backgroundHouse2 = CreateObject<Building>(PizzaBox::Vector3(400.0f, -5.0f, 400.0f - (i * 150.0f)), PizzaBox::Euler(), PizzaBox::Vector3(100.0f, 300.0f, 100.0f));
 	}
 
 	return true;
