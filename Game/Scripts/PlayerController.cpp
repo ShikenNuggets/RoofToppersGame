@@ -120,7 +120,15 @@ void PlayerController::GroundMovement(float deltaTime_){
 		gameObject->GetTransform()->Rotate(PizzaBox::Euler(0.0f, finalAngle, 0.0f));
 	}
 	
-	float moveValue = (fabs(moveX) + fabs(moveZ)) / 2.0f;
+	float moveValue = 0.0f;
+	if(!PizzaBox::Math::NearZero(moveX) && PizzaBox::Math::NearZero(moveZ)){
+		moveValue = PizzaBox::Math::Abs(moveX);
+	}else if(PizzaBox::Math::NearZero(moveX) && !PizzaBox::Math::NearZero(moveZ)){
+		moveValue = PizzaBox::Math::Abs(moveZ);
+	}else{
+		moveValue = (PizzaBox::Math::Abs(moveX) + PizzaBox::Math::Abs(moveZ)) / 2.0f;
+	}
+	
 	float scaleFactor = gameObject->GlobalScale().x * 10.0f;
 
 	if(isWalking && PizzaBox::Math::NearZero(moveValue)){
