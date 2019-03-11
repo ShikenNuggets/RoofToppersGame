@@ -40,15 +40,12 @@ void PlayerController::Update(const float deltaTime_){
 	}
 
 	if(PizzaBox::InputManager::GetButtonDown("Grapple1") || PizzaBox::InputManager::GetButtonDown("Grapple2")){
-		grappleSFX->PlayOnce();
 		isSwinging = !isSwinging;
 		if(isSwinging){
-			SwitchToSwinging();
-			swingingSFX->PlayContinuous();
-			
+			SwitchToSwinging();		
+			walkSFX->StopContinuous();
 		}else{
 			SwitchToGroundMovement();
-			swingingSFX->StopContinuous();
 		}
 	}
 
@@ -220,6 +217,7 @@ void PlayerController::Swinging(float deltaTime_){
 }
 
 void PlayerController::SwitchToSwinging(){
+
 	rigidbody->SetLinearVelocityDamping(0.0f);
 	rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
 
@@ -236,10 +234,13 @@ void PlayerController::SwitchToSwinging(){
 	grappleLine->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Brown)));
 
 	currentGrappleLength = (gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude();
+	grappleSFX->PlayOnce();
+	swingingSFX->PlayContinuous();
 	isSwitchingToSwinging = true;
 }
 
 void PlayerController::SwitchToGroundMovement(){
+	swingingSFX->StopContinuous();
 	gameObject->SetRotation(0.0f, 180.0f, 0.0f);
 
 	PizzaBox::SceneManager::CurrentScene()->DestroyObject(grappleLine);
