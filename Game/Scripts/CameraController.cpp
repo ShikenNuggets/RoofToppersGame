@@ -12,7 +12,7 @@
 
 using namespace GamePackage;
 
-CameraController::CameraController(PizzaBox::GameObject* target_) : camera(nullptr), isShaking(false), shakeStartPos(), shakeDuration(0.0f), shakeFrequency(0.0f), shakeDir(), shakeTargetPos(), shakeTimer(0.0f), shakeTime(0.0f), rotateSpeed(0.0f), mouseSensitivity(100.0f), gamepadSensitivity(2.5f){
+CameraController::CameraController(PizzaBox::GameObject* target_) : camera(nullptr), isShaking(false), shakeStartPos(), shakeDuration(0.0f), shakeFrequency(0.0f), shakeDir(), shakeTargetPos(), shakeTimer(0.0f), shakeTime(0.0f), rotateSpeed(0.0f), mouseSensitivity(100.0f), gamepadSensitivity(2.5f), minRotation(-60.0f), maxRotation(12.5f){
 	target = target_;
 }
 
@@ -68,6 +68,10 @@ void CameraController::Update(const float deltaTime_){
 	}
 	
 	gameObject->GetTransform()->Rotate(rotY * PizzaBox::Time::RealDeltaTime(), rotX * PizzaBox::Time::RealDeltaTime(), 0.0f);
+
+	float x = gameObject->GetRotation().x;
+	x = PizzaBox::Math::Clamp(minRotation, maxRotation, x);
+	gameObject->SetRotation(PizzaBox::Euler(x, gameObject->GetRotation().y, gameObject->GetRotation().z));
 
 	//v1 is camera facing direction
 	PizzaBox::Vector3 cameraForward = camera->GetGameObject()->GetTransform()->GetForward();

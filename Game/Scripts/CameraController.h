@@ -34,6 +34,9 @@ namespace GamePackage {
 		float mouseSensitivity;
 		float gamepadSensitivity;
 
+		float minRotation;
+		float maxRotation;
+
 		void Shake();
 		PizzaBox::Vector3 NewRandomDirection() const;
 	};
