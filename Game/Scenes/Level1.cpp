@@ -9,14 +9,14 @@
 #include <Graphics/Materials/TexturedMaterial.h>
 #include <Physics/Collider.h>
 #include <Physics/Rigidbody.h>
-//#include <Audio/AudioListener.h>
-//#include <Audio/AudioSource.h>
+#include <Audio/AudioListener.h>
+#include <Audio/AudioSource.h>
 
 // Script Includes
 
 
 #include "../Scripts/CharacterController.h"
-
+#include "Scripts/MusicScript.h"
 #include "Scripts/CameraController.h"
 #include "Scripts/GrapplePoint.h"
 #include "Scripts/PlayerController.h"
@@ -36,6 +36,17 @@ Level1::~Level1() {
 bool Level1::Initialize() {
 	//SkyBox
 	SetSky(new PizzaBox::SkyBox("LakeSkybox", "SkyBoxShader", 68000.0f));
+	//Music
+	auto gpm1 = new PizzaBox::AudioSource("GameplayMusic1", PizzaBox::AudioSource::SoundType::_2D, "Music");
+	PizzaBox::GameObject* music = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
+	music->AddComponent(gpm1);
+	music->AddComponent(new MusicScript(gpm1));
+
+	//Waves
+	auto wve1 = new PizzaBox::AudioSource("WavesSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
+	PizzaBox::GameObject* waves = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
+	waves->AddComponent(wve1);
+	waves->AddComponent(new MusicScript(wve1));
 
 	//Camera
 	PizzaBox::GameObject* mainCamera = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
@@ -43,8 +54,11 @@ bool Level1::Initialize() {
 	mainCamera->AddComponent(cam);
 	auto controller = new CameraController();
 	mainCamera->AddComponent(controller);
-	//mainCamera->AddComponent(new PizzaBox::AudioListener());
-	//mainCamera->AddComponent(new PizzaBox::AudioSource("GameplayMusic", PizzaBox::AudioSource::SoundType::_2D, "Music"));
+	mainCamera->AddComponent(new PizzaBox::AudioListener());
+	
+
+
+	//mainCamera->AddComponent(new MusicScript(as1));
 
 	//Directional Light
 	auto dirLight = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(), PizzaBox::Euler(-35.0f, 12.0f, 0.0f));
@@ -66,9 +80,21 @@ bool Level1::Initialize() {
 	auto rb = new PizzaBox::Rigidbody(80.0f, true, true);
 	rb->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
 	rb->AddCollider(new PizzaBox::CapsuleCollider(5.0f, 10.0f), PizzaBox::Vector3(0.0f, 10.0f, 0.0f));
-	Player->AddComponent(rb);
-	Player->AddComponent(new PlayerController(cam, animator));
 
+	auto grappleSFX = new PizzaBox::AudioSource("GrappleSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
+	auto jumpSFX = new PizzaBox::AudioSource("JumpingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
+	auto walkSFX = new PizzaBox::AudioSource("WalkingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
+	auto landingSFX = new PizzaBox::AudioSource("LandingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
+	auto swingingSFX = new PizzaBox::AudioSource("SwingingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
+
+	Player->AddComponent(rb);
+	Player->AddComponent(grappleSFX);
+	Player->AddComponent(jumpSFX);
+	Player->AddComponent(walkSFX);
+	Player->AddComponent(landingSFX);
+	Player->AddComponent(swingingSFX);
+	Player->AddComponent(new PlayerController(cam, animator,walkSFX,grappleSFX,jumpSFX,landingSFX,swingingSFX));
+	
 	controller->SetTarget(Player);
 
 	//Grapple Point
