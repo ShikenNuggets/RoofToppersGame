@@ -16,7 +16,7 @@
 
 
 #include "../Scripts/CharacterController.h"
-
+#include "Scripts/MusicScript.h"
 #include "Scripts/CameraController.h"
 #include "Scripts/GrapplePoint.h"
 #include "Scripts/PlayerController.h"
@@ -36,6 +36,17 @@ Level1::~Level1() {
 bool Level1::Initialize() {
 	// SkyBox
 	SetSky(new PizzaBox::SkyBox("LakeSkybox", "SkyBoxShader", 68000.0f));
+	//Music
+	auto gpm1 = new PizzaBox::AudioSource("GameplayMusic1", PizzaBox::AudioSource::SoundType::_2D, "Music");
+	PizzaBox::GameObject* music = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
+	music->AddComponent(gpm1);
+	music->AddComponent(new MusicScript(gpm1));
+
+	//Waves
+	auto wve1 = new PizzaBox::AudioSource("WavesSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
+	PizzaBox::GameObject* waves = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
+	waves->AddComponent(wve1);
+	waves->AddComponent(new MusicScript(wve1));
 
 	// Camera
 	PizzaBox::GameObject* mainCamera = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
@@ -44,8 +55,10 @@ bool Level1::Initialize() {
 	auto controller = new CameraController();
 	mainCamera->AddComponent(controller);
 	mainCamera->AddComponent(new PizzaBox::AudioListener());
-	auto as1 = new PizzaBox::AudioSource("GameplayMusic1", PizzaBox::AudioSource::SoundType::_2D, "Music");
-	mainCamera->AddComponent(as1);
+	
+
+
+	//mainCamera->AddComponent(new MusicScript(as1));
 
 	// Directional Light
 	auto dirLight = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(), PizzaBox::Euler(-35.0f, 12.0f, 0.0f));
@@ -75,8 +88,13 @@ bool Level1::Initialize() {
 	auto swingingSFX = new PizzaBox::AudioSource("SwingingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
 
 	Player->AddComponent(rb);
+	Player->AddComponent(grappleSFX);
+	Player->AddComponent(jumpSFX);
+	Player->AddComponent(walkSFX);
+	Player->AddComponent(landingSFX);
+	Player->AddComponent(swingingSFX);
 	Player->AddComponent(new PlayerController(cam, animator,walkSFX,grappleSFX,jumpSFX,landingSFX,swingingSFX));
-
+	
 	controller->SetTarget(Player);
 
 	//Grapple Point
