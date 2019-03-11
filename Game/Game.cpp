@@ -13,7 +13,7 @@
 #include <Graphics/UI/ImageUI.h>
 #include <Graphics/UI/UIManager.h>
 #include <Graphics/UI/StatsTextUI.h>
-//#include <Audio/AudioManager.h>
+#include <Audio/AudioManager.h>
 
 using namespace GamePackage;
 
@@ -24,8 +24,8 @@ Game::~Game(){
 }
 
 bool Game::Initialize(){ 
-	//PizzaBox::RenderEngine::SetWindowResolution(1280, 720);
-	//PizzaBox::RenderEngine::SetWindowBorderless(false);
+	PizzaBox::RenderEngine::SetWindowResolution(1280, 720);
+	PizzaBox::RenderEngine::SetWindowBorderless(false);
 	PizzaBox::RenderEngine::SetVSYNC(PizzaBox::Window::VSYNC::Off);
 	PizzaBox::Time::SetFrameRate(0);
 
@@ -129,7 +129,8 @@ bool Game::Initialize(){
 	//PizzaBox::SceneManager::AddScene(new LogoScene());
 	PizzaBox::SceneManager::AddScene(new MainMenuScene());
 	PizzaBox::SceneManager::AddScene(new Level1());
-
+	PizzaBox::AudioManager::CreateVolumeChannel("Music");
+	PizzaBox::AudioManager::CreateVolumeChannel("SFX");
 	return true;
 }
 

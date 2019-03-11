@@ -1,5 +1,5 @@
-#ifndef MONSTER_CONTROLLER_H
-#define MONSTER_CONTROLLER_H
+#ifndef PLAYER_CONTROLLER_H
+#define PLAYER_CONTROLLER_H
 
 #include <Audio/AudioSource.h>
 #include <Graphics/Camera.h>
@@ -8,11 +8,12 @@
 #include <Script/Script.h>
 
 #include "Animators/PlayerAnimator.h"
+#include "GrapplePoint.h"
 
 namespace GamePackage {
 	class PlayerController : public PizzaBox::Script{
 	public:
-		PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_);
+		PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_, PizzaBox::AudioSource* walk_, PizzaBox::AudioSource* grapple_, PizzaBox::AudioSource* jump_, PizzaBox::AudioSource* land_, PizzaBox::AudioSource* swinging_);
 		virtual ~PlayerController() override;
 
 		virtual void OnStart() override;
@@ -22,15 +23,36 @@ namespace GamePackage {
 		virtual void OnCollisionExit(PizzaBox::GameObject* other_) override;
 
 	private:
+		PizzaBox::AudioSource* walkSFX;
+		PizzaBox::AudioSource* grappleSFX;
+		PizzaBox::AudioSource* jumpSFX;
+		PizzaBox::AudioSource* landSFX;
+		PizzaBox::AudioSource* swingingSFX;
 		PizzaBox::Camera* camera;
 		PlayerAnimator* animator;
 		PizzaBox::Rigidbody* rigidbody;
+		PizzaBox::GameObject* grappleLine;
+		GrapplePoint* currentGrapplePoint;
 
 		bool isWalking;
-		bool isGrounded;
+		bool isSwinging;
+		bool isSwitchingToSwinging;
 
 		float maxRotationPerSecond, MoveY;
+		float pullSpeed, currentGrappleLength;
+		float maxGrappleLength;
+		float fallBooster;
+		float deathTimer;
+
+		void GroundMovement(float deltaTime_);
+		void Swinging(float deltaTime_);
+
+		void SwitchToSwinging();
+		void SwitchToGroundMovement();
+		
+		GrapplePoint* FindNearestGrapple();
+		bool IsOnGround();
 	};
 }
 
-#endif //!MONSTER_CONTROLLER_H
+#endif //!PLAYER_CONTROLLER_H
