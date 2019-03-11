@@ -36,7 +36,7 @@ void PlayerController::Update(const float deltaTime_){
 	float moveSpeed = 20.0f;
 	float rotateSpeed = 360.0f;
 
-	if(PizzaBox::InputManager::GetKeyHeld(SDLK_LCTRL) && PizzaBox::InputManager::GetKeyHeld(SDLK_r)){
+	if(PizzaBox::InputManager::GetKeyHeld(SDLK_LCTRL) && PizzaBox::InputManager::GetKeyUp(SDLK_r)){
 		PizzaBox::SceneManager::LoadScene(0);
 	}
 
@@ -145,13 +145,13 @@ void PlayerController::GroundMovement(float deltaTime_){
 		if (IsOnGround()) {
 			animator->isJumping = true;
 			PizzaBox::Vector3 jumpImpulse = gameObject->GetTransform()->GetUp() * 10000.0f * 80.0f;
-			rigidbody->Impulse(jumpImpulse);
+			rigidbody->Impulse(jumpImpulse * deltaTime_ * 60.0f);
 		}
 	}
 
 	if (!IsOnGround()) {
 		if (!PizzaBox::InputManager::GetButtonHeld("JumpButton") || rigidbody->GetLinearVelocity().y < 0) {
-			rigidbody->SetLinearVelocity(rigidbody->GetLinearVelocity() + (gameObject->GetTransform()->GetUp() * -fallBooster));
+			rigidbody->SetLinearVelocity(rigidbody->GetLinearVelocity() + (gameObject->GetTransform()->GetUp() * -fallBooster * deltaTime_ * 60.0f));
 		}
 	}
 
