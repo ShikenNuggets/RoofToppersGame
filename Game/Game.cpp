@@ -49,9 +49,7 @@ bool Game::Initialize(){
 	//PizzaBox::SceneManager::AddScene(new MainMenuScene());
 	PizzaBox::SceneManager::AddScene(new Level1());
 	PizzaBox::AudioManager::CreateVolumeChannel("Music");
-	PizzaBox::AudioManager::CreateVolumeChannel("WavesSFX");
 	PizzaBox::AudioManager::CreateVolumeChannel("SFX");
-
 	return true;
 }
 
