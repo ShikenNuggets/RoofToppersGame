@@ -292,6 +292,11 @@ GrapplePoint* PlayerController::FindNearestGrapple(){
 				mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), camera->GetGameObject()->GetTransform()->GetForward());
 			}
 		}else{
+			if (PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), camera->GetGameObject()->GetTransform()->GetForward()) < 0.0f) {
+				if ((point->GetGameObject()->GlobalPosition() - gameObject->GlobalPosition()).Magnitude() > maxGrappleLength / 2.0f) {
+					continue;
+				}
+			}
 			grappleTarget = point;
 			mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), camera->GetGameObject()->GetTransform()->GetForward());
 		}
