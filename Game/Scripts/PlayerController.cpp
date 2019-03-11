@@ -12,9 +12,11 @@
 #include <Graphics/Models/MeshRender.h>
 #include <Graphics/Materials/ColorMaterial.h>
 
+#include "CameraController.h"
+
 using namespace GamePackage;
 
-PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_) : camera(camera_), animator(animator_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(80.0f), fallBooster(2.0f){
+PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_) : camera(camera_), animator(animator_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(80.0f), fallBooster(2.0f), deathTimer(0.0f){
 }
 
 PlayerController::~PlayerController(){
@@ -50,6 +52,14 @@ void PlayerController::Update(const float deltaTime_){
 		GroundMovement(deltaTime_);
 	}else{
 		Swinging(deltaTime_);
+	}
+
+	if(gameObject->GlobalPosition().y < -10.0f){
+		camera->GetGameObject()->GetComponent<CameraController>()->SetTarget(nullptr);
+		deathTimer += PizzaBox::Time::RealDeltaTime();
+		if(deathTimer >= 1.0f){
+			PizzaBox::SceneManager::ReloadCurrentScene(); //TODO - Have this trigger death UI
+		}
 	}
 }
 
