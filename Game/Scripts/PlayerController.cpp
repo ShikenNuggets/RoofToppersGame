@@ -16,7 +16,7 @@
 
 using namespace GamePackage;
 
-PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_, PizzaBox::AudioSource* walk_, PizzaBox::AudioSource* grapple_, PizzaBox::AudioSource* jump_, PizzaBox::AudioSource* land_, PizzaBox::AudioSource* swinging_) : camera(camera_), animator(animator_), walkSFX(walk_),grappleSFX(grapple_),jumpSFX(jump_),landSFX(land_),swingingSFX(swinging_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(80.0f), fallBooster(2.0f), deathTimer(0.0f){
+PlayerController::PlayerController(PlayerAnimator* animator_, PizzaBox::AudioSource* walk_, PizzaBox::AudioSource* grapple_, PizzaBox::AudioSource* jump_, PizzaBox::AudioSource* land_, PizzaBox::AudioSource* swinging_) : camera(nullptr), animator(animator_), walkSFX(walk_), grappleSFX(grapple_), jumpSFX(jump_), landSFX(land_), swingingSFX(swinging_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(80.0f), fallBooster(2.0f), deathTimer(0.0f){
 }
 
 PlayerController::~PlayerController(){
@@ -25,10 +25,25 @@ PlayerController::~PlayerController(){
 void PlayerController::OnStart(){
 	maxRotationPerSecond = 720.0f;
 	MoveY = 0.0f;
-	rigidbody = gameObject->GetComponent<PizzaBox::Rigidbody>();
-
 	isSwitchingToSwinging = false;
 	pullSpeed = 0.4f;
+
+	rigidbody = gameObject->GetComponent<PizzaBox::Rigidbody>();
+	if(rigidbody == nullptr){
+		PizzaBox::Debug::LogError("Player object does not have a PizzaBox::Rigidbody component!", __FILE__, __LINE__);
+	}
+
+	auto cameraObj = PizzaBox::SceneManager::CurrentScene()->FindWithTag("Camera");
+	if(cameraObj == nullptr){
+		PizzaBox::Debug::LogError("Could not find object with tag [\"Camera\"] in scene!", __FILE__, __LINE__);
+		return;
+	}
+
+	camera = cameraObj->GetComponent<PizzaBox::Camera>();
+	if(camera == nullptr){
+		PizzaBox::Debug::LogError("Camera object does not have a PizzaBox::Camera component!", __FILE__, __LINE__);
+		return;
+	}
 }
 
 void PlayerController::Update(const float deltaTime_){

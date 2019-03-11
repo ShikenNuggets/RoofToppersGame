@@ -13,7 +13,7 @@
 namespace GamePackage {
 	class PlayerController : public PizzaBox::Script{
 	public:
-		PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_, PizzaBox::AudioSource* walk_, PizzaBox::AudioSource* grapple_, PizzaBox::AudioSource* jump_, PizzaBox::AudioSource* land_, PizzaBox::AudioSource* swinging_);
+		PlayerController(PlayerAnimator* animator_, PizzaBox::AudioSource* walkSFX_, PizzaBox::AudioSource* grappleSFX_, PizzaBox::AudioSource* jumpSFX_, PizzaBox::AudioSource* landSFX_, PizzaBox::AudioSource* swingingSFX_);
 		virtual ~PlayerController() override;
 
 		virtual void OnStart() override;

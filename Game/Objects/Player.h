@@ -41,7 +41,7 @@ namespace GamePackage{
 			AddComponent(walkSFX);
 			AddComponent(landingSFX);
 			AddComponent(swingingSFX);
-			AddComponent(new PlayerController(/*cam*/nullptr, animator, walkSFX, grappleSFX, jumpSFX, landingSFX, swingingSFX));
+			AddComponent(new PlayerController(animator, walkSFX, grappleSFX, jumpSFX, landingSFX, swingingSFX));
 		}
 
 		virtual ~Player() override{}

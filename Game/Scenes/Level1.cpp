@@ -53,13 +53,12 @@ bool Level1::Initialize() {
 
 	//Camera
 	PizzaBox::GameObject* mainCamera = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
+	mainCamera->SetTag("Camera");
 	auto cam = new PizzaBox::Camera(PizzaBox::ViewportRect::fullScreen, PizzaBox::Camera::RenderMode::Perspective);
 	mainCamera->AddComponent(cam);
 	auto controller = new CameraController();
 	mainCamera->AddComponent(controller);
 	mainCamera->AddComponent(new PizzaBox::AudioListener());
-	
-
 
 	//mainCamera->AddComponent(new MusicScript(as1));
 
