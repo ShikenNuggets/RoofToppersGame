@@ -98,7 +98,7 @@ void CameraController::Update(const float deltaTime_){
 	targetPos.y += (target->GlobalScale().y / 2.0f) * 500.0f;
 
 	//Sets camera position based on camera rotation and target position
-	float desiredFollowDistance = 50.0f;
+	float desiredFollowDistance = 10.0f;
 	PizzaBox::Vector3 newPosition = targetPos + (-camera->GetGameObject()->GetTransform()->GetForward() * desiredFollowDistance);
 	camera->GetGameObject()->SetPosition(newPosition);
 

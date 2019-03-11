@@ -42,6 +42,7 @@ namespace GamePackage {
 		float pullSpeed, currentGrappleLength;
 		float maxGrappleLength;
 		float fallBooster;
+		float deathTimer;
 
 		void GroundMovement(float deltaTime_);
 		void Swinging(float deltaTime_);

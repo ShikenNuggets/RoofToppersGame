@@ -12,11 +12,11 @@
 #include <Graphics/Models/MeshRender.h>
 #include <Graphics/Materials/ColorMaterial.h>
 
-
+#include "CameraController.h"
 
 using namespace GamePackage;
 
-PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_, PizzaBox::AudioSource* walk_, PizzaBox::AudioSource* grapple_, PizzaBox::AudioSource* jump_, PizzaBox::AudioSource* land_, PizzaBox::AudioSource* swinging_) : camera(camera_), animator(animator_), walkSFX(walk_),grappleSFX(grapple_),jumpSFX(jump_),landSFX(land_),swingingSFX(swinging_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(80.0f), fallBooster(2.0f){
+PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_, PizzaBox::AudioSource* walk_, PizzaBox::AudioSource* grapple_, PizzaBox::AudioSource* jump_, PizzaBox::AudioSource* land_, PizzaBox::AudioSource* swinging_) : camera(camera_), animator(animator_), walkSFX(walk_),grappleSFX(grapple_),jumpSFX(jump_),landSFX(land_),swingingSFX(swinging_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(80.0f), fallBooster(2.0f), deathTimer(0.0f){
 }
 
 PlayerController::~PlayerController(){
@@ -53,6 +53,14 @@ void PlayerController::Update(const float deltaTime_){
 		GroundMovement(deltaTime_);
 	}else{
 		Swinging(deltaTime_);
+	}
+
+	if(gameObject->GlobalPosition().y < -10.0f){
+		camera->GetGameObject()->GetComponent<CameraController>()->SetTarget(nullptr);
+		deathTimer += PizzaBox::Time::RealDeltaTime();
+		if(deathTimer >= 1.0f){
+			PizzaBox::SceneManager::ReloadCurrentScene(); //TODO - Have this trigger death UI
+		}
 	}
 }
 
@@ -113,7 +121,15 @@ void PlayerController::GroundMovement(float deltaTime_){
 		gameObject->GetTransform()->Rotate(PizzaBox::Euler(0.0f, finalAngle, 0.0f));
 	}
 	
-	float moveValue = (fabs(moveX) + fabs(moveZ)) / 2.0f;
+	float moveValue = 0.0f;
+	if(!PizzaBox::Math::NearZero(moveX) && PizzaBox::Math::NearZero(moveZ)){
+		moveValue = PizzaBox::Math::Abs(moveX);
+	}else if(PizzaBox::Math::NearZero(moveX) && !PizzaBox::Math::NearZero(moveZ)){
+		moveValue = PizzaBox::Math::Abs(moveZ);
+	}else{
+		moveValue = (PizzaBox::Math::Abs(moveX) + PizzaBox::Math::Abs(moveZ)) / 2.0f;
+	}
+	
 	float scaleFactor = gameObject->GlobalScale().x * 10.0f;
 
 	if(isWalking && PizzaBox::Math::NearZero(moveValue)){
@@ -127,21 +143,21 @@ void PlayerController::GroundMovement(float deltaTime_){
 	PizzaBox::Vector3 impulse = -gameObject->GetTransform()->GetForward() * moveValue;
 
 	if(IsOnGround()){
-		rigidbody->Impulse(impulse * 7500.0f * 80.0f * 2.5f * deltaTime_);
+		rigidbody->Impulse(impulse * 7500.0f * 80.0f * 2.5f * deltaTime_ / 5.0f);
 	}else{
-		rigidbody->Impulse(impulse * 7500.0f * 80.0f * deltaTime_);
+		rigidbody->Impulse(impulse * 7500.0f * 80.0f * deltaTime_ / 5.0f);
 	}
 
 	if(PizzaBox::InputManager::GetButtonDown("JumpButton") && IsOnGround() && animator != nullptr && !animator->IsTransitioning()){
 		animator->isJumping = true;
 		PizzaBox::Vector3 jumpImpulse = gameObject->GetTransform()->GetUp() * 10000.0f * 80.0f;
-		rigidbody->Impulse(jumpImpulse * deltaTime_ * 60.0f);
+		rigidbody->Impulse(jumpImpulse * deltaTime_ * 60.0f / 1.5f);
 		jumpSFX->PlayOnce();
 	}
 
 	if(!IsOnGround()){
 		if(!PizzaBox::InputManager::GetButtonHeld("JumpButton") || rigidbody->GetLinearVelocity().y < 0){
-			rigidbody->SetLinearVelocity(rigidbody->GetLinearVelocity() + (gameObject->GetTransform()->GetUp() * -fallBooster * deltaTime_ * 60.0f));
+			rigidbody->SetLinearVelocity(rigidbody->GetLinearVelocity() + (gameObject->GetTransform()->GetUp() * -fallBooster * deltaTime_ * 60.0f / 5.0f));
 		}
 	}
 
@@ -163,8 +179,8 @@ void PlayerController::Swinging(float deltaTime_){
 	float forwardRotate = PizzaBox::InputManager::GetAxis("Depth");
 	float sideRotate = PizzaBox::InputManager::GetAxis("Horizontal");
 
-	rigidbody->Impulse(-forwardRotate * camera->GetGameObject()->GetTransform()->GetForward() * 10.0f * rigidbody->GetMass() * 120.0f * deltaTime_);
-	rigidbody->Impulse(sideRotate * camera->GetGameObject()->GetTransform()->GetRight() * 10.0f * rigidbody->GetMass() * 120.0f * deltaTime_);
+	rigidbody->Impulse(-forwardRotate * camera->GetGameObject()->GetTransform()->GetForward() * 10.0f * rigidbody->GetMass() * 120.0f * deltaTime_ / 5.0f);
+	rigidbody->Impulse(sideRotate * camera->GetGameObject()->GetTransform()->GetRight() * 10.0f * rigidbody->GetMass() * 120.0f * deltaTime_ / 5.0f);
 
 	// Start the physics stuff
 	//Where are we after the update
@@ -178,7 +194,7 @@ void PlayerController::Swinging(float deltaTime_){
 	}
 
 	//Prevent player from dragging on ground. Physics doesnt like this
-	PizzaBox::Vector3 raycastNextPos = gameObject->GlobalPosition() + (nextPosition - gameObject->GlobalPosition()) * 2;
+	PizzaBox::Vector3 raycastNextPos = gameObject->GlobalPosition() + (nextPosition - gameObject->GlobalPosition()) * 2.0f;
 	std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(gameObject->GlobalPosition() + gameObject->GetTransform()->GetUp(), raycastNextPos);
 	
 	PizzaBox::RaycastInfo closest = PizzaBox::RaycastInfo(PizzaBox::Vector3(), PizzaBox::Vector3(), PizzaBox::Math::Infinity(), nullptr);
@@ -195,10 +211,12 @@ void PlayerController::Swinging(float deltaTime_){
 	rigidbody->SetLinearVelocity((nextPosition - gameObject->GlobalPosition()) / deltaTime_);
 
 	//Change rope parameters
-	PizzaBox::Vector3 testLine = gameObject->GlobalPosition() + ((grapplePoint->GlobalPosition() - gameObject->GlobalPosition()) / 2.0f) + (gameObject->GetTransform()->GetUp() * 10.0f);
+	PizzaBox::Vector3 testLine = gameObject->GlobalPosition() + ((grapplePoint->GlobalPosition() - gameObject->GlobalPosition()) / 2.0f) + (gameObject->GetTransform()->GetUp() * 0.0f);
 	grappleLine->SetGlobalPosition(testLine);
+	//grappleLine->SetGlobalPosition(gameObject->GlobalPosition() + (grapplePoint->GlobalPosition() - gameObject->GlobalPosition()));
 	grappleLine->SetGlobalRotation(gameObject->GlobalRotation());
-	grappleLine->SetGlobalScale(1.0f, (((gameObject->GlobalPosition() - grapplePoint->GlobalPosition()).Magnitude() / 2.0f) - 10.0f), 1.0f);
+	grappleLine->SetGlobalScale(0.25f, (((gameObject->GlobalPosition() - grapplePoint->GlobalPosition()).Magnitude()) - 10.0f), 0.25f);
+	//grappleLine->SetGlobalScale(1.0f, PizzaBox::Vector3::Distance(gameObject->GlobalPosition(), grapplePoint->GlobalPosition()), 1.0f);
 
 	if(isSwitchingToSwinging){
 		if(currentGrappleLength <= grapplePoint->GetComponent<GrapplePoint>()->swingDistance){
