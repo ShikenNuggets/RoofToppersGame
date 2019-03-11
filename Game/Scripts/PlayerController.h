@@ -26,6 +26,7 @@ namespace GamePackage {
 		PizzaBox::Camera* camera;
 		PlayerAnimator* animator;
 		PizzaBox::Rigidbody* rigidbody;
+		PizzaBox::GameObject* grappleLine;
 
 		bool isWalking;
 		bool isSwinging;

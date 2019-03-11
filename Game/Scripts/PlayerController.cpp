@@ -9,7 +9,8 @@
 #include <Physics/Rigidbody.h>
 #include <Physics/PhysicsEngine.h>
 #include <Tools/Debug.h>
-
+#include <Graphics/Models/MeshRender.h>
+#include <Graphics/Materials/ColorMaterial.h>
 
 using namespace GamePackage;
 
@@ -20,7 +21,7 @@ PlayerController::~PlayerController(){
 }
 
 void PlayerController::OnStart(){
-	maxRotationPerSecond = 180.0f;
+	maxRotationPerSecond = 720.0f;
 	MoveY = 0.0f;
 	rigidbody = gameObject->GetComponent<PizzaBox::Rigidbody>();
 
@@ -185,8 +186,9 @@ void PlayerController::Swinging(float deltaTime_){
 	else if ((nextPosition - grapplePoint->GlobalPosition()).Magnitude() < grapplePoint->GetComponent<GrapplePoint>()->swingDistance * 0.99f) {
 		nextPosition = grapplePoint->GlobalPosition() + ((nextPosition - grapplePoint->GlobalPosition()).Normalized() * (grapplePoint->GetComponent<GrapplePoint>()->swingDistance * 0.99f));
 	}
+	//Prevent player from dragging on ground. Physics doesnt like this
 	PizzaBox::Vector3 raycastNextPos = gameObject->GlobalPosition() + (nextPosition - gameObject->GlobalPosition()) * 2;
-	std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(gameObject->GlobalPosition(), raycastNextPos);
+	std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(gameObject->GlobalPosition() + gameObject->GetTransform()->GetUp(), raycastNextPos);
 	if (!info.empty()) {
 		PizzaBox::RaycastInfo closest;
 		closest.hitFraction = PizzaBox::Math::Infinity();
@@ -199,10 +201,15 @@ void PlayerController::Swinging(float deltaTime_){
 			}
 		}
 		if (closest.other != nullptr) {
-			nextPosition += closest.normal * deltaTime_;
+			nextPosition += closest.normal * 0.3f;
 		}
 	}
 	rigidbody->SetLinearVelocity((nextPosition - gameObject->GlobalPosition()) / deltaTime_);
+	// Change Rope parameters
+	PizzaBox::Vector3 testLine = gameObject->GlobalPosition() + ((grapplePoint->GlobalPosition() - gameObject->GlobalPosition())/2.0f) + (gameObject->GetTransform()->GetUp() * 10.0f);
+	grappleLine->SetGlobalPosition(testLine);
+	grappleLine->SetGlobalRotation(gameObject->GlobalRotation());
+	grappleLine->SetGlobalScale(1.0f, (((gameObject->GlobalPosition() - grapplePoint->GlobalPosition()).Magnitude() / 2.0f) - 10.0f), 1.0f);
 
 	if(isSwitchingToSwinging){
 		if(currentGrappleLength <= grapplePoint->GetComponent<GrapplePoint>()->swingDistance){
@@ -229,12 +236,18 @@ void PlayerController::SwitchToSwinging(){
 	}
 	PizzaBox::GameObject* grapplePoint = nearGrapple->GetGameObject();
 
+	// Make Rope
+	grappleLine = PizzaBox::SceneManager::CurrentScene()->CreateObject<PizzaBox::GameObject>();
+	grappleLine->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Brown)));
+
 	currentGrappleLength = (gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude();
 	isSwitchingToSwinging = true;
 }
 
 void PlayerController::SwitchToGroundMovement(){
 	gameObject->SetRotation(0.0f, 180.0f, 0.0f);
+
+	PizzaBox::SceneManager::CurrentScene()->DestroyObject(grappleLine);
 
 	if(!IsOnGround()){
 		rigidbody->SetLinearVelocityDamping(0.0f);
