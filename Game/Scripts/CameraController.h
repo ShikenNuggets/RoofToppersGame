@@ -18,6 +18,7 @@ namespace GamePackage {
 
 		PizzaBox::GameObject* GetTarget();
 		void SetTarget(PizzaBox::GameObject* target_);
+
 	private:
 		PizzaBox::Camera* camera;
 		float rotateSpeed;
@@ -31,6 +32,7 @@ namespace GamePackage {
 		float shakeTime;
 		PizzaBox::GameObject* target;
 		float mouseSensitivity;
+		float gamepadSensitivity;
 
 		void Shake();
 		PizzaBox::Vector3 NewRandomDirection() const;

@@ -12,7 +12,7 @@
 
 using namespace GamePackage;
 
-CameraController::CameraController(PizzaBox::GameObject* target_) : camera(nullptr), isShaking(false), shakeStartPos(), shakeDuration(0.0f), shakeFrequency(0.0f), shakeDir(), shakeTargetPos(), shakeTimer(0.0f), shakeTime(0.0f), rotateSpeed(0.0f){
+CameraController::CameraController(PizzaBox::GameObject* target_) : camera(nullptr), isShaking(false), shakeStartPos(), shakeDuration(0.0f), shakeFrequency(0.0f), shakeDir(), shakeTargetPos(), shakeTimer(0.0f), shakeTime(0.0f), rotateSpeed(0.0f), mouseSensitivity(100.0f), gamepadSensitivity(2.5f){
 	target = target_;
 }
 
@@ -27,8 +27,10 @@ void CameraController::OnStart(){
 	shakeTime = 0.05f;
 	rotateSpeed = 45.0f;
 	PizzaBox::RenderEngine::ShowCursor(false);
-	// TODO: Set up ini mouse sensitivity settings and usage
+
+	//TODO - Set up ini mouse sensitivity settings and usage
 	mouseSensitivity = 100.0f;
+	gamepadSensitivity = 2.5f;
 }
 
 void CameraController::OnDestroy(){
@@ -49,48 +51,49 @@ void CameraController::Update(const float deltaTime_){
 		gameObject->SetPosition(shakeStartPos);
 	}
 
-	// Camera Movement, occurs only if there is no target
+	//Camera movement, occurs only if there is no target
 	float moveY = PizzaBox::InputManager::GetAxis("RotateZ");
 	float moveZ = PizzaBox::InputManager::GetAxis("RotateY");
 
 	gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetUp() * rotateSpeed * moveY * PizzaBox::Time::RealDeltaTime());
 	gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetRight() * -rotateSpeed * moveZ * PizzaBox::Time::RealDeltaTime());
 
-	// Camera Rotation
+	//Camera rotation
 	float rotX = -PizzaBox::InputManager::GetAxis("MouseX") * mouseSensitivity * 75.0f;
 	float rotY = -PizzaBox::InputManager::GetAxis("MouseY") * mouseSensitivity * 30.0f;
 
 	if(PizzaBox::Math::NearZero(rotX) && PizzaBox::Math::NearZero(rotY)){
-		rotX = -PizzaBox::InputManager::GetAxis("RightStickX") * 2.5f * 75.0f;
-		rotY = -PizzaBox::InputManager::GetAxis("RightStickY") * 2.5f * 30.0f;
+		rotX = -PizzaBox::InputManager::GetAxis("RightStickX") * gamepadSensitivity * 75.0f;
+		rotY = -PizzaBox::InputManager::GetAxis("RightStickY") * gamepadSensitivity * 30.0f;
 	}
 	
 	gameObject->GetTransform()->Rotate(rotY * PizzaBox::Time::RealDeltaTime(), rotX * PizzaBox::Time::RealDeltaTime(), 0.0f);
 
 	//v1 is camera facing direction
 	PizzaBox::Vector3 cameraForward = camera->GetGameObject()->GetTransform()->GetForward();
-
 	 
 	//Get rid of any roll since that doesn't work so well for cameras
-	auto currentRotation = gameObject->GetTransform()->GetRotation();
+	PizzaBox::Euler currentRotation = gameObject->GetTransform()->GetRotation();
 	currentRotation.z = 0.0f;
 	gameObject->SetRotation(currentRotation);
 	 
 	if(isShaking){
 		Shake();
 	}
+
 	// If there is no target, do not skip this stuff
-	if (target == nullptr) {
+	if(target == nullptr){
 		return;
 	}
-	// Quick reference to target's global position
+
+	//Quick reference to target's global position
 	PizzaBox::Vector3 targetPos = target->GetTransform()->GlobalPosition();
 
 	//Target's center is it's feet, so we'll adjust our target position based on half it's scale
 	//Multiplied by a fudge factor because our model is weird
 	targetPos.y += (target->GlobalScale().y / 2.0f) * 500.0f;
 
-	// Sets camera position based on camera rotation and target position
+	//Sets camera position based on camera rotation and target position
 	float desiredFollowDistance = 50.0f;
 	PizzaBox::Vector3 newPosition = targetPos + (-camera->GetGameObject()->GetTransform()->GetForward() * desiredFollowDistance);
 	camera->GetGameObject()->SetPosition(newPosition);
@@ -139,10 +142,10 @@ PizzaBox::Vector3 CameraController::NewRandomDirection() const{
 	return result;
 }
 
-PizzaBox::GameObject* CameraController::GetTarget() {
+PizzaBox::GameObject* CameraController::GetTarget(){
 	return target;
 }
 
-void CameraController::SetTarget(PizzaBox::GameObject* target_) {
+void CameraController::SetTarget(PizzaBox::GameObject* target_){
 	target = target_;
 }

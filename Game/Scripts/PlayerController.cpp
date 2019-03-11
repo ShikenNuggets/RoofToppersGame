@@ -14,7 +14,7 @@
 
 using namespace GamePackage;
 
-PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_) : camera(camera_), animator(animator_), rigidbody(nullptr), isWalking(false), maxRotationPerSecond(0.0f), MoveY(0.0f) {
+PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_) : camera(camera_), animator(animator_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(80.0f), fallBooster(2.0f){
 }
 
 PlayerController::~PlayerController(){
@@ -33,9 +33,6 @@ void PlayerController::Update(const float deltaTime_){
 	rigidbody->SetMinLinearVelocity(-PizzaBox::Math::Infinity());
 	rigidbody->SetMaxLinearVelocity(PizzaBox::Math::Infinity());
 
-	float moveSpeed = 20.0f;
-	float rotateSpeed = 360.0f;
-
 	if(PizzaBox::InputManager::GetKeyHeld(SDLK_LCTRL) && PizzaBox::InputManager::GetKeyUp(SDLK_r)){
 		PizzaBox::SceneManager::LoadScene(0);
 	}
@@ -48,13 +45,6 @@ void PlayerController::Update(const float deltaTime_){
 			SwitchToGroundMovement();
 		}
 	}
-
-	/*
-	if(animator != nullptr && animator->isJumping){ 
-		//gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetUp() * MoveY * moveSpeed * deltaTime_);
-		return;
-	}
-	*/
 
 	if(!isSwinging){
 		GroundMovement(deltaTime_);
@@ -84,19 +74,19 @@ void PlayerController::GroundMovement(float deltaTime_){
 	float moveX = -PizzaBox::InputManager::GetAxis("Horizontal");
 	float moveZ = -PizzaBox::InputManager::GetAxis("Depth");
 
-	// Handles smooth rotation
+	//Handles smooth rotation
 	if(!PizzaBox::Math::NearZero(moveX) || !PizzaBox::Math::NearZero(moveZ)){
 		PizzaBox::Vector3 targetDir = PizzaBox::Vector3(moveX, 0.0f, moveZ).Normalized();
-		targetDir = camera->GetGameObject()->GlobalRotation().ToMatrix4() * targetDir;
+		targetDir = camera->GetGameObject()->GlobalRotationQuat().ToMatrix4() * targetDir;
 		 
-		auto playerForward = gameObject->GetTransform()->GetForward();
+		PizzaBox::Vector3 playerForward = gameObject->GetTransform()->GetForward();
 		float arg1 = PizzaBox::Vector3::Dot(playerForward, targetDir);
 		float arg2 = playerForward.Magnitude() * targetDir.Magnitude();
 
-		auto val = arg1 / arg2;
+		float val = arg1 / arg2;
 		float rotationAngle = PizzaBox::Math::Acos(PizzaBox::Math::Clamp(-1.0f, 1.0f, val));
-		auto axis = PizzaBox::Vector3::Cross(playerForward, targetDir);
-		auto s = PizzaBox::Math::Sin(rotationAngle / 2.0f);
+		PizzaBox::Vector3 axis = PizzaBox::Vector3::Cross(playerForward, targetDir);
+		float s = PizzaBox::Math::Sin(rotationAngle / 2.0f);
 
 		axis *= s;
 		PizzaBox::Quaternion q = PizzaBox::Quaternion(PizzaBox::Math::Cos(rotationAngle / 2.0f), axis);
@@ -118,21 +108,19 @@ void PlayerController::GroundMovement(float deltaTime_){
 		}
 
 		gameObject->GetTransform()->Rotate(PizzaBox::Euler(0.0f, finalAngle, 0.0f));
-
 	}
-	  
+	
 	float moveValue = (fabs(moveX) + fabs(moveZ)) / 2.0f;
 	float scaleFactor = gameObject->GlobalScale().x * 10.0f;
 
 	if(isWalking && PizzaBox::Math::NearZero(moveValue)){
 		isWalking = false;
-		//walk->StopContinuous();				// audio
+		//walkAudio->StopContinuous();
 	}else if(!isWalking && !PizzaBox::Math::NearZero(moveValue)){
 		isWalking = true;
-		//walk->PlayContinuous();				// audio
+		//walkAudio->PlayContinuous();
 	}
 
-	//gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetForward() * -fabs(moveValue) * moveSpeed * scaleFactor * deltaTime_);
 	PizzaBox::Vector3 impulse = -gameObject->GetTransform()->GetForward() * moveValue;
 
 	if(IsOnGround()){
@@ -141,16 +129,14 @@ void PlayerController::GroundMovement(float deltaTime_){
 		rigidbody->Impulse(impulse * 7500.0f * 80.0f * deltaTime_);
 	}
 
-	if (PizzaBox::InputManager::GetButtonDown("JumpButton") && animator != nullptr && !animator->IsTransitioning()) {
-		if (IsOnGround()) {
-			animator->isJumping = true;
-			PizzaBox::Vector3 jumpImpulse = gameObject->GetTransform()->GetUp() * 10000.0f * 80.0f;
-			rigidbody->Impulse(jumpImpulse * deltaTime_ * 60.0f);
-		}
+	if(PizzaBox::InputManager::GetButtonDown("JumpButton") && IsOnGround() && animator != nullptr && !animator->IsTransitioning()){
+		animator->isJumping = true;
+		PizzaBox::Vector3 jumpImpulse = gameObject->GetTransform()->GetUp() * 10000.0f * 80.0f;
+		rigidbody->Impulse(jumpImpulse * deltaTime_ * 60.0f);
 	}
 
-	if (!IsOnGround()) {
-		if (!PizzaBox::InputManager::GetButtonHeld("JumpButton") || rigidbody->GetLinearVelocity().y < 0) {
+	if(!IsOnGround()){
+		if(!PizzaBox::InputManager::GetButtonHeld("JumpButton") || rigidbody->GetLinearVelocity().y < 0){
 			rigidbody->SetLinearVelocity(rigidbody->GetLinearVelocity() + (gameObject->GetTransform()->GetUp() * -fallBooster * deltaTime_ * 60.0f));
 		}
 	}
@@ -163,11 +149,12 @@ void PlayerController::GroundMovement(float deltaTime_){
 void PlayerController::Swinging(float deltaTime_){
 	rigidbody->SetLinearVelocityDamping(0.0f);
 	rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
-
-	PizzaBox::GameObject* grapplePoint = PizzaBox::SceneManager::CurrentScene()->GetComponentInScene<GrapplePoint>()->GetGameObject();
-	if(grapplePoint == nullptr){
+	
+	if(currentGrapplePoint == nullptr){
 		return;
 	}
+
+	PizzaBox::GameObject* grapplePoint = currentGrapplePoint->GetGameObject();
 
 	float forwardRotate = PizzaBox::InputManager::GetAxis("Depth");
 	float sideRotate = PizzaBox::InputManager::GetAxis("Horizontal");
@@ -182,31 +169,29 @@ void PlayerController::Swinging(float deltaTime_){
 	if((nextPosition - grapplePoint->GlobalPosition()).Magnitude() > currentGrappleLength){
 		//Pull back in if it is
 		nextPosition = grapplePoint->GlobalPosition() + ((nextPosition - grapplePoint->GlobalPosition()).Normalized() * currentGrappleLength);
-	}
-	else if ((nextPosition - grapplePoint->GlobalPosition()).Magnitude() < grapplePoint->GetComponent<GrapplePoint>()->swingDistance * 0.99f) {
+	}else if((nextPosition - grapplePoint->GlobalPosition()).Magnitude() < grapplePoint->GetComponent<GrapplePoint>()->swingDistance * 0.99f){
 		nextPosition = grapplePoint->GlobalPosition() + ((nextPosition - grapplePoint->GlobalPosition()).Normalized() * (grapplePoint->GetComponent<GrapplePoint>()->swingDistance * 0.99f));
 	}
+
 	//Prevent player from dragging on ground. Physics doesnt like this
 	PizzaBox::Vector3 raycastNextPos = gameObject->GlobalPosition() + (nextPosition - gameObject->GlobalPosition()) * 2;
 	std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(gameObject->GlobalPosition() + gameObject->GetTransform()->GetUp(), raycastNextPos);
-	if (!info.empty()) {
-		PizzaBox::RaycastInfo closest;
-		closest.hitFraction = PizzaBox::Math::Infinity();
-		for (PizzaBox::RaycastInfo ri : info) {
-			if (ri.other->HasTag("Player")) {
-				break;
-			}
-			if (ri.hitFraction < closest.hitFraction) {
-				closest = ri;
-			}
-		}
-		if (closest.other != nullptr) {
-			nextPosition += closest.normal * 0.3f;
+	
+	PizzaBox::RaycastInfo closest = PizzaBox::RaycastInfo(PizzaBox::Vector3(), PizzaBox::Vector3(), PizzaBox::Math::Infinity(), nullptr);
+	for(const PizzaBox::RaycastInfo& i : info){
+		if(i.hitFraction < closest.hitFraction && !i.other->HasTag("Player")){
+			closest = i;
 		}
 	}
+
+	if(closest.other != nullptr){
+		nextPosition += closest.normal * 0.3f;
+	}
+
 	rigidbody->SetLinearVelocity((nextPosition - gameObject->GlobalPosition()) / deltaTime_);
-	// Change Rope parameters
-	PizzaBox::Vector3 testLine = gameObject->GlobalPosition() + ((grapplePoint->GlobalPosition() - gameObject->GlobalPosition())/2.0f) + (gameObject->GetTransform()->GetUp() * 10.0f);
+
+	//Change rope parameters
+	PizzaBox::Vector3 testLine = gameObject->GlobalPosition() + ((grapplePoint->GlobalPosition() - gameObject->GlobalPosition()) / 2.0f) + (gameObject->GetTransform()->GetUp() * 10.0f);
 	grappleLine->SetGlobalPosition(testLine);
 	grappleLine->SetGlobalRotation(gameObject->GlobalRotation());
 	grappleLine->SetGlobalScale(1.0f, (((gameObject->GlobalPosition() - grapplePoint->GlobalPosition()).Magnitude() / 2.0f) - 10.0f), 1.0f);
@@ -216,10 +201,11 @@ void PlayerController::Swinging(float deltaTime_){
 			currentGrappleLength = grapplePoint->GetComponent<GrapplePoint>()->swingDistance;
 			isSwitchingToSwinging = false;
 		}else{
-			pullSpeed = ((gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude() - grapplePoint->GetComponent<GrapplePoint>()->swingDistance) / 100;
+			pullSpeed = ((gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude() - grapplePoint->GetComponent<GrapplePoint>()->swingDistance) / 100.0f;
 			currentGrappleLength = (gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude() - pullSpeed;
 		}
 	}
+
 	gameObject->SetPosition(nextPosition);
 
 	gameObject->SetRotation(PizzaBox::Quaternion::LookAt(gameObject->GlobalPosition(), grapplePoint->GlobalPosition()));
@@ -229,14 +215,16 @@ void PlayerController::Swinging(float deltaTime_){
 void PlayerController::SwitchToSwinging(){
 	rigidbody->SetLinearVelocityDamping(0.0f);
 	rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
-	GrapplePoint* nearGrapple = FindNearestGrapple();
-	if (nearGrapple == nullptr) {
+
+	currentGrapplePoint = FindNearestGrapple();
+	if(currentGrapplePoint == nullptr){
 		isSwinging = false;
 		return;
 	}
-	PizzaBox::GameObject* grapplePoint = nearGrapple->GetGameObject();
 
-	// Make Rope
+	PizzaBox::GameObject* grapplePoint = currentGrapplePoint->GetGameObject();
+
+	//Make rope
 	grappleLine = PizzaBox::SceneManager::CurrentScene()->CreateObject<PizzaBox::GameObject>();
 	grappleLine->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Brown)));
 
@@ -258,45 +246,49 @@ void PlayerController::SwitchToGroundMovement(){
 	}
 }
 
-GrapplePoint* PlayerController::FindNearestGrapple() {
+GrapplePoint* PlayerController::FindNearestGrapple(){
 	std::vector<GrapplePoint*> grapplePoints = PizzaBox::SceneManager::CurrentScene()->GetComponentsInScene<GrapplePoint>();
 	GrapplePoint* grappleTarget = nullptr;
-	float mostForward;
-	for (auto point : grapplePoints) {
-		if ((point->GetGameObject()->GlobalPosition() - gameObject->GlobalPosition()).Magnitude() > maxGrappleLength) {
+	float mostForward = 0.0f;
+	for(const auto& point : grapplePoints){
+		if((point->GetGameObject()->GlobalPosition() - gameObject->GlobalPosition()).Magnitude() > maxGrappleLength){
 			continue;
 		}
 
 		std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(gameObject->GlobalPosition(), point->GetGameObject()->GlobalPosition());
-		if (!info.empty()) {
-			for (auto in : info) {
-				if (in.other->HasTag("Player")) {
-					continue;
-				}
-				continue;
+		bool isValid = true;
+		for(const auto& in : info){
+			if(!in.other->HasTag("Player")){
+				isValid = false;
+				break;
 			}
 		}
 
-		if (grappleTarget != nullptr) {
-			if (PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), gameObject->GetTransform()->GetForward()) > mostForward) {
+		if(!isValid){
+			continue;
+		}
+
+		if(grappleTarget != nullptr){
+			if(PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), gameObject->GetTransform()->GetForward()) > mostForward){
 				grappleTarget = point;
 				mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), gameObject->GetTransform()->GetForward());
 			}
-		}
-		else {
+		}else{
 			grappleTarget = point;
 			mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), gameObject->GetTransform()->GetForward());
 		}
 	}
+
 	return grappleTarget;
 }
 
-bool PlayerController::IsOnGround() {
+bool PlayerController::IsOnGround(){
 	std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(gameObject->GlobalPosition() + PizzaBox::Vector3(0.0f, 1.0f, 0.0f), gameObject->GlobalPosition() + PizzaBox::Vector3(0.0f, -2.0f, 0.0f));
-	for (auto in : info) {
-		if (in.other->HasTag("Platform")) {
+	for(const auto& in : info){
+		if(in.other->HasTag("Platform")){
 			return true;
 		}
 	}
+
 	return false;
 }

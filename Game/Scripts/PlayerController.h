@@ -1,5 +1,5 @@
-#ifndef MONSTER_CONTROLLER_H
-#define MONSTER_CONTROLLER_H
+#ifndef PLAYER_CONTROLLER_H
+#define PLAYER_CONTROLLER_H
 
 #include <Audio/AudioSource.h>
 #include <Graphics/Camera.h>
@@ -27,6 +27,7 @@ namespace GamePackage {
 		PlayerAnimator* animator;
 		PizzaBox::Rigidbody* rigidbody;
 		PizzaBox::GameObject* grappleLine;
+		GrapplePoint* currentGrapplePoint;
 
 		bool isWalking;
 		bool isSwinging;
@@ -34,8 +35,8 @@ namespace GamePackage {
 
 		float maxRotationPerSecond, MoveY;
 		float pullSpeed, currentGrappleLength;
-		float maxGrappleLength = 80.0f;
-		float fallBooster = 2.0f;
+		float maxGrappleLength;
+		float fallBooster;
 
 		void GroundMovement(float deltaTime_);
 		void Swinging(float deltaTime_);
@@ -48,4 +49,4 @@ namespace GamePackage {
 	};
 }
 
-#endif //!MONSTER_CONTROLLER_H
+#endif //!PLAYER_CONTROLLER_H
