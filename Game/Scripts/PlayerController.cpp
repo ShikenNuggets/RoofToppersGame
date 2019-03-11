@@ -12,9 +12,11 @@
 #include <Graphics/Models/MeshRender.h>
 #include <Graphics/Materials/ColorMaterial.h>
 
+
+
 using namespace GamePackage;
 
-PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_) : camera(camera_), animator(animator_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(80.0f), fallBooster(2.0f){
+PlayerController::PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_, PizzaBox::AudioSource* walk_, PizzaBox::AudioSource* grapple_, PizzaBox::AudioSource* jump_, PizzaBox::AudioSource* land_, PizzaBox::AudioSource* swinging_) : camera(camera_), animator(animator_), walkSFX(walk_),grappleSFX(grapple_),jumpSFX(jump_),landSFX(land_),swingingSFX(swinging_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(80.0f), fallBooster(2.0f){
 }
 
 PlayerController::~PlayerController(){
@@ -38,11 +40,15 @@ void PlayerController::Update(const float deltaTime_){
 	}
 
 	if(PizzaBox::InputManager::GetButtonDown("Grapple1") || PizzaBox::InputManager::GetButtonDown("Grapple2")){
+		grappleSFX->PlayOnce();
 		isSwinging = !isSwinging;
 		if(isSwinging){
 			SwitchToSwinging();
+			swingingSFX->PlayContinuous();
+			
 		}else{
 			SwitchToGroundMovement();
+			swingingSFX->StopContinuous();
 		}
 	}
 
@@ -115,10 +121,10 @@ void PlayerController::GroundMovement(float deltaTime_){
 
 	if(isWalking && PizzaBox::Math::NearZero(moveValue)){
 		isWalking = false;
-		//walkAudio->StopContinuous();
+		walkSFX->StopContinuous();
 	}else if(!isWalking && !PizzaBox::Math::NearZero(moveValue)){
 		isWalking = true;
-		//walkAudio->PlayContinuous();
+		walkSFX->PlayContinuous();
 	}
 
 	PizzaBox::Vector3 impulse = -gameObject->GetTransform()->GetForward() * moveValue;
@@ -133,6 +139,7 @@ void PlayerController::GroundMovement(float deltaTime_){
 		animator->isJumping = true;
 		PizzaBox::Vector3 jumpImpulse = gameObject->GetTransform()->GetUp() * 10000.0f * 80.0f;
 		rigidbody->Impulse(jumpImpulse * deltaTime_ * 60.0f);
+		jumpSFX->PlayOnce();
 	}
 
 	if(!IsOnGround()){
