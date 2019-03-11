@@ -18,6 +18,7 @@
 #include "../Scripts/CharacterController.h"
 
 #include "Scripts/CameraController.h"
+#include "Scripts/GrapplePoint.h"
 #include "Scripts/PlayerController.h"
 #include "Scripts/MovingPlatform.h"
 #include <Graphics/Materials/WaterMaterial.h>
@@ -39,8 +40,9 @@ bool Level1::Initialize() {
 	// Camera
 	PizzaBox::GameObject* mainCamera = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
 	auto cam = new PizzaBox::Camera(PizzaBox::ViewportRect::fullScreen, PizzaBox::Camera::RenderMode::Perspective);
-	mainCamera->AddComponent(cam); 
-	mainCamera->AddComponent(new CharacterController());
+	mainCamera->AddComponent(cam);
+	auto controller = new CameraController();
+	mainCamera->AddComponent(controller);
 	//mainCamera->AddComponent(new PizzaBox::AudioListener());
 	//mainCamera->AddComponent(new PizzaBox::AudioSource("GameplayMusic", PizzaBox::AudioSource::SoundType::_2D, "Music"));
 
@@ -49,18 +51,32 @@ bool Level1::Initialize() {
 	dirLight->AddComponent(new PizzaBox::DirectionalLight(2.0f));
 
 	// Player 
-	/**
-	PizzaBox::GameObject* Player = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 10.0f, 0.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f), PizzaBox::Vector3(0.1f, 0.1f, 0.1f));
+	PizzaBox::GameObject* Player = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 60.0f, 0.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f), PizzaBox::Vector3(0.05f, 0.05f, 0.05f));
 	Player->SetTag("Player");
 	PlayerAnimator* animator = new PlayerAnimator();
-	Player->AddComponent(new PizzaBox::AnimMeshRender("BotModel", PizzaBox::Color(0.1f, 0.1f, 0.8f), animator));
+	std::vector<PizzaBox::MeshMaterial*> materials;
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyBody", true));
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyBody", true));
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyBody", true));
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyHair", true));
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyBottom", true));
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyTop", true));
+	materials.push_back(new PizzaBox::TexturedMaterial("RemyShoes", true));
+	Player->AddComponent(new PizzaBox::AnimMeshRender("DudeModel", materials, animator));
 	auto rb = new PizzaBox::Rigidbody(80.0f, true, true);
 	rb->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
 	rb->AddCollider(new PizzaBox::CapsuleCollider(5.0f, 10.0f), PizzaBox::Vector3(0.0f, 10.0f, 0.0f));
 	Player->AddComponent(rb);
 	Player->AddComponent(new PlayerController(cam, animator));
-	*/
-	// Platform Level
+
+	controller->SetTarget(Player);
+
+	//Grapple Point
+	//auto grapplePoint = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 50.0f, -50.0f), PizzaBox::Euler(), PizzaBox::Vector3::Fill(2.0f));
+	//grapplePoint->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+	//grapplePoint->AddComponent(new GrapplePoint(35.0f));
+
+	// Test Static platfrom
 	PizzaBox::GameObject* platform = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 50.0f, 50.0f));
 	platform->SetTag("Platform");
 	auto texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
@@ -103,7 +119,7 @@ bool Level1::Initialize() {
 	platform4->AddComponent(rb5);
 	platform4->SetStatic(true);
 
-	PizzaBox::GameObject* platform5 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, -450.0f), PizzaBox::Euler(-25.0f), PizzaBox::Vector3(50.0f, 50.0f, 50.0f));
+	PizzaBox::GameObject* platform5 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -5.0f, -450.0f), PizzaBox::Euler(/*-25.0f*/), PizzaBox::Vector3(50.0f, 50.0f, 50.0f));
 	platform5->SetTag("Platform");
 	texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 20.0f);
 	platform5->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
@@ -160,31 +176,37 @@ bool Level1::Initialize() {
 
 	PizzaBox::GameObject* grapplePoint1 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 80.0f, -80.0f), PizzaBox::Euler(), PizzaBox::Vector3(2.0f, 2.0f, 2.0f));
 	grapplePoint1->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+	grapplePoint1->AddComponent(new GrapplePoint(35.0f));
 		auto child = CreateObject<PizzaBox::GameObject>(grapplePoint1, PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
 		child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 
 	PizzaBox::GameObject* grapplePoint2 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 80.0f, -200.0f), PizzaBox::Euler(), PizzaBox::Vector3(2.0f, 2.0f, 2.0f));
 	grapplePoint2->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+	grapplePoint2->AddComponent(new GrapplePoint(35.0f));
 		child = CreateObject<PizzaBox::GameObject>(grapplePoint2, PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
 		child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 
 	PizzaBox::GameObject* grapplePoint3 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 80.0f, -380.0f), PizzaBox::Euler(), PizzaBox::Vector3(2.0f, 2.0f, 2.0f));
 	grapplePoint3->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+	grapplePoint3->AddComponent(new GrapplePoint(35.0f));
 		child = CreateObject<PizzaBox::GameObject>(grapplePoint3, PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
 		child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 
 	PizzaBox::GameObject* grapplePoint4 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 80.0f, -470.0f), PizzaBox::Euler(), PizzaBox::Vector3(2.0f, 2.0f, 2.0f));
 	grapplePoint4->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+	grapplePoint4->AddComponent(new GrapplePoint(35.0f));
 		child = CreateObject<PizzaBox::GameObject>(grapplePoint4, PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
 		child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 
 	PizzaBox::GameObject* grapplePoint5 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 80.0f, -560.0f), PizzaBox::Euler(), PizzaBox::Vector3(2.0f, 2.0f, 2.0f));
 	grapplePoint5->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+	grapplePoint5->AddComponent(new GrapplePoint(35.0f));
 		child = CreateObject<PizzaBox::GameObject>(grapplePoint5, PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
 		child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 
 	PizzaBox::GameObject* grapplePoint6 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 100.0f, -660.0f), PizzaBox::Euler(), PizzaBox::Vector3(2.0f, 2.0f, 2.0f));
 	grapplePoint6->AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
+	grapplePoint6->AddComponent(new GrapplePoint(35.0f));
 		child = CreateObject<PizzaBox::GameObject>(grapplePoint6, PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
 		child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 

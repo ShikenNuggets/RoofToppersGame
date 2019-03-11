@@ -1,5 +1,5 @@
-#ifndef MONSTER_CONTROLLER_H
-#define MONSTER_CONTROLLER_H
+#ifndef PLAYER_CONTROLLER_H
+#define PLAYER_CONTROLLER_H
 
 #include <Audio/AudioSource.h>
 #include <Graphics/Camera.h>
@@ -8,6 +8,7 @@
 #include <Script/Script.h>
 
 #include "Animators/PlayerAnimator.h"
+#include "GrapplePoint.h"
 
 namespace GamePackage {
 	class PlayerController : public PizzaBox::Script{
@@ -25,12 +26,27 @@ namespace GamePackage {
 		PizzaBox::Camera* camera;
 		PlayerAnimator* animator;
 		PizzaBox::Rigidbody* rigidbody;
+		PizzaBox::GameObject* grappleLine;
+		GrapplePoint* currentGrapplePoint;
 
 		bool isWalking;
-		bool isGrounded;
+		bool isSwinging;
+		bool isSwitchingToSwinging;
 
 		float maxRotationPerSecond, MoveY;
+		float pullSpeed, currentGrappleLength;
+		float maxGrappleLength;
+		float fallBooster;
+
+		void GroundMovement(float deltaTime_);
+		void Swinging(float deltaTime_);
+
+		void SwitchToSwinging();
+		void SwitchToGroundMovement();
+		
+		GrapplePoint* FindNearestGrapple();
+		bool IsOnGround();
 	};
 }
 
-#endif //!MONSTER_CONTROLLER_H
+#endif //!PLAYER_CONTROLLER_H
