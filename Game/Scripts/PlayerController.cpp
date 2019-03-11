@@ -285,15 +285,15 @@ GrapplePoint* PlayerController::FindNearestGrapple(){
 		if(!isValid){
 			continue;
 		}
-
+		
 		if(grappleTarget != nullptr){
-			if(PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), gameObject->GetTransform()->GetForward()) > mostForward){
+			if(PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), camera->GetGameObject()->GetTransform()->GetForward()) > mostForward){
 				grappleTarget = point;
-				mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), gameObject->GetTransform()->GetForward());
+				mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), camera->GetGameObject()->GetTransform()->GetForward());
 			}
 		}else{
 			grappleTarget = point;
-			mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), gameObject->GetTransform()->GetForward());
+			mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), camera->GetGameObject()->GetTransform()->GetForward());
 		}
 	}
 
