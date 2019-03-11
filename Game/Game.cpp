@@ -12,7 +12,7 @@
 #include <Graphics/UI/ImageUI.h>
 #include <Graphics/UI/UIManager.h>
 #include <Graphics/UI/StatsTextUI.h>
-//#include <Audio/AudioManager.h>
+#include <Audio/AudioManager.h>
 
 using namespace GamePackage;
 
@@ -48,6 +48,9 @@ bool Game::Initialize(){
 	//PizzaBox::SceneManager::AddScene(new LogoScene());
 	//PizzaBox::SceneManager::AddScene(new MainMenuScene());
 	PizzaBox::SceneManager::AddScene(new Level1());
+	PizzaBox::AudioManager::CreateVolumeChannel("Music");
+	PizzaBox::AudioManager::CreateVolumeChannel("WavesSFX");
+	PizzaBox::AudioManager::CreateVolumeChannel("SFX");
 
 	return true;
 }
