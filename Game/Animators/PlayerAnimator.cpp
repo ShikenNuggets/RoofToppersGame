@@ -31,7 +31,7 @@ void PlayerAnimator::Update(float deltaTime_){
 	constexpr float min = 0.01f;
 
 	if(!IsTransitioning() && isJumping && currentClip != jumpingID){
-		BeginTransition("JumpAnim", 0.25f);
+		BeginTransition("JumpAnim", 0.15f);
 	}
 
 	if(!IsTransitioning() && !isJumping){
