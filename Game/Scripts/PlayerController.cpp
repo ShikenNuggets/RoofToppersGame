@@ -172,7 +172,7 @@ void PlayerController::GroundMovement(float deltaTime_){
 	PizzaBox::Vector3 impulse = -gameObject->GetTransform()->GetForward() * moveValue;
 
 	if(IsOnGround()){
-		rigidbody->Impulse(impulse * 7500.0f * 80.0f * 2.5f * deltaTime_ / 5.0f);
+		rigidbody->Impulse(impulse * 7500.0f * 80.0f * 2.5f * deltaTime_ / 3.5f);
 	}else{
 		rigidbody->Impulse(impulse * 7500.0f * 80.0f * deltaTime_ / 5.0f);
 	}
