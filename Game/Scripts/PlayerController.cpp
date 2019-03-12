@@ -186,7 +186,7 @@ void PlayerController::GroundMovement(float deltaTime_){
 
 	if(PizzaBox::InputManager::GetButtonDown("JumpButton") && IsOnGround()){
 		PizzaBox::Vector3 jumpImpulse = gameObject->GetTransform()->GetUp() * 10000.0f * 80.0f;
-		rigidbody->Impulse(jumpImpulse * deltaTime_ * 60.0f / 1.5f);
+		rigidbody->Impulse(jumpImpulse * 60.0f / 1.5f / 60.0f);
 		jumpSFX->PlayOnce();
 	}
 
@@ -243,9 +243,11 @@ void PlayerController::Swinging(float deltaTime_){
 	}
 
 	if(closest.other != nullptr){
-		nextPosition += closest.normal * 0.3f;
+		nextPosition += closest.normal * 0.3f * deltaTime_;
 	}
 
+	//This doesn't work at framerates higher than 999
+	//TODO - Figure out why
 	rigidbody->SetLinearVelocity((nextPosition - gameObject->GlobalPosition()) / deltaTime_);
 
 	//Change rope parameters
