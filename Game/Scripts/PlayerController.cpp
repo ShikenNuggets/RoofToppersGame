@@ -76,7 +76,9 @@ void PlayerController::Update(const float deltaTime_){
 			isDead = true;
 			splashSFX->PlayOnce();
 		}
+	}
 
+	if(isDead){
 		camera->GetGameObject()->GetComponent<CameraController>()->SetTarget(nullptr);
 		deathTimer += PizzaBox::Time::RealDeltaTime();
 		if(deathTimer >= 3.0f){
