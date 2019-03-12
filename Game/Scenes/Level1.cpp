@@ -5,8 +5,10 @@
 #include <Graphics/Camera.h>
 #include <Graphics/Models/MeshRender.h>
 #include <Graphics/Materials/ColorMaterial.h>
+#include <Graphics/Materials/ReflectiveMaterial.h>
 #include <Graphics/Materials/TexturedMaterial.h>
 #include <Graphics/Materials/WaterMaterial.h>
+#include <Graphics/Particles/ParticleSystem.h>
 #include <Physics/Collider.h>
 #include <Physics/Rigidbody.h>
 #include <Audio/AudioListener.h>
@@ -62,13 +64,9 @@ bool Level1::Initialize(){
 	//Directional Light
 	auto dirLight = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(), PizzaBox::Euler(-35.0f, 12.0f, 0.0f));
 	dirLight->AddComponent(new PizzaBox::DirectionalLight(2.0f));
-
+	
 	auto gameController = CreateObject<PizzaBox::GameObject>();
 	gameController->AddComponent(new GameController(PizzaBox::Vector3(0.0f, 60.0f, 0.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f)));
-
-	//player
-	//PizzaBox::GameObject* player = CreateObject<Player>(PizzaBox::Vector3(0.0f, 60.0f, 0.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f), PizzaBox::Vector3(0.01f, 0.01f, 0.01f));
-	//controller->SetTarget(player);
 
 	//Grapple Point
 	//auto grapplePoint = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 50.0f, -50.0f), PizzaBox::Euler(), PizzaBox::Vector3::Fill(2.0f));
@@ -107,8 +105,73 @@ bool Level1::Initialize(){
 
 	//Background Design
 	for(int i = 0; i < 30; i++){
-		PizzaBox::GameObject* backgroundHouse1 = CreateObject<Building>(PizzaBox::Vector3(-400.0f, -5.0f, 400.0f - (i * 150.0f)), PizzaBox::Euler(), PizzaBox::Vector3(100.0f, 300.0f, 100.0f));
-		PizzaBox::GameObject* backgroundHouse2 = CreateObject<Building>(PizzaBox::Vector3(400.0f, -5.0f, 400.0f - (i * 150.0f)), PizzaBox::Euler(), PizzaBox::Vector3(100.0f, 300.0f, 100.0f));
+		auto window = new PizzaBox::ReflectiveMaterial(true, PizzaBox::ReflectiveMaterial::glass);
+
+
+		PizzaBox::GameObject* backgroundHouse1 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(-400.0f, -5.0f, 400.0f - (i * 150.0f)), PizzaBox::Euler(), PizzaBox::Vector3(100.0f, 300.0f, 100.0f));
+		auto texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 1.0f);
+		backgroundHouse1->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
+
+
+		PizzaBox::GameObject* backgroundHouseWindow = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(-400.0f, 100.0f, 385.0f - (i * 150.0f)), PizzaBox::Euler(0.0f, 90.0f, 90.0f), PizzaBox::Vector3(5.0f, 5.0f, 52.0f));
+		backgroundHouseWindow->AddComponent(new PizzaBox::MeshRender("BuildingGlassModel", window));
+		window = new PizzaBox::ReflectiveMaterial(true, PizzaBox::ReflectiveMaterial::glass);
+
+		PizzaBox::GameObject* backgroundHouseWindowSide = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(-400.0f, 100.0f, 400.0f - (i * 150.0f)), PizzaBox::Euler(0.0f, 0.0f, 90.0f), PizzaBox::Vector3(5.0f, 5.0f, 52.0f));
+		backgroundHouseWindowSide->AddComponent(new PizzaBox::MeshRender("BuildingGlassModel", window));
+		window = new PizzaBox::ReflectiveMaterial(true, PizzaBox::ReflectiveMaterial::glass);
+
+
+
+		PizzaBox::GameObject* backgroundHouse2 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(400.0f, -5.0f, 400.0f - (i * 150.0f)), PizzaBox::Euler(), PizzaBox::Vector3(100.0f, 300.0f, 100.0f));
+		texMat = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 10.0f);
+		backgroundHouse2->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
+
+		PizzaBox::GameObject* backgroundHouseWindow2 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(400.0f, 100.0f, 385.0f - (i * 150.0f)), PizzaBox::Euler(0.0f, 90.0f, 90.0f), PizzaBox::Vector3(5.0f, 5.0f, 52.0f));
+		backgroundHouseWindow2->AddComponent(new PizzaBox::MeshRender("BuildingGlassModel", window));
+		window = new PizzaBox::ReflectiveMaterial(true, PizzaBox::ReflectiveMaterial::glass);
+		
+		PizzaBox::GameObject* backgroundHouseWindowSide2 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(400.0f, 100.0f, 400.0f - (i * 150.0f)), PizzaBox::Euler(0.0f, 0.0f, -90.0f), PizzaBox::Vector3(5.0f, 5.0f, 52.0f));
+		backgroundHouseWindowSide2->AddComponent(new PizzaBox::MeshRender("BuildingGlassModel", window));
+		window = new PizzaBox::ReflectiveMaterial(true, PizzaBox::ReflectiveMaterial::glass);
+
+
+
+
+		PizzaBox::GameObject* backgroundHouse3 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(-600.0f, -5.0f, 400.0f - (i * 150.0f)), PizzaBox::Euler(), PizzaBox::Vector3(100.0f, 300.0f, 100.0f));
+		texMat = new PizzaBox::TexturedMaterial("ApartmentTexture", false, "", "", 32.0f, 10.0f);
+		backgroundHouse3->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
+
+		PizzaBox::GameObject* backgroundHouse4 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(600.0f, -5.0f, 400.0f - (i * 150.0f)), PizzaBox::Euler(), PizzaBox::Vector3(100.0f, 300.0f, 100.0f));
+		texMat = new PizzaBox::TexturedMaterial("ApartmentTexture", false, "", "", 32.0f, 10.0f);
+		backgroundHouse4->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
+
+		
+		PizzaBox::GameObject* backgroundHouseTippedOver = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(-200.0f, -5.0f, 200.0f - (i * 600.0f)), PizzaBox::Euler(25.0f,0.0f,0.0f), PizzaBox::Vector3(100.0f, 300.0f, 100.0f));
+		texMat = new PizzaBox::TexturedMaterial("ConcreteTextureTwo", false, "", "", 32.0f, 5.0f);
+		backgroundHouseTippedOver->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
+
+		PizzaBox::GameObject* backgroundHouseWindow3 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(-200.05f, 90.0f, 200.0f - (i * 600.0f)), PizzaBox::Euler(25.0f, 0.0f, 0.0f), PizzaBox::Vector3(5.0f, 5.0f, 5.0f));
+		backgroundHouseWindow3->AddComponent(new PizzaBox::MeshRender("BuildingGlassModel", window));
+		window = new PizzaBox::ReflectiveMaterial(true, PizzaBox::ReflectiveMaterial::glass);
+
+
+		PizzaBox::GameObject* backgroundHouseTippedOver2 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(200.0f, -5.0f, 200.0f - (i * 600.0f)), PizzaBox::Euler(25.0f, 90.0f, 0.0f), PizzaBox::Vector3(100.0f, 300.0f, 100.0f));
+		texMat = new PizzaBox::TexturedMaterial("ConcreteTextureTwo", false, "", "", 32.0f, 5.0f);
+		backgroundHouseTippedOver2->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
+
+
+
+
+
+
+		PizzaBox::GameObject* backgroundHouseWindow4 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(195.0f, 95.0f, 200.0f - (i * 600.0f)), PizzaBox::Euler(25.0f, 90.0f, 0.0f), PizzaBox::Vector3(5.0f, 5.0f, 5.0f));
+		backgroundHouseWindow4->AddComponent(new PizzaBox::MeshRender("BuildingGlassModel", window));
+		window = new PizzaBox::ReflectiveMaterial(true, PizzaBox::ReflectiveMaterial::glass);
+
+
+
+
 	}
 
 	return true;
