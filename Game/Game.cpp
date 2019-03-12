@@ -248,6 +248,23 @@ bool Game::Initialize(){
 		PizzaBox::UIManager::AddSet(uiSet);
 	}
 
+	// Tutorial Set
+	{ 
+		uiSet = new PizzaBox::UISet("TutorialSet");
+
+		std::string text;
+		text = "W A S D to move";
+		uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.65f, 0.8f, 0.15f, 0.05f), true, text, "ArialFont"));
+
+		text = "Space To Jump";
+		uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.65f, 0.7f, 0.15f, 0.05f), true, text, "ArialFont"));
+
+		text = "Left Click to grapple to that yellow thing";
+		uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.65f, 0.6f, 0.15f, 0.05f), true, text, "ArialFont"));
+		 
+		PizzaBox::UIManager::AddSet(uiSet);
+	}
+
 	//Add scenes to the SceneManager 
 	PizzaBox::SceneManager::AddScene(new LogoScene());
 	PizzaBox::SceneManager::AddScene(new MainMenuScene());
