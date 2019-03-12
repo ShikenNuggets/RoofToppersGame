@@ -261,6 +261,10 @@ echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Comman
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animators\PlayerAnimator.h" />
+    <ClInclude Include="Objects\Building.h" />
+    <ClInclude Include="Objects\GrapplePointObject.h" />
+    <ClInclude Include="Objects\Platform.h" />
+    <ClInclude Include="Objects\Player.h" />
     <ClInclude Include="Scripts\MusicScript.h" />
     <ClInclude Include="Scripts\GrapplePoint.h" />
     <ClInclude Include="Scripts\MovingPlatform.h" />
