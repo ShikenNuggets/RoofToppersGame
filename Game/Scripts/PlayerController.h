@@ -13,7 +13,7 @@
 namespace GamePackage {
 	class PlayerController : public PizzaBox::Script{
 	public:
-		PlayerController(PizzaBox::Camera* camera_, PlayerAnimator* animator_, PizzaBox::AudioSource* walk_, PizzaBox::AudioSource* grapple_, PizzaBox::AudioSource* jump_, PizzaBox::AudioSource* land_, PizzaBox::AudioSource* swinging_);
+		PlayerController(PlayerAnimator* animator_, PizzaBox::AudioSource* walkSFX_, PizzaBox::AudioSource* grappleSFX_, PizzaBox::AudioSource* jumpSFX_, PizzaBox::AudioSource* landSFX_, PizzaBox::AudioSource* swingingSFX_, PizzaBox::AudioSource* splashSFX_);
 		virtual ~PlayerController() override;
 
 		virtual void OnStart() override;
@@ -28,6 +28,7 @@ namespace GamePackage {
 		PizzaBox::AudioSource* jumpSFX;
 		PizzaBox::AudioSource* landSFX;
 		PizzaBox::AudioSource* swingingSFX;
+		PizzaBox::AudioSource* splashSFX;
 		PizzaBox::Camera* camera;
 		PlayerAnimator* animator;
 		PizzaBox::Rigidbody* rigidbody;
@@ -37,6 +38,7 @@ namespace GamePackage {
 		bool isWalking;
 		bool isSwinging;
 		bool isSwitchingToSwinging;
+		bool isDead;
 
 		float maxRotationPerSecond, MoveY;
 		float pullSpeed, currentGrappleLength;
