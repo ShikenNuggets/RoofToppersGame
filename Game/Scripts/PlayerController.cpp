@@ -249,11 +249,11 @@ void PlayerController::Swinging(float deltaTime_){
 	rigidbody->SetLinearVelocity((nextPosition - gameObject->GlobalPosition()) / deltaTime_);
 
 	//Change rope parameters
-	PizzaBox::Vector3 testLine = gameObject->GlobalPosition() + ((grapplePoint->GlobalPosition() - gameObject->GlobalPosition()) / 2.0f) + (gameObject->GetTransform()->GetUp() * 0.0f);
+	PizzaBox::Vector3 testLine = gameObject->GlobalPosition() + ((grapplePoint->GlobalPosition() - gameObject->GlobalPosition()) / 2.0f) + (gameObject->GetTransform()->GetUp() * 1.0f);
 	grappleLine->SetGlobalPosition(testLine);
 	//grappleLine->SetGlobalPosition(gameObject->GlobalPosition() + (grapplePoint->GlobalPosition() - gameObject->GlobalPosition()));
-	grappleLine->SetGlobalRotation(gameObject->GlobalRotation());
-	grappleLine->SetGlobalScale(0.25f, (((gameObject->GlobalPosition() - grapplePoint->GlobalPosition()).Magnitude()) - 10.0f), 0.25f);
+	grappleLine->SetGlobalRotation(gameObject->GlobalRotationQuat());
+	grappleLine->SetGlobalScale(0.25f, (((gameObject->GlobalPosition() - grapplePoint->GlobalPosition()).Magnitude()) - 6.0f), 0.25f);
 	//grappleLine->SetGlobalScale(1.0f, PizzaBox::Vector3::Distance(gameObject->GlobalPosition(), grapplePoint->GlobalPosition()), 1.0f);
 
 	if(isSwitchingToSwinging){
