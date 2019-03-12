@@ -85,6 +85,12 @@ void PlayerController::Update(const float deltaTime_){
 			PizzaBox::SceneManager::ReloadCurrentScene(); //TODO - Have this trigger death UI
 		}
 	}
+
+	if(IsOnGround()){
+		animator->isJumping = false;
+	}else{
+		animator->isJumping = true;
+	}
 }
 
 void PlayerController::OnDestroy(){
