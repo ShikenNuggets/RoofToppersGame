@@ -48,6 +48,16 @@ void PlayerController::OnStart(){
 }
 
 void PlayerController::Update(const float deltaTime_){
+	if(isDead){
+		camera->GetGameObject()->GetComponent<CameraController>()->SetTarget(nullptr);
+		deathTimer += PizzaBox::Time::RealDeltaTime();
+		if(deathTimer >= 3.0f){
+			PizzaBox::SceneManager::ReloadCurrentScene(); //TODO - Have this trigger death UI
+		}
+
+		return; //Can't control the player if they're dead
+	}
+
 	rigidbody->SetMinLinearVelocity(-PizzaBox::Math::Infinity());
 	rigidbody->SetMaxLinearVelocity(PizzaBox::Math::Infinity());
 
@@ -75,14 +85,7 @@ void PlayerController::Update(const float deltaTime_){
 		if(!isDead){
 			isDead = true;
 			splashSFX->PlayOnce();
-		}
-	}
-
-	if(isDead){
-		camera->GetGameObject()->GetComponent<CameraController>()->SetTarget(nullptr);
-		deathTimer += PizzaBox::Time::RealDeltaTime();
-		if(deathTimer >= 3.0f){
-			PizzaBox::SceneManager::ReloadCurrentScene(); //TODO - Have this trigger death UI
+			SwitchToGroundMovement();
 		}
 	}
 
