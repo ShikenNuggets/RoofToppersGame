@@ -85,7 +85,9 @@ void PlayerController::Update(const float deltaTime_){
 		if(!isDead){
 			isDead = true;
 			splashSFX->PlayOnce();
-			SwitchToGroundMovement();
+			if(isSwinging){
+				SwitchToGroundMovement();
+			}
 		}
 	}
 
@@ -295,7 +297,10 @@ void PlayerController::SwitchToGroundMovement(){
 	swingingSFX->StopContinuous();
 	gameObject->SetRotation(0.0f, 180.0f, 0.0f);
 
-	PizzaBox::SceneManager::CurrentScene()->DestroyObject(grappleLine);
+	if(grappleLine != nullptr){
+		PizzaBox::SceneManager::CurrentScene()->DestroyObject(grappleLine);
+		grappleLine = nullptr;
+	}
 
 	if(!IsOnGround()){
 		rigidbody->SetLinearVelocityDamping(0.0f);
