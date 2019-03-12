@@ -112,7 +112,7 @@ void PlayerController::OnCollision(const PizzaBox::CollisionInfo& other_){
 
 void PlayerController::OnCollisionExit(PizzaBox::GameObject* other_){
 	if(other_->HasTag("Platform")){
-		rigidbody->SetLinearVelocityDamping(0.1f);
+		rigidbody->SetLinearVelocityDamping(0.25f);
 		rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
 	}
 }
@@ -205,7 +205,7 @@ void PlayerController::GroundMovement(float deltaTime_){
 }
 
 void PlayerController::Swinging(float deltaTime_){
-	rigidbody->SetLinearVelocityDamping(0.0f);
+	rigidbody->SetLinearVelocityDamping(0.1f);
 	rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
 	
 	if(currentGrapplePoint == nullptr){
@@ -217,8 +217,8 @@ void PlayerController::Swinging(float deltaTime_){
 	float forwardRotate = PizzaBox::InputManager::GetAxis("Depth");
 	float sideRotate = PizzaBox::InputManager::GetAxis("Horizontal");
 
-	rigidbody->Impulse(-forwardRotate * camera->GetGameObject()->GetTransform()->GetForward() * 10.0f * rigidbody->GetMass() * 120.0f * deltaTime_ / 5.0f);
-	rigidbody->Impulse(sideRotate * camera->GetGameObject()->GetTransform()->GetRight() * 10.0f * rigidbody->GetMass() * 120.0f * deltaTime_ / 5.0f);
+	rigidbody->Impulse(-forwardRotate * camera->GetGameObject()->GetTransform()->GetForward() * 10.0f * rigidbody->GetMass() * 120.0f * deltaTime_/* / 5.0f*/);
+	rigidbody->Impulse(sideRotate * camera->GetGameObject()->GetTransform()->GetRight() * 10.0f * rigidbody->GetMass() * 120.0f * deltaTime_ /*/ 5.0f*/);
 
 	// Start the physics stuff
 	//Where are we after the update
