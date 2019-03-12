@@ -13,6 +13,7 @@
 #include <Graphics/UI/UIManager.h>
 #include <Graphics/UI/StatsTextUI.h>
 #include <Audio/AudioManager.h>
+#include <Resource/ResourceManager.h>
 
 using namespace GamePackage;
 
@@ -22,11 +23,20 @@ Game::Game(const std::string name_) : GameInterface(name_){
 Game::~Game(){
 }
 
-bool Game::Initialize(){ 
+bool Game::Initialize(){
+	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("GameplayMusic1");
+	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("WalkingSFX");
+	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("GrappleSFX");
+	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("SwingingSFX");
+	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("LandingSFX");
+	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("JumpingSFX");
+	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("WavesSFX");
+	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("SplashSFX");
+
 	PizzaBox::RenderEngine::SetWindowResolution(1280, 720);
 	PizzaBox::RenderEngine::SetWindowBorderless(false);
-	PizzaBox::RenderEngine::SetVSYNC(PizzaBox::Window::VSYNC::Off);
-	PizzaBox::Time::SetFrameRate(0);
+	PizzaBox::RenderEngine::SetVSYNC(PizzaBox::Window::VSYNC::On);
+	PizzaBox::Time::SetFrameRate(60);
 
 	//Audio Channels
 	//PizzaBox::AudioManager::CreateVolumeChannel("Music");
@@ -54,4 +64,12 @@ bool Game::Initialize(){
 }
 
 void Game::Destroy(){
+	PizzaBox::ResourceManager::UnloadResource("GameplayMusic1");
+	PizzaBox::ResourceManager::UnloadResource("WalkingSFX");
+	PizzaBox::ResourceManager::UnloadResource("GrappleSFX");
+	PizzaBox::ResourceManager::UnloadResource("SwingingSFX");
+	PizzaBox::ResourceManager::UnloadResource("LandingSFX");
+	PizzaBox::ResourceManager::UnloadResource("JumpingSFX");
+	PizzaBox::ResourceManager::UnloadResource("WavesSFX");
+	PizzaBox::ResourceManager::UnloadResource("SplashSFX");
 }
