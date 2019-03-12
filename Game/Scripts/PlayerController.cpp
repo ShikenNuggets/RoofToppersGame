@@ -11,7 +11,7 @@
 #include <Tools/Debug.h>
 #include <Graphics/Models/MeshRender.h>
 #include <Graphics/Materials/ColorMaterial.h>
-
+#include <Graphics/Materials/TexturedMaterial.h>
 #include "CameraController.h"
 
 using namespace GamePackage;
@@ -249,7 +249,8 @@ void PlayerController::SwitchToSwinging(){
 
 	//Make rope
 	grappleLine = PizzaBox::SceneManager::CurrentScene()->CreateObject<PizzaBox::GameObject>();
-	grappleLine->AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Brown)));
+	auto texMat = new PizzaBox::TexturedMaterial("RopeTexture", false, "", "", 32.0f, 5.0f);
+	grappleLine->AddComponent(new PizzaBox::MeshRender("CubeModel", texMat));
 
 	currentGrappleLength = (gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude();
 	grappleSFX->PlayOnce();
