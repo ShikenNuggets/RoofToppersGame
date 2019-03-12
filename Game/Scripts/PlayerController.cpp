@@ -148,8 +148,7 @@ void PlayerController::GroundMovement(float deltaTime_){
 		rigidbody->Impulse(impulse * 7500.0f * 80.0f * deltaTime_ / 5.0f);
 	}
 
-	if(PizzaBox::InputManager::GetButtonDown("JumpButton") && IsOnGround() && animator != nullptr && !animator->IsTransitioning()){
-		animator->isJumping = true;
+	if(PizzaBox::InputManager::GetButtonDown("JumpButton") && IsOnGround()){
 		PizzaBox::Vector3 jumpImpulse = gameObject->GetTransform()->GetUp() * 10000.0f * 80.0f;
 		rigidbody->Impulse(jumpImpulse * deltaTime_ * 60.0f / 1.5f);
 		jumpSFX->PlayOnce();
@@ -158,6 +157,9 @@ void PlayerController::GroundMovement(float deltaTime_){
 	if(!IsOnGround()){
 		if(!PizzaBox::InputManager::GetButtonHeld("JumpButton") || rigidbody->GetLinearVelocity().y < 0){
 			rigidbody->SetLinearVelocity(rigidbody->GetLinearVelocity() + (gameObject->GetTransform()->GetUp() * -fallBooster * deltaTime_ * 60.0f / 5.0f));
+		}
+		if (animator != nullptr && !animator->IsTransitioning()) {
+			animator->isJumping = true;
 		}
 	}
 
