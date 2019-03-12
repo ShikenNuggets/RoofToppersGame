@@ -17,11 +17,6 @@ namespace GamePackage {
 
 		float moveValue;
 		bool isJumping;
-		bool isPunching;
-
-	private:
-		bool hasStartedJump;
-		bool hasStartedPunch;
 	};
 }
 
