@@ -13,7 +13,7 @@
 namespace GamePackage{
 	class Player : public PizzaBox::GameObject{
 	public:
-		Player() : GameObject(){
+		Player(const PizzaBox::Vector3& pos_, const PizzaBox::Euler& rot_, const PizzaBox::Vector3& scale_) : GameObject(pos_, rot_, scale_){
 			SetTag("Player");
 			PlayerAnimator* animator = new PlayerAnimator();
 			std::vector<PizzaBox::MeshMaterial*> materials;
