@@ -117,7 +117,7 @@ bool Level1::Initialize() {
 
 	PizzaBox::GameObject* platform2 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 40.0f, -60.0f), PizzaBox::Euler(), PizzaBox::Vector3(12.0f, 4.0f, 12.0f));
 	platform2->SetTag("Platform");
-	auto platformTexMat = new PizzaBox::TexturedMaterial("HazardTexture", false, "", "", 32.0f, 10.0f);
+	auto platformTexMat = new PizzaBox::TexturedMaterial("WoodTexture", false, "", "", 32.0f, 10.0f);
 	platform2->AddComponent(new PizzaBox::MeshRender("CubeModel", platformTexMat));
 	//platform2->AddComponent(new PizzaBox::Collider(platform2->GetTransform()->GlobalScale()));
 	auto rb3 = new PizzaBox::Rigidbody(1.0f, false, true);
@@ -139,7 +139,7 @@ bool Level1::Initialize() {
 
 	PizzaBox::GameObject* platform4 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 40.0f, -170.0f), PizzaBox::Euler(), PizzaBox::Vector3(12.0f, 4.0f, 32.0f));
 	platform4->SetTag("Platform");
-	platformTexMat = new PizzaBox::TexturedMaterial("HazardTexture", false, "", "", 32.0f, 30.0f);
+	platformTexMat = new PizzaBox::TexturedMaterial("WoodTexture", false, "", "", 32.0f, 30.0f);
 	platform4->AddComponent(new PizzaBox::MeshRender("CubeModel", platformTexMat));
 	//platform2->AddComponent(new PizzaBox::Collider(platform2->GetTransform()->GlobalScale()));
 	auto rb5 = new PizzaBox::Rigidbody(1.0f, false, true);
@@ -161,7 +161,7 @@ bool Level1::Initialize() {
 
 	PizzaBox::GameObject* platform6 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 40.0f, -355.0f), PizzaBox::Euler(), PizzaBox::Vector3(8.0f, 4.0f, 8.0f));
 	platform6->SetTag("Platform");
-	platformTexMat = new PizzaBox::TexturedMaterial("HazardTexture", false, "", "", 32.0f, 5.0f);
+	platformTexMat = new PizzaBox::TexturedMaterial("WoodTexture", false, "", "", 32.0f, 5.0f);
 	platform6->AddComponent(new PizzaBox::MeshRender("CubeModel", platformTexMat));
 	//platform2->AddComponent(new PizzaBox::Collider(platform2->GetTransform()->GlobalScale()));
 	auto rb7 = new PizzaBox::Rigidbody(1.0f, false, true);
@@ -172,7 +172,7 @@ bool Level1::Initialize() {
 
 	PizzaBox::GameObject* platform7 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 60.0f, -440.0f), PizzaBox::Euler(), PizzaBox::Vector3(4.0f, 4.0f, 8.0f));
 	platform7->SetTag("Platform");
-	platformTexMat = new PizzaBox::TexturedMaterial("HazardTexture", false, "", "", 32.0f, 5.0f);
+	platformTexMat = new PizzaBox::TexturedMaterial("WoodTexture", false, "", "", 32.0f, 5.0f);
 	platform7->AddComponent(new PizzaBox::MeshRender("CubeModel", platformTexMat));
 	//platform2->AddComponent(new PizzaBox::Collider(platform2->GetTransform()->GlobalScale()));
 	auto rb8 = new PizzaBox::Rigidbody(1.0f, false, true);
@@ -194,7 +194,7 @@ bool Level1::Initialize() {
 
 	PizzaBox::GameObject* platform9 = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 45.0f, -600.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 10.0f, 32.0f));
 	platform9->SetTag("Platform");
-	platformTexMat = new PizzaBox::TexturedMaterial("HazardTexture", false, "", "", 32.0f, 5.0f);
+	platformTexMat = new PizzaBox::TexturedMaterial("WoodTexture", false, "", "", 32.0f, 5.0f);
 	platform9->AddComponent(new PizzaBox::MeshRender("CubeModel", platformTexMat));
 	//platform->AddComponent(new PizzaBox::Collider(platform->GetTransform()->GlobalScale())); 
 	auto rb10 = new PizzaBox::Rigidbody(1.0f, false, true);
