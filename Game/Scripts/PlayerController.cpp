@@ -112,7 +112,7 @@ void PlayerController::OnCollision(const PizzaBox::CollisionInfo& other_){
 
 void PlayerController::OnCollisionExit(PizzaBox::GameObject* other_){
 	if(other_->HasTag("Platform")){
-		rigidbody->SetLinearVelocityDamping(0.0f);
+		rigidbody->SetLinearVelocityDamping(0.1f);
 		rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
 	}
 }

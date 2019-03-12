@@ -27,7 +27,7 @@ namespace GamePackage{
 			AddComponent(new PizzaBox::AnimMeshRender("DudeModel", materials, animator));
 			auto rb = new PizzaBox::Rigidbody(80.0f, true, true);
 			rb->SetMaterial(PizzaBox::PhysicsMaterial(0.0f, 0.0f));
-			rb->AddCollider(new PizzaBox::BoxCollider(PizzaBox::Vector3(10.0f, 20.0f, 10.0f)), PizzaBox::Vector3(0.0f, 10.0f, 0.0f));
+			rb->AddCollider(new PizzaBox::BoxCollider(PizzaBox::Vector3(2.5f, 20.0f, 2.5f)), PizzaBox::Vector3(0.0f, 10.0f, 0.0f));
 
 			auto grappleSFX = new PizzaBox::AudioSource("GrappleSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
 			auto jumpSFX = new PizzaBox::AudioSource("JumpingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");

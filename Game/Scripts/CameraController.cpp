@@ -51,13 +51,6 @@ void CameraController::Update(const float deltaTime_){
 		gameObject->SetPosition(shakeStartPos);
 	}
 
-	//Camera movement, occurs only if there is no target
-	float moveY = PizzaBox::InputManager::GetAxis("RotateZ");
-	float moveZ = PizzaBox::InputManager::GetAxis("RotateY");
-
-	gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetUp() * rotateSpeed * moveY * PizzaBox::Time::RealDeltaTime());
-	gameObject->GetTransform()->Translate(gameObject->GetTransform()->GetRight() * -rotateSpeed * moveZ * PizzaBox::Time::RealDeltaTime());
-
 	//Camera rotation
 	float rotX = -PizzaBox::InputManager::GetAxis("MouseX") * mouseSensitivity * 75.0f;
 	float rotY = -PizzaBox::InputManager::GetAxis("MouseY") * mouseSensitivity * 30.0f;
