@@ -34,6 +34,9 @@ void GameController::ResetScene(){
 		player = nullptr;
 	}
 
-	player = PizzaBox::SceneManager::CurrentScene()->CreateObject<Player>(spawnPos, spawnRotation);
+	player = PizzaBox::SceneManager::CurrentScene()->CreateObject<Player>(spawnPos, spawnRotation, PizzaBox::Vector3(0.01f, 0.01f, 0.01f));
 	camera->SetTarget(player);
+
+	camera->GetGameObject()->SetPosition(PizzaBox::Vector3(0.0f, 55.0f, 80.0f));
+	camera->GetGameObject()->SetRotation(PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
 }

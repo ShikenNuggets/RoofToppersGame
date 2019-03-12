@@ -20,6 +20,7 @@
 #include "Scripts/CharacterController.h"
 #include "Scripts/MusicScript.h"
 #include "Scripts/CameraController.h"
+#include "Scripts/GameController.h"
 #include "Scripts/GrapplePoint.h"
 #include "Scripts/PlayerController.h"
 #include "Scripts/MovingPlatform.h"
@@ -62,9 +63,12 @@ bool Level1::Initialize(){
 	auto dirLight = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(), PizzaBox::Euler(-35.0f, 12.0f, 0.0f));
 	dirLight->AddComponent(new PizzaBox::DirectionalLight(2.0f));
 
+	auto gameController = CreateObject<PizzaBox::GameObject>();
+	gameController->AddComponent(new GameController(PizzaBox::Vector3(0.0f, 60.0f, 0.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f)));
+
 	//player
-	PizzaBox::GameObject* player = CreateObject<Player>(PizzaBox::Vector3(0.0f, 60.0f, 0.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f), PizzaBox::Vector3(0.01f, 0.01f, 0.01f));
-	controller->SetTarget(player);
+	//PizzaBox::GameObject* player = CreateObject<Player>(PizzaBox::Vector3(0.0f, 60.0f, 0.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f), PizzaBox::Vector3(0.01f, 0.01f, 0.01f));
+	//controller->SetTarget(player);
 
 	//Grapple Point
 	//auto grapplePoint = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 50.0f, -50.0f), PizzaBox::Euler(), PizzaBox::Vector3::Fill(2.0f));

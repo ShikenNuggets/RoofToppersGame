@@ -13,6 +13,7 @@
 #include <Graphics/Materials/ColorMaterial.h>
 
 #include "CameraController.h"
+#include "GameController.h"
 
 using namespace GamePackage;
 
@@ -52,7 +53,8 @@ void PlayerController::Update(const float deltaTime_){
 		camera->GetGameObject()->GetComponent<CameraController>()->SetTarget(nullptr);
 		deathTimer += PizzaBox::Time::RealDeltaTime();
 		if(deathTimer >= 3.0f){
-			PizzaBox::SceneManager::ReloadCurrentScene(); //TODO - Have this trigger death UI
+			PizzaBox::SceneManager::CurrentScene()->GetComponentInScene<GameController>()->ResetScene();
+			//PizzaBox::SceneManager::ReloadCurrentScene(); //TODO - Have this trigger death UI
 		}
 
 		return; //Can't control the player if they're dead
