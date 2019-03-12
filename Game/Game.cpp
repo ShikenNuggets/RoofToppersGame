@@ -25,8 +25,8 @@ Game::~Game(){
 bool Game::Initialize(){ 
 	PizzaBox::RenderEngine::SetWindowResolution(1280, 720);
 	PizzaBox::RenderEngine::SetWindowBorderless(false);
-	PizzaBox::RenderEngine::SetVSYNC(PizzaBox::Window::VSYNC::Off);
-	PizzaBox::Time::SetFrameRate(0);
+	PizzaBox::RenderEngine::SetVSYNC(PizzaBox::Window::VSYNC::On);
+	PizzaBox::Time::SetFrameRate(60);
 
 	//Audio Channels
 	//PizzaBox::AudioManager::CreateVolumeChannel("Music");

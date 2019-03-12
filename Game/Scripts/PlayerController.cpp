@@ -16,7 +16,7 @@
 
 using namespace GamePackage;
 
-PlayerController::PlayerController(PlayerAnimator* animator_, PizzaBox::AudioSource* walk_, PizzaBox::AudioSource* grapple_, PizzaBox::AudioSource* jump_, PizzaBox::AudioSource* land_, PizzaBox::AudioSource* swinging_) : camera(nullptr), animator(animator_), walkSFX(walk_), grappleSFX(grapple_), jumpSFX(jump_), landSFX(land_), swingingSFX(swinging_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(80.0f), fallBooster(2.0f), deathTimer(0.0f){
+PlayerController::PlayerController(PlayerAnimator* animator_, PizzaBox::AudioSource* walk_, PizzaBox::AudioSource* grapple_, PizzaBox::AudioSource* jump_, PizzaBox::AudioSource* land_, PizzaBox::AudioSource* swinging_, PizzaBox::AudioSource* splashSFX_) : camera(nullptr), animator(animator_), walkSFX(walk_), grappleSFX(grapple_), jumpSFX(jump_), landSFX(land_), swingingSFX(swinging_), splashSFX(splashSFX_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), isDead(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(60.0f), fallBooster(2.0f), deathTimer(0.0f){
 }
 
 PlayerController::~PlayerController(){
@@ -26,6 +26,7 @@ void PlayerController::OnStart(){
 	maxRotationPerSecond = 720.0f;
 	MoveY = 0.0f;
 	isSwitchingToSwinging = false;
+	isDead = false;
 	pullSpeed = 0.4f;
 
 	rigidbody = gameObject->GetComponent<PizzaBox::Rigidbody>();
@@ -70,10 +71,15 @@ void PlayerController::Update(const float deltaTime_){
 		Swinging(deltaTime_);
 	}
 
-	if(gameObject->GlobalPosition().y < -10.0f){
+	if(gameObject->GlobalPosition().y < 22.0f){
+		if(!isDead){
+			isDead = true;
+			splashSFX->PlayOnce();
+		}
+
 		camera->GetGameObject()->GetComponent<CameraController>()->SetTarget(nullptr);
 		deathTimer += PizzaBox::Time::RealDeltaTime();
-		if(deathTimer >= 1.0f){
+		if(deathTimer >= 3.0f){
 			PizzaBox::SceneManager::ReloadCurrentScene(); //TODO - Have this trigger death UI
 		}
 	}

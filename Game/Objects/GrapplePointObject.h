@@ -10,13 +10,14 @@
 namespace GamePackage{
 	class GrapplePointObject : public PizzaBox::GameObject{
 	public:
-		GrapplePointObject(const PizzaBox::Vector3& pos_, const PizzaBox::Euler& rot_, const PizzaBox::Vector3& scale_, float grappleDistance_ = 20.0f){
+		GrapplePointObject(const PizzaBox::Vector3& pos_, const PizzaBox::Euler& rot_, const PizzaBox::Vector3& scale_, float grappleDistance_ = 15.0f) : GameObject(pos_, rot_, scale_){
 			AddComponent(new PizzaBox::MeshRender("SphereModel", new PizzaBox::ColorMaterial(PizzaBox::Color::Yellow)));
 			AddComponent(new GrapplePoint(grappleDistance_));
-				AddChild(new PizzaBox::GameObject());
-				GetChild(0)->GetTransform()->SetParent(GetTransform());
-				GetChild(0)->SetPosition(PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
-				GetChild(0)->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
+				auto child = new PizzaBox::GameObject();
+				AddChild(child);
+				child->GetTransform()->SetParent(GetTransform());
+				child->SetPosition(PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
+				child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 		}
 
 		virtual ~GrapplePointObject() override{}

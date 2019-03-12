@@ -34,6 +34,7 @@ namespace GamePackage{
 			auto walkSFX = new PizzaBox::AudioSource("WalkingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
 			auto landingSFX = new PizzaBox::AudioSource("LandingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
 			auto swingingSFX = new PizzaBox::AudioSource("SwingingSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
+			auto splashSFX = new PizzaBox::AudioSource("SplashSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
 
 			AddComponent(rb);
 			AddComponent(grappleSFX);
@@ -41,7 +42,8 @@ namespace GamePackage{
 			AddComponent(walkSFX);
 			AddComponent(landingSFX);
 			AddComponent(swingingSFX);
-			AddComponent(new PlayerController(animator, walkSFX, grappleSFX, jumpSFX, landingSFX, swingingSFX));
+			AddComponent(splashSFX);
+			AddComponent(new PlayerController(animator, walkSFX, grappleSFX, jumpSFX, landingSFX, swingingSFX, splashSFX));
 		}
 
 		virtual ~Player() override{}
