@@ -48,7 +48,6 @@ bool Game::Initialize(){
 	});
 
 	// MainMenuSet
-	{
 		// switch to Option Screen button function 
 		auto optionButtonFunc = std::function<void(PizzaBox::UIEvent)>([](PizzaBox::UIEvent e) {
 			if (e == PizzaBox::UIEvent::OnRelease) {
@@ -68,20 +67,19 @@ bool Game::Initialize(){
 		uiSet = new PizzaBox::UISet("MainMenuSet");
 		uiSet->elements.push_back(new PizzaBox::TextUI("GameName", PizzaBox::Rect(0.5f, 0.8f, 0.15f, 0.175f), true, "Roof Toppers", "ArialFont"));
 
-		button = new PizzaBox::ButtonUI("PlayButton", playButtonFunc,		PizzaBox::Rect(0.65f, 0.4f, 0.16f, 0.12f));
+		button = new PizzaBox::ButtonUI("PlayButton", playButtonFunc,		PizzaBox::Rect(0.55f, 0.4f, 0.16f, 0.12f));
 		button->AddText("Play");
 		uiSet->elements.push_back(button); 
 
-		button = new PizzaBox::ButtonUI("OptionsButton", optionButtonFunc,	PizzaBox::Rect(0.65f, 0.25f, 0.16f, 0.12f));
+		button = new PizzaBox::ButtonUI("OptionsButton", optionButtonFunc,	PizzaBox::Rect(0.55f, 0.25f, 0.16f, 0.12f));
 		button->AddText("Options");
 		uiSet->elements.push_back(button); 
 
-		button = new PizzaBox::ButtonUI("QuitButton", quitButtonFunc,		PizzaBox::Rect(0.65f, 0.1f, 0.16f, 0.12f));
+		button = new PizzaBox::ButtonUI("QuitButton", quitButtonFunc,		PizzaBox::Rect(0.55f, 0.1f, 0.16f, 0.12f));
 		button->AddText("Quit");
 		uiSet->elements.push_back(button); 
 
 		PizzaBox::UIManager::AddSet(uiSet);
-	}
 
 	// Stats Set
 	{
@@ -91,7 +89,6 @@ bool Game::Initialize(){
 	}
 
 	// Options Set
-	{
 		// switch FullScreen button function 
 		auto fullScreenButtonFunc = std::function<void(PizzaBox::UIEvent)>([](PizzaBox::UIEvent e) {
 			if (e == PizzaBox::UIEvent::OnRelease) {
@@ -141,22 +138,22 @@ bool Game::Initialize(){
 		uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.6f, 0.85f, 0.15f, 0.175f), true, "Options", "ArialFont"));
 
 		// FullScreen button
-		button = new PizzaBox::ButtonUI("FullscreenButton", fullScreenButtonFunc, PizzaBox::Rect(0.55f, 0.45f, 0.22f, 0.125f));
+		button = new PizzaBox::ButtonUI("FullscreenButton", fullScreenButtonFunc, PizzaBox::Rect(0.55f, 0.45f, 0.15f, 0.125f));
 		button->AddText("Fullscreen");
 		uiSet->elements.push_back(button); 
 
 		// V-Sync button
-		button = new PizzaBox::ButtonUI("VsyncButton", vsyncButtonFunc, PizzaBox::Rect(0.55f, 0.35f, 0.22f, 0.125f));
+		button = new PizzaBox::ButtonUI("VsyncButton", vsyncButtonFunc, PizzaBox::Rect(0.55f, 0.35f, 0.15f, 0.125f));
 		button->AddText("Vsync");
 		uiSet->elements.push_back(button); 
 
 		// Mute Music button																			// TODO - Add button Func
-		button = new PizzaBox::ButtonUI("MuteMusicButton", muteMusicButtonFunc, PizzaBox::Rect(0.55f, 0.25f, 0.22f, 0.125f));
+		button = new PizzaBox::ButtonUI("MuteMusicButton", muteMusicButtonFunc, PizzaBox::Rect(0.55f, 0.25f, 0.15f, 0.125f));
 		button->AddText("Mute Music");
 		uiSet->elements.push_back(button); 
 
 		// Mute Volume button																			// TODO - Add button Func
-		button = new PizzaBox::ButtonUI("MuteVolumeButton", muteVolumeButtonFunc, PizzaBox::Rect(0.55f, 0.15f, 0.22f, 0.125f));
+		button = new PizzaBox::ButtonUI("MuteVolumeButton", muteVolumeButtonFunc, PizzaBox::Rect(0.55f, 0.15f, 0.15f, 0.125f));
 		button->AddText("Mute Volume");
 		uiSet->elements.push_back(button); 
 
@@ -166,9 +163,8 @@ bool Game::Initialize(){
 		uiSet->elements.push_back(button); 
 
 		PizzaBox::UIManager::AddSet(uiSet);
-	}
+
 	// Win Set
-	{
 		// Load MainMenu Scene
 		auto TitleButtonFunc = std::function<void(PizzaBox::UIEvent)>([](PizzaBox::UIEvent e) {
 			if (e == PizzaBox::UIEvent::OnRelease) {
@@ -189,10 +185,8 @@ bool Game::Initialize(){
 		uiSet->elements.push_back(button); 
 
 		PizzaBox::UIManager::AddSet(uiSet);
-	}
 
 	// Death Set 
-	{
 		auto RestartButtonFunc = std::function<void(PizzaBox::UIEvent)>([](PizzaBox::UIEvent e) {
 			if (e == PizzaBox::UIEvent::OnRelease) {
 				PizzaBox::SceneManager::ReloadCurrentScene();
@@ -212,11 +206,9 @@ bool Game::Initialize(){
 		uiSet->elements.push_back(button); 
 
 		PizzaBox::UIManager::AddSet(uiSet);
-	}
 	
 	// Pause Set 
-	{
-		auto RestartButtonFunc = std::function<void(PizzaBox::UIEvent)>([](PizzaBox::UIEvent e) {
+		/*auto RestartButtonFunc = std::function<void(PizzaBox::UIEvent)>([](PizzaBox::UIEvent e) {
 			if (e == PizzaBox::UIEvent::OnRelease) {
 				PizzaBox::SceneManager::ReloadCurrentScene();
 			}
@@ -226,7 +218,7 @@ bool Game::Initialize(){
 				PizzaBox::UIManager::DisableSet("PauseSet");
 				PizzaBox::UIManager::EnableSet("OptionsSet");
 			}
-		});
+		});*/
 
 		uiSet = new PizzaBox::UISet("PauseSet");
 		uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.65f, 0.8f, 0.15f, 0.175f), true, "Pause!", "ArialFont"));
@@ -246,24 +238,21 @@ bool Game::Initialize(){
 		uiSet->elements.push_back(button);
 
 		PizzaBox::UIManager::AddSet(uiSet);
-	}
 
 	// Tutorial Set
-	{ 
 		uiSet = new PizzaBox::UISet("TutorialSet");
 
 		std::string text;
 		text = "W A S D to move";
-		uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.65f, 0.8f, 0.15f, 0.05f), true, text, "ArialFont"));
+		uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.1f, 0.85f, 0.04f, 0.05f), true, text, "ArialFont"));
 
 		text = "Space To Jump";
-		uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.65f, 0.7f, 0.15f, 0.05f), true, text, "ArialFont"));
+		uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.1f, 0.8f, 0.04f, 0.05f), true, text, "ArialFont"));
 
 		text = "Left Click to grapple to that yellow thing";
-		uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.65f, 0.6f, 0.15f, 0.05f), true, text, "ArialFont"));
+		uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.1f, 0.75f, 0.04f, 0.05f), true, text, "ArialFont"));
 		 
 		PizzaBox::UIManager::AddSet(uiSet);
-	}
 
 	//Add scenes to the SceneManager 
 	PizzaBox::SceneManager::AddScene(new LogoScene());
