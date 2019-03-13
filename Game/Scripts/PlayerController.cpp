@@ -168,10 +168,10 @@ void PlayerController::GroundMovement(float deltaTime_){
 	
 	float scaleFactor = gameObject->GlobalScale().x * 10.0f;
 
-	if(isWalking && PizzaBox::Math::NearZero(moveValue)){
+	if((isWalking && PizzaBox::Math::NearZero(moveValue)) || !IsOnGround()){
 		isWalking = false;
 		walkSFX->StopContinuous();
-	}else if(!isWalking && !PizzaBox::Math::NearZero(moveValue)){
+	}else if(!isWalking && !PizzaBox::Math::NearZero(moveValue) && IsOnGround()){
 		isWalking = true;
 		walkSFX->PlayContinuous();
 	}
