@@ -31,7 +31,7 @@ void GameController::Update(const float deltaTime_){
 		PizzaBox::UIManager::ToggleSet("StatsSet");
 	}
 
-	if(PizzaBox::InputManager::GetKeyDown(SDLK_ESCAPE)){ //TODO - Allow this to be done on controller as well
+	if(PizzaBox::InputManager::GetButtonDown("Exit")){
 		TogglePause();
 	}
 }
