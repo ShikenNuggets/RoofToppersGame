@@ -98,7 +98,7 @@ bool Level1::Initialize(){
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(20.0f, 60.0f, -350.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 60.0f, -410.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 
-	auto endLevelObj = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 38.5f, -439.25f), PizzaBox::Euler(-90.0f, 90.0f, 0.0f), PizzaBox::Vector3(1.0f, 1.0f, 1.0f));
+	auto endLevelObj = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 38.2f, -439.25f), PizzaBox::Euler(-90.0f, 90.0f, 0.0f), PizzaBox::Vector3(0.85f, 0.85f, 0.85f));
 	endLevelObj->AddComponent(new PizzaBox::MeshRender("DoorModel", "DoorTexture"));
 	endLevelObj->AddComponent(new PizzaBox::Collider(endLevelObj->GlobalScale()));
 	endLevelObj->AddComponent(new EndLevelTrigger());
