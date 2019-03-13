@@ -15,6 +15,9 @@ MainMenuScene::~MainMenuScene(){
 }
 
 bool MainMenuScene::Initialize(){
+	//PizzaBox::RenderEngine::SetFogDensity(0.0f);
+	//PizzaBox::RenderEngine::SetWaterFogDensity(0.0f);
+
 	PizzaBox::RenderEngine::ShowCursor(true);
 	SetSky(new PizzaBox::SkyBox("CloudSkybox"));
 

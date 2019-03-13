@@ -27,18 +27,11 @@ Game::~Game(){
 }
 
 bool Game::Initialize(){
-	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("GameplayMusic1");
-	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("WalkingSFX");
-	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("GrappleSFX");
-	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("SwingingSFX");
-	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("LandingSFX");
-	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("JumpingSFX");
-	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("WavesSFX");
-	PizzaBox::ResourceManager::LoadResource<PizzaBox::AudioResource>("SplashSFX");
-
 	PizzaBox::RenderEngine::SetWindowResolution(1280, 720);
 	PizzaBox::RenderEngine::SetWindowBorderless(false);
 	PizzaBox::RenderEngine::SetVSYNC(PizzaBox::Window::VSYNC::On);
+	//PizzaBox::RenderEngine::SetFogDensity(0.0003f);
+	//PizzaBox::RenderEngine::SetWaterFogDensity(0.00001f);
 	PizzaBox::Time::SetFrameRate(999);
 
 	SetupLogoUI();
@@ -64,14 +57,6 @@ bool Game::Initialize(){
 }
 
 void Game::Destroy(){
-	PizzaBox::ResourceManager::UnloadResource("GameplayMusic1");
-	PizzaBox::ResourceManager::UnloadResource("WalkingSFX");
-	PizzaBox::ResourceManager::UnloadResource("GrappleSFX");
-	PizzaBox::ResourceManager::UnloadResource("SwingingSFX");
-	PizzaBox::ResourceManager::UnloadResource("LandingSFX");
-	PizzaBox::ResourceManager::UnloadResource("JumpingSFX");
-	PizzaBox::ResourceManager::UnloadResource("WavesSFX");
-	PizzaBox::ResourceManager::UnloadResource("SplashSFX");
 }
 
 void Game::SetupLogoUI(){

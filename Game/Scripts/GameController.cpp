@@ -60,11 +60,11 @@ void GameController::ResetScene(){
 }
 
 void GameController::TogglePause(){
-	isPaused = !isPaused;
-
 	if(player != nullptr && !player->GetComponent<PlayerController>()->HasControl()){
 		return;
 	}
+
+	isPaused = !isPaused;
 
 	if(isPaused){
 		PizzaBox::Time::SetTimeScale(0.0f);

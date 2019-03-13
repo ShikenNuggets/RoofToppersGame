@@ -3,6 +3,7 @@
 #include <Animation/AnimMeshRender.h> 
 #include <Graphics/Sky/SkyBox.h>
 #include <Graphics/Camera.h>
+#include <Graphics/RenderEngine.h>
 #include <Graphics/Models/MeshRender.h>
 #include <Graphics/Materials/ColorMaterial.h>
 #include <Graphics/Materials/ReflectiveMaterial.h>
@@ -38,8 +39,13 @@ Level1::~Level1(){
 }
 
 bool Level1::Initialize(){
+	//PizzaBox::RenderEngine::SetFogDensity(0.0003f);
+	//PizzaBox::RenderEngine::SetWaterFogDensity(0.00001f);
+
+	constexpr float skySize = 5000.0f;
+	
 	//SkyBox
-	SetSky(new PizzaBox::SkyBox("CloudSkybox", "SkyBoxShader", 68000.0f));
+	SetSky(new PizzaBox::SkyBox("CloudSkybox", "SkyBoxShader", skySize));
 	//Music
 	auto gpm1 = new PizzaBox::AudioSource("GameplayMusic1", PizzaBox::AudioSource::SoundType::_2D, "Music");
 	PizzaBox::GameObject* music = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
@@ -56,6 +62,7 @@ bool Level1::Initialize(){
 	PizzaBox::GameObject* mainCamera = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
 	mainCamera->SetTag("Camera");
 	auto cam = new PizzaBox::Camera(PizzaBox::ViewportRect::fullScreen, PizzaBox::Camera::RenderMode::Perspective);
+	cam->SetFarPlane(skySize);
 	mainCamera->AddComponent(cam);
 	auto controller = new CameraController();
 	mainCamera->AddComponent(controller);
