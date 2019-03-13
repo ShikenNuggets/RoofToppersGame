@@ -19,6 +19,8 @@ namespace GamePackage {
 		PizzaBox::GameObject* GetTarget();
 		void SetTarget(PizzaBox::GameObject* target_);
 
+		inline void SetHasControl(bool value_){ hasControl = value_; }
+
 	private:
 		PizzaBox::Camera* camera;
 		float rotateSpeed;
@@ -33,6 +35,7 @@ namespace GamePackage {
 		PizzaBox::GameObject* target;
 		float mouseSensitivity;
 		float gamepadSensitivity;
+		bool hasControl;
 
 		float minRotation;
 		float maxRotation;

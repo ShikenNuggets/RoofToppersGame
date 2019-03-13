@@ -39,7 +39,7 @@ Level1::~Level1(){
 
 bool Level1::Initialize(){
 	//SkyBox
-	SetSky(new PizzaBox::SkyBox("LakeSkybox", "SkyBoxShader", 68000.0f));
+	SetSky(new PizzaBox::SkyBox("CloudSkybox", "SkyBoxShader", 68000.0f));
 	//Music
 	auto gpm1 = new PizzaBox::AudioSource("GameplayMusic1", PizzaBox::AudioSource::SoundType::_2D, "Music");
 	PizzaBox::GameObject* music = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
@@ -99,6 +99,7 @@ bool Level1::Initialize(){
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 60.0f, -410.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 
 	auto endLevelObj = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 38.2f, -439.25f), PizzaBox::Euler(-90.0f, 90.0f, 0.0f), PizzaBox::Vector3(0.85f, 0.85f, 0.85f));
+	endLevelObj->SetTag("EndLevelTrigger");
 	endLevelObj->AddComponent(new PizzaBox::MeshRender("DoorModel", "DoorTexture"));
 	endLevelObj->AddComponent(new PizzaBox::Collider(endLevelObj->GlobalScale()));
 	endLevelObj->AddComponent(new EndLevelTrigger());

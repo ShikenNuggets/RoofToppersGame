@@ -11,6 +11,17 @@ namespace GamePackage{
 
 		bool Initialize();
 		void Destroy();
+
+	private:
+		void SetupLogoUI();
+		void SetupStatsUI();
+		void SetupMainMenuUI();
+		void SetupOptionsUI();
+		void SetupTutorialUI();
+		void SetupPauseUI();
+		void SetupWinUI();
+		void SetupDeathUI();
+		void SetupLoadingUI();
 	};
 }
 

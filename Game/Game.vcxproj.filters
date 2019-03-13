@@ -36,15 +36,6 @@
     <ClCompile Include="Scripts\CameraController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\LogoManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\MainMenuController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scripts\QuitButtonScript.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Animators\PlayerAnimator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,7 +48,10 @@
     <ClCompile Include="Scripts\MovingPlatform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scripts\GrapplePoint.cpp">
+    <ClCompile Include="Scripts\UI\LogoManager.cpp">
+	  <Filter>Source Files</Filter>
+    </ClCompile>
+	<ClCompile Include="Scripts\GrapplePoint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scripts\MusicScript.cpp">
@@ -89,15 +83,6 @@
     <ClInclude Include="Scripts\CameraController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scripts\LogoManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\MainMenuController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scripts\QuitButtonScript.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Animators\PlayerAnimator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -108,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\MovingPlatform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scripts\UI\LogoManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scripts\GrapplePoint.h">

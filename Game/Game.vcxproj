@@ -256,10 +256,8 @@ echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Comman
     <ClCompile Include="Scenes\MainMenuScene.cpp" />
     <ClCompile Include="Scripts\CameraController.cpp" />
     <ClCompile Include="Scripts\CharacterController.cpp" />
-    <ClCompile Include="Scripts\LogoManager.cpp" />
-    <ClCompile Include="Scripts\MainMenuController.cpp" />
+    <ClCompile Include="Scripts\UI\LogoManager.cpp" />
     <ClCompile Include="Scripts\PlayerController.cpp" />
-    <ClCompile Include="Scripts\QuitButtonScript.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animators\PlayerAnimator.h" />
@@ -280,10 +278,8 @@ echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Comman
     <ClInclude Include="Scenes\MainMenuScene.h" />
     <ClInclude Include="Scripts\CameraController.h" />
     <ClInclude Include="Scripts\CharacterController.h" />
-    <ClInclude Include="Scripts\LogoManager.h" />
-    <ClInclude Include="Scripts\MainMenuController.h" />
+    <ClInclude Include="Scripts\UI\LogoManager.h" />
     <ClInclude Include="Scripts\PlayerController.h" />
-    <ClInclude Include="Scripts\QuitButtonScript.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

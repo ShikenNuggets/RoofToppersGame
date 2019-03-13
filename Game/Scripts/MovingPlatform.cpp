@@ -4,7 +4,7 @@
 
 using namespace GamePackage;
 
-MovingPlatform::MovingPlatform() : direction(PizzaBox::Vector3(1, 0, 0)), directionSpeed(1.0f), distance(1.0f) {
+MovingPlatform::MovingPlatform() : direction(PizzaBox::Vector3(1, 0, 0)), directionSpeed(1.0f), distance(1.0f), useSpeed(0.0f), origin() {
 
 }
 
