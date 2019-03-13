@@ -16,7 +16,6 @@
 #include <Graphics/UI/UIManager.h>
 #include "CameraController.h"
 
-
 using namespace GamePackage;
 
 PlayerController::PlayerController(PlayerAnimator* animator_, PizzaBox::AudioSource* walk_, PizzaBox::AudioSource* grapple_, PizzaBox::AudioSource* jump_, PizzaBox::AudioSource* land_, PizzaBox::AudioSource* swinging_, PizzaBox::AudioSource* splashSFX_) : gameController(nullptr), camera(nullptr), animator(animator_), walkSFX(walk_), grappleSFX(grapple_), jumpSFX(jump_), landSFX(land_), swingingSFX(swinging_), splashSFX(splashSFX_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), isDead(false), hasWon(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(60.0f), fallBooster(2.0f), deathTimer(0.0f){
@@ -68,6 +67,11 @@ void PlayerController::Update(const float deltaTime_){
 				cam->SetHasControl(false);
 			}
 		}
+	}
+
+	if(hasWon){
+		//rigidbody->SetLinearVelocityDamping(1.0f);
+		animator->moveValue = 0.0f;
 	}
 
 	if(!HasControl() || gameController->IsPaused()){
@@ -376,7 +380,7 @@ GrapplePoint* PlayerController::FindNearestGrapple(){
 }
 
 bool PlayerController::IsOnGround(){
-	std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(gameObject->GlobalPosition() + PizzaBox::Vector3(0.0f, 1.0f, 0.0f), gameObject->GlobalPosition() + PizzaBox::Vector3(0.0f, -2.0f, 0.0f));
+	std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(gameObject->GlobalPosition() + PizzaBox::Vector3(0.0f, 0.5f, 0.0f), gameObject->GlobalPosition() + PizzaBox::Vector3(0.0f, -2.0f, 0.0f));
 	for(const auto& in : info){
 		if(in.other->HasTag("Platform")){
 			return true;

@@ -4,10 +4,10 @@
 #include "Game.h"
 
 int main(int argc, char* argv[]){
-	static_assert(PizzaBox::GameManager::version == 2019'03'12, "Incompatible engine version!");
+	static_assert(PizzaBox::GameManager::version == 2019'03'13, "Incompatible engine version!");
 
 	//Create the Game
-	GamePackage::Game* game = new GamePackage::Game("ProtoType");
+	GamePackage::Game* game = new GamePackage::Game("Roof Toppers");
 
 	try{
 		//Runs the game through the engine

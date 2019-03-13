@@ -31,7 +31,7 @@ void GameController::Update(const float deltaTime_){
 		PizzaBox::UIManager::ToggleSet("StatsSet");
 	}
 
-	if(PizzaBox::InputManager::GetKeyDown(SDLK_ESCAPE)){ //TODO - Allow this to be done on controller as well
+	if(PizzaBox::InputManager::GetButtonDown("Exit")){
 		TogglePause();
 	}
 }
@@ -60,11 +60,11 @@ void GameController::ResetScene(){
 }
 
 void GameController::TogglePause(){
-	isPaused = !isPaused;
-
 	if(player != nullptr && !player->GetComponent<PlayerController>()->HasControl()){
 		return;
 	}
+
+	isPaused = !isPaused;
 
 	if(isPaused){
 		PizzaBox::Time::SetTimeScale(0.0f);
