@@ -39,6 +39,7 @@ namespace GamePackage {
 		bool isSwinging;
 		bool isSwitchingToSwinging;
 		bool isDead;
+		bool hasWon;
 
 		float maxRotationPerSecond, MoveY;
 		float pullSpeed, currentGrappleLength;

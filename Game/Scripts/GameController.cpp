@@ -1,12 +1,16 @@
 #include "GameController.h"
 
 #include <Core/SceneManager.h>
+#include <Core/Time.h>
+#include <Graphics/RenderEngine.h>
+#include <Graphics/UI/UIManager.h>
+#include <Input/InputManager.h>
 
 #include "Objects/Player.h"
 
 using namespace GamePackage;
 
-GameController::GameController(const PizzaBox::Vector3& pos_, const PizzaBox::Euler& rot_) : player(nullptr), camera(nullptr), spawnPos(pos_), spawnRotation(rot_){
+GameController::GameController(const PizzaBox::Vector3& pos_, const PizzaBox::Euler& rot_) : player(nullptr), camera(nullptr), spawnPos(pos_), spawnRotation(rot_), isPaused(false){
 }
 
 GameController::~GameController(){
@@ -23,12 +27,24 @@ void GameController::OnStart(){
 }
 
 void GameController::Update(const float deltaTime_){
+	if(PizzaBox::InputManager::GetKeyDown(SDLK_BACKQUOTE)){
+		PizzaBox::UIManager::ToggleSet("StatsSet");
+	}
+
+	if(PizzaBox::InputManager::GetKeyDown(SDLK_ESCAPE)){ //TODO - Allow this to be done on controller as well
+		TogglePause();
+	}
 }
 
 void GameController::OnDestroy(){
 }
 
 void GameController::ResetScene(){
+	PizzaBox::RenderEngine::ShowCursor(false);
+	PizzaBox::UIManager::DisableSet("PauseSet");
+	PizzaBox::UIManager::DisableSet("WinSet");
+	PizzaBox::UIManager::DisableSet("DeathSet");
+
 	if(player != nullptr){
 		PizzaBox::SceneManager::SceneManager::CurrentScene()->DestroyObject(player);
 		player = nullptr;
@@ -39,4 +55,18 @@ void GameController::ResetScene(){
 
 	camera->GetGameObject()->SetPosition(PizzaBox::Vector3(0.0f, 55.0f, 80.0f));
 	camera->GetGameObject()->SetRotation(PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
+}
+
+void GameController::TogglePause(){
+	isPaused = !isPaused;
+
+	if(isPaused){
+		PizzaBox::Time::SetTimeScale(0.0f);
+		PizzaBox::RenderEngine::ShowCursor(true);
+		PizzaBox::UIManager::EnableSet("PauseSet");
+	}else{
+		PizzaBox::Time::SetTimeScale(1.0f);
+		PizzaBox::RenderEngine::ShowCursor(false);
+		PizzaBox::UIManager::DisableSet("PauseSet");
+	}
 }

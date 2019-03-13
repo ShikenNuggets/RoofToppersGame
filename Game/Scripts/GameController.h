@@ -16,12 +16,14 @@ namespace GamePackage{
 		virtual void OnDestroy() override;
 
 		void ResetScene();
+		void TogglePause();
 
 	private:
 		PizzaBox::GameObject* player;
 		CameraController* camera;
 		PizzaBox::Vector3 spawnPos;
 		PizzaBox::Euler spawnRotation;
+		bool isPaused;
 	};
 }
 

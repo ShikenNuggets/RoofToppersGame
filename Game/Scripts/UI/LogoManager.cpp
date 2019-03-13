@@ -4,6 +4,7 @@
 #include <Core/GameManager.h>
 #include <Core/Time.h>
 #include <Core/SceneManager.h>
+#include <Graphics/UI/UIManager.h>
 
 using namespace GamePackage;
 
@@ -28,6 +29,8 @@ void LogoManager::Update(const float deltaTime_){
 	}
 
 	if(currentTime > endTime){
+		PizzaBox::UIManager::DisableAllSets();
+		PizzaBox::UIManager::EnableSet("LoadingSet");
 		PizzaBox::SceneManager::LoadScene(1);
 		return;
 	}

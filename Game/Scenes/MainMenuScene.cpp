@@ -2,6 +2,7 @@
 
 #include <Audio/AudioListener.h>
 #include <Audio/AudioSource.h>
+#include <Graphics/RenderEngine.h>
 #include <Graphics/Sky/SkyBox.h>
 #include <Graphics/UI/UIManager.h> 
 
@@ -14,7 +15,8 @@ MainMenuScene::~MainMenuScene(){
 }
 
 bool MainMenuScene::Initialize(){
-	SetSky(new PizzaBox::SkyBox("CloudSkybox", "SkyBoxShader", 30.0f));
+	PizzaBox::RenderEngine::ShowCursor(true);
+	SetSky(new PizzaBox::SkyBox("CloudSkybox"));
 
 	PizzaBox::GameObject* mainCamera = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 0.0f, 20.0f), PizzaBox::Euler(-45.0f, 0.0f, 0.0f));
 	mainCamera->AddComponent(new PizzaBox::Camera(PizzaBox::ViewportRect::fullScreen, PizzaBox::Camera::RenderMode::Perspective));
