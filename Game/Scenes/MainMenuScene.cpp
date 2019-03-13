@@ -27,7 +27,6 @@ bool MainMenuScene::Initialize(){
 	//mainCamera->AddComponent(new PizzaBox::AudioSource("MainMenuMusic", PizzaBox::AudioSource::SoundType::_2D, "Music"));
 
 	PizzaBox::UIManager::EnableSet("MainMenuSet");
-	PizzaBox::UIManager::EnableSet("StatsSet");
 	  
 	return true;
 }

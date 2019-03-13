@@ -15,11 +15,11 @@
 #include <Graphics/Materials/TexturedMaterial.h>
 #include <Graphics/UI/UIManager.h>
 #include "CameraController.h"
-#include "GameController.h"
+
 
 using namespace GamePackage;
 
-PlayerController::PlayerController(PlayerAnimator* animator_, PizzaBox::AudioSource* walk_, PizzaBox::AudioSource* grapple_, PizzaBox::AudioSource* jump_, PizzaBox::AudioSource* land_, PizzaBox::AudioSource* swinging_, PizzaBox::AudioSource* splashSFX_) : camera(nullptr), animator(animator_), walkSFX(walk_), grappleSFX(grapple_), jumpSFX(jump_), landSFX(land_), swingingSFX(swinging_), splashSFX(splashSFX_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), isDead(false), hasWon(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(60.0f), fallBooster(2.0f), deathTimer(0.0f){
+PlayerController::PlayerController(PlayerAnimator* animator_, PizzaBox::AudioSource* walk_, PizzaBox::AudioSource* grapple_, PizzaBox::AudioSource* jump_, PizzaBox::AudioSource* land_, PizzaBox::AudioSource* swinging_, PizzaBox::AudioSource* splashSFX_) : gameController(nullptr), camera(nullptr), animator(animator_), walkSFX(walk_), grappleSFX(grapple_), jumpSFX(jump_), landSFX(land_), swingingSFX(swinging_), splashSFX(splashSFX_), rigidbody(nullptr), grappleLine(nullptr), currentGrapplePoint(nullptr), isWalking(false), isSwinging(false), isSwitchingToSwinging(false), isDead(false), hasWon(false), maxRotationPerSecond(0.0f), MoveY(0.0f), pullSpeed(0.0f), currentGrappleLength(0.0f), maxGrappleLength(60.0f), fallBooster(2.0f), deathTimer(0.0f){
 }
 
 PlayerController::~PlayerController(){
@@ -48,6 +48,12 @@ void PlayerController::OnStart(){
 		PizzaBox::Debug::LogError("Camera object does not have a PizzaBox::Camera component!", __FILE__, __LINE__);
 		return;
 	}
+
+	gameController = PizzaBox::SceneManager::CurrentScene()->GetComponentInScene<GameController>();
+	if(gameController == nullptr){
+		PizzaBox::Debug::LogError("Could not find [GameController] component in scene!", __FILE__, __LINE__);
+		return;
+	}
 }
 
 void PlayerController::Update(const float deltaTime_){
@@ -57,11 +63,15 @@ void PlayerController::Update(const float deltaTime_){
 		if(deathTimer >= 1.5f){
 			PizzaBox::RenderEngine::ShowCursor(true);
 			PizzaBox::UIManager::EnableSet("DeathSet");
+			auto cam = camera->GetGameObject()->GetComponent<CameraController>();
+			if(cam != nullptr){
+				cam->SetHasControl(false);
+			}
 		}
 	}
 
-	if(isDead || hasWon){
-		return; //Can't control the player if they're dead
+	if(!HasControl() || gameController->IsPaused()){
+		return; //Don't let the player do anything
 	}
 
 	rigidbody->SetMinLinearVelocity(-PizzaBox::Math::Infinity());
@@ -111,6 +121,10 @@ void PlayerController::OnCollision(const PizzaBox::CollisionInfo& other_){
 	if(other_.other->HasTag("Platform")){
 		rigidbody->SetLinearVelocityDamping(0.98f);
 		rigidbody->SetLinearVelocityLimits(-2.5f, 2.5f);
+	}
+
+	if(other_.other->HasTag("EndLevelTrigger")){
+		hasWon = true;
 	}
 }
 
@@ -267,7 +281,7 @@ void PlayerController::Swinging(float deltaTime_){
 			currentGrappleLength = grapplePoint->GetComponent<GrapplePoint>()->swingDistance;
 			isSwitchingToSwinging = false;
 		}else{
-			pullSpeed = ((gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude() - grapplePoint->GetComponent<GrapplePoint>()->swingDistance) / 100.0f;
+			pullSpeed = ((gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude() - grapplePoint->GetComponent<GrapplePoint>()->swingDistance) / 100.0f * 60.0f * deltaTime_;
 			currentGrappleLength = (gameObject->GetPosition() - grapplePoint->GetPosition()).Magnitude() - pullSpeed;
 		}
 	}

@@ -7,10 +7,11 @@
 #include <Physics/Rigidbody.h>
 #include <Script/Script.h>
 
-#include "Animators/PlayerAnimator.h"
+#include "GameController.h"
 #include "GrapplePoint.h"
+#include "Animators/PlayerAnimator.h"
 
-namespace GamePackage {
+namespace GamePackage{
 	class PlayerController : public PizzaBox::Script{
 	public:
 		PlayerController(PlayerAnimator* animator_, PizzaBox::AudioSource* walkSFX_, PizzaBox::AudioSource* grappleSFX_, PizzaBox::AudioSource* jumpSFX_, PizzaBox::AudioSource* landSFX_, PizzaBox::AudioSource* swingingSFX_, PizzaBox::AudioSource* splashSFX_);
@@ -22,7 +23,10 @@ namespace GamePackage {
 		virtual void OnCollision(const PizzaBox::CollisionInfo& other_) override;
 		virtual void OnCollisionExit(PizzaBox::GameObject* other_) override;
 
+		inline bool HasControl(){ return (!isDead && !hasWon); }
+
 	private:
+		GameController* gameController;
 		PizzaBox::AudioSource* walkSFX;
 		PizzaBox::AudioSource* grappleSFX;
 		PizzaBox::AudioSource* jumpSFX;

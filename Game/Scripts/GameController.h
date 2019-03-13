@@ -18,6 +18,8 @@ namespace GamePackage{
 		void ResetScene();
 		void TogglePause();
 
+		inline bool IsPaused(){ return isPaused; }
+
 	private:
 		PizzaBox::GameObject* player;
 		CameraController* camera;

@@ -160,13 +160,21 @@ void Game::SetupOptionsUI(){
 
 	auto muteMusicButtonFunc = std::function<void(PizzaBox::UIEvent)>([](PizzaBox::UIEvent e){
 		if(e == PizzaBox::UIEvent::OnRelease){
-			//TODO
+			if(PizzaBox::AudioManager::GetVolume("Music") > 0.0f){
+				PizzaBox::AudioManager::SetVolume("Music", 0.0f);
+			}else{
+				PizzaBox::AudioManager::SetVolume("Music", 1.0f);
+			}
 		}
 	});
 
 	auto muteVolumeButtonFunc = std::function<void(PizzaBox::UIEvent)>([](PizzaBox::UIEvent e){
 		if(e == PizzaBox::UIEvent::OnRelease){
-			//TODO
+			if(PizzaBox::AudioManager::GetVolume("SFX") > 0.0f){
+				PizzaBox::AudioManager::SetVolume("SFX", 0.0f);
+			} else{
+				PizzaBox::AudioManager::SetVolume("SFX", 1.0f);
+			}
 		}
 	});
 
@@ -240,17 +248,17 @@ void Game::SetupPauseUI(){
 	});
 
 	auto uiSet = new PizzaBox::UISet("PauseSet");
-	uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.8f, 0.15f, 0.175f), true, "Pause!", "ArialFont"));
+	uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.8f, 0.25f, 0.175f), true, "Game Paused", "ArialFont"));
 
-	auto button = new PizzaBox::ButtonUI("ContinueButton", continueButtonFunc, PizzaBox::Rect(0.5f, 0.45f, 0.22f, 0.1f));
+	auto button = new PizzaBox::ButtonUI("ContinueButton", continueButtonFunc, PizzaBox::Rect(0.5f, 0.45f, 0.18f, 0.1f));
 	button->AddText("Continue");
 	uiSet->elements.push_back(button);
 
-	button = new PizzaBox::ButtonUI("RestartButton", restartButtonFunc, PizzaBox::Rect(0.5f, 0.30f, 0.16f, 0.1f));
+	button = new PizzaBox::ButtonUI("RestartButton", restartButtonFunc, PizzaBox::Rect(0.5f, 0.30f, 0.18f, 0.1f));
 	button->AddText("Restart Level");
 	uiSet->elements.push_back(button);
 
-	button = new PizzaBox::ButtonUI("QuitToMenu", titleButtonFunc, PizzaBox::Rect(0.5f, 0.15f, 0.14f, 0.1f));
+	button = new PizzaBox::ButtonUI("QuitToMenu", titleButtonFunc, PizzaBox::Rect(0.5f, 0.15f, 0.18f, 0.1f));
 	button->AddText("Quit to Menu");
 	uiSet->elements.push_back(button);
 
@@ -275,7 +283,7 @@ void Game::SetupWinUI(){
 	auto uiSet = new PizzaBox::UISet("WinSet");
 	uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.8f, 0.15f, 0.1f), true, "You Win!", "ArialFont"));
 
-	auto button = new PizzaBox::ButtonUI("ReturnButton", titleButtonFunc, PizzaBox::Rect(0.5f, 0.45f, 0.14f, 0.1f));
+	auto button = new PizzaBox::ButtonUI("ReturnButton", titleButtonFunc, PizzaBox::Rect(0.5f, 0.4f, 0.18f, 0.1f));
 	button->AddText("Back To Title");
 	uiSet->elements.push_back(button);
 
@@ -303,7 +311,7 @@ void Game::SetupDeathUI(){
 	auto uiSet = new PizzaBox::UISet("DeathSet");
 	uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.8f, 0.15f, 0.1f), true, "You Died!", "ArialFont"));
 
-	auto button = new PizzaBox::ButtonUI("ReturnButton", restartButtonFunc, PizzaBox::Rect(0.5f, 0.45f, 0.18f, 0.1f));
+	auto button = new PizzaBox::ButtonUI("ReturnButton", restartButtonFunc, PizzaBox::Rect(0.5f, 0.4f, 0.18f, 0.1f));
 	button->AddText("Restart");
 	uiSet->elements.push_back(button);
 

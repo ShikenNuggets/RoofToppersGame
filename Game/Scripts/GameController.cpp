@@ -40,6 +40,7 @@ void GameController::OnDestroy(){
 }
 
 void GameController::ResetScene(){
+	PizzaBox::Time::SetTimeScale(1.0f);
 	PizzaBox::RenderEngine::ShowCursor(false);
 	PizzaBox::UIManager::DisableSet("PauseSet");
 	PizzaBox::UIManager::DisableSet("WinSet");
@@ -55,18 +56,25 @@ void GameController::ResetScene(){
 
 	camera->GetGameObject()->SetPosition(PizzaBox::Vector3(0.0f, 55.0f, 80.0f));
 	camera->GetGameObject()->SetRotation(PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
+	camera->SetHasControl(true);
 }
 
 void GameController::TogglePause(){
 	isPaused = !isPaused;
 
+	if(player != nullptr && !player->GetComponent<PlayerController>()->HasControl()){
+		return;
+	}
+
 	if(isPaused){
 		PizzaBox::Time::SetTimeScale(0.0f);
 		PizzaBox::RenderEngine::ShowCursor(true);
 		PizzaBox::UIManager::EnableSet("PauseSet");
+		camera->SetHasControl(false);
 	}else{
 		PizzaBox::Time::SetTimeScale(1.0f);
 		PizzaBox::RenderEngine::ShowCursor(false);
 		PizzaBox::UIManager::DisableSet("PauseSet");
+		camera->SetHasControl(true);
 	}
 }
