@@ -19,7 +19,7 @@ DefaultScene::~DefaultScene(){
 }
 
 bool DefaultScene::Initialize(){
-	SetSky(new PizzaBox::SkyBox("LakeSkybox", "SkyBoxShader", 1000.0f));
+	SetSky(new PizzaBox::SkyBox("LakeSkybox"));
 
 	//Create all GameObjects for this scene
 	PizzaBox::GameObject* mainCamera = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 0.0f, 20.0f));

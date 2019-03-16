@@ -39,13 +39,14 @@ Level1::~Level1(){
 }
 
 bool Level1::Initialize(){
-	//PizzaBox::RenderEngine::SetFogDensity(0.0003f);
-	//PizzaBox::RenderEngine::SetWaterFogDensity(0.00001f);
+	PizzaBox::RenderEngine::SetFogDensity(0.0003f);
+	PizzaBox::RenderEngine::SetWaterFogDensity(0.00001f);
 
 	constexpr float skySize = 5000.0f;
 	
 	//SkyBox
-	SetSky(new PizzaBox::SkyBox("CloudSkybox", "SkyBoxShader", skySize));
+	SetSky(new PizzaBox::SkyBox("CloudSkybox", skySize));
+
 	//Music
 	auto gpm1 = new PizzaBox::AudioSource("GameplayMusic1", PizzaBox::AudioSource::SoundType::_2D, "Music");
 	PizzaBox::GameObject* music = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
