@@ -59,15 +59,15 @@ namespace GamePackage{
 				int randomHousePart= PizzaBox::Random::Range(1, 3);
 
 				auto HousePartTop = PizzaBox::SceneManager::CurrentScene()->CreateObject<PizzaBox::GameObject>(
-					pos_ + PizzaBox::Vector3(15.0f, 150.0f, 0.0f),
+					pos_ + PizzaBox::Vector3(0.0f, 150.0f, 0.0f),
 					PizzaBox::Euler(0.0f, 0.0f, 0.0f),
-					scale_ + PizzaBox::Vector3(30.0f, -295.0f, 30.0f)
+					scale_ + PizzaBox::Vector3(40.0f, -295.0f, 40.0f)
 					);
 
 				auto HousePartBottom = PizzaBox::SceneManager::CurrentScene()->CreateObject<PizzaBox::GameObject>(
-					pos_ + PizzaBox::Vector3(15.0f, 30.0f, 0.0f),
+					pos_ + PizzaBox::Vector3(0.0f, 30.0f, 0.0f),
 					PizzaBox::Euler(0.0f, 0.0f, 0.0f),
-					scale_ + PizzaBox::Vector3(30.0f, -295.0f, 30.0f)
+					scale_ + PizzaBox::Vector3(40.0f, -295.0f, 40.0f)
 					);
 
 				if (randomHousePart == 1) {
