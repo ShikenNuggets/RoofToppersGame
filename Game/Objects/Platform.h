@@ -6,11 +6,13 @@
 namespace GamePackage{
 	class Platform : public PizzaBox::GameObject{
 	public:
-		Platform(const PizzaBox::Vector3& pos_ = PizzaBox::Vector3(), const PizzaBox::Euler& rot_ = PizzaBox::Euler(), const PizzaBox::Vector3& scale_ = PizzaBox::Vector3(1.0f, 1.0f, 1.0f)) : GameObject(pos_, rot_, scale_){
+		Platform(const PizzaBox::Vector3& pos_ = PizzaBox::Vector3(), const PizzaBox::Euler& rot_ = PizzaBox::Euler(), const PizzaBox::Vector3& scale_ = PizzaBox::Vector3(1.0f, 1.0f, 1.0f), bool collidabe = true) : GameObject(pos_, rot_, scale_){
 			auto material = new PizzaBox::TexturedMaterial("WoodTexture", false, "", "", 32.0f, 10.0f);
 			AddComponent(new PizzaBox::MeshRender("CubeModel", material));
-			AddComponent(new PizzaBox::Collider(GlobalScale()));
-			SetTag("Platform");
+			if (collidabe == true) {
+				AddComponent(new PizzaBox::Collider(GlobalScale()));
+				SetTag("Platform");
+			}
 			SetStatic(true);
 		}
 
