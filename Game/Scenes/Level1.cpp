@@ -86,10 +86,10 @@ bool Level1::Initialize(){
 	//Test Static platfrom
 
 
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 25.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 100.0f, 20.0f));
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 20.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(200.0f, 100.0f, 200.0f));
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 33.0f, 150.0f), PizzaBox::Euler(), PizzaBox::Vector3(40.0f, 100.0f, 40.0f));
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 33.0f, 100.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 100.0f, 20.0f));
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, 30.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 100.0f, 20.0f));
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, 23.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(200.0f, 100.0f, 200.0f));
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, 34.0f, 150.0f), PizzaBox::Euler(), PizzaBox::Vector3(40.0f, 100.0f, 40.0f));
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, 34.0f, 100.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 100.0f, 20.0f));
 
 
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, 15.0f), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 100.0f, 50.0f));
@@ -98,6 +98,9 @@ bool Level1::Initialize(){
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -280.0f), PizzaBox::Euler(/*-25.0f*/), PizzaBox::Vector3(20.0f, 100.0f, 20.0f));
 	//CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -300.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 300.0f, 20.0f));
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -800.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 300.0f, 20.0f));
+
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -900.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 300.0f, 20.0f));
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -1000.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 300.0f, 20.0f));
 
 	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 40.0f, -55.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 2.0f, 32.0f));
 	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 45.0f, -150.0f), PizzaBox::Euler(), PizzaBox::Vector3(24.0f, 2.0f, 24.0f));
