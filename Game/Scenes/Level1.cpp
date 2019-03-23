@@ -45,7 +45,7 @@ bool Level1::Initialize(){
 	constexpr float skySize = 5000.0f;
 	
 	//SkyBox
-	SetSky(new PizzaBox::SkyBox("CloudSkybox", skySize));
+	SetSky(new PizzaBox::SkyBox("SummerSkyBox", skySize));
 
 	//Music
 	auto gpm1 = new PizzaBox::AudioSource("GameplayMusic1", PizzaBox::AudioSource::SoundType::_2D, "Music");
