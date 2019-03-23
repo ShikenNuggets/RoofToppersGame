@@ -109,33 +109,6 @@ bool Level2::Initialize() {
 	baseWater->AddComponent(new PizzaBox::MeshRender("WaterMesh", water));
 
 
-	//level 1 background 
-
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 30.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 100.0f, 20.0f),false);
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 23.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(200.0f, 100.0f, 200.0f), false);
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 34.0f, 150.0f), PizzaBox::Euler(), PizzaBox::Vector3(40.0f, 100.0f, 40.0f), false);
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 34.0f, 100.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 100.0f, 20.0f), false);
-
-
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, 15.0f), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 100.0f, 50.0f), false);
-	//CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(30.0f, 100.0f, 30.0f));
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -120.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 100.0f, 32.0f), false);
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -280.0f), PizzaBox::Euler(/*-25.0f*/), PizzaBox::Vector3(20.0f, 100.0f, 20.0f), false);
-	//CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -300.0f), PizzaBox::Euler(), PizzaBox::Vector3(20.0f, 300.0f, 20.0f));
-
-
-	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 40.0f, -55.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 2.0f, 32.0f), false);
-	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 45.0f, -150.0f), PizzaBox::Euler(), PizzaBox::Vector3(24.0f, 2.0f, 24.0f), false);
-	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 40.0f, -375.0f), PizzaBox::Euler(), PizzaBox::Vector3(24.0f, 2.0f, 24.0f), false);
-	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 35.0f, -450.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 5.0f, 32.0f), false);
-	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 35.0f, -500.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 5.0f, 32.0f), false);
-	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 35.0f, -550.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 5.0f, 32.0f), false);
-	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 35.0f, -600.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 5.0f, 32.0f), false);
-	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 35.0f, -650.0f), PizzaBox::Euler(), PizzaBox::Vector3(16.0f, 5.0f, 32.0f), false);
-	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 35.0f, -700.0f), PizzaBox::Euler(), PizzaBox::Vector3(16.0f, 5.0f, 32.0f), false);
-	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 35.0f, -750.0f), PizzaBox::Euler(), PizzaBox::Vector3(16.0f, 5.0f, 32.0f), false);
-	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 35.0f, -800.0f), PizzaBox::Euler(), PizzaBox::Vector3(80.0f, 5.0f, 60.0f), false);
-
 
 	auto oldDoor = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 38.2f, -788.55f), PizzaBox::Euler(-90.0f, 90.0f, 0.0f), PizzaBox::Vector3(0.85f, 0.85f, 0.85f));
 	oldDoor->AddComponent(new PizzaBox::MeshRender("DoorModel", "DoorTexture"));
