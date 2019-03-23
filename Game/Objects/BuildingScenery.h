@@ -70,20 +70,47 @@ namespace GamePackage{
 					scale_ + PizzaBox::Vector3(40.0f, -295.0f, 40.0f)
 					);
 
+				auto HousePartChimeny = PizzaBox::SceneManager::CurrentScene()->CreateObject<PizzaBox::GameObject>(
+					pos_ + PizzaBox::Vector3(0.0f, 158.0f, 0.0f),
+					PizzaBox::Euler(0.0f, 0.0f, 0.0f),
+					scale_ + PizzaBox::Vector3(-20.0f, -290.0f, -20.0f)
+					);
+				
+				auto HousePartChimeny2 = PizzaBox::SceneManager::CurrentScene()->CreateObject<PizzaBox::GameObject>(
+					pos_ + PizzaBox::Vector3(0.0f, 158.0f, 0.0f),
+					PizzaBox::Euler(0.0f, 0.0f, 0.0f),
+					scale_ + PizzaBox::Vector3(-20.0f, -280.0f, -20.0f)
+					);
+				auto HousePartChimeny3 = PizzaBox::SceneManager::CurrentScene()->CreateObject<PizzaBox::GameObject>(
+					pos_ + PizzaBox::Vector3(0.0f, 158.0f, 0.0f),
+					PizzaBox::Euler(0.0f, 0.0f, 0.0f),
+					scale_ + PizzaBox::Vector3(-20.0f, -270.0f, -20.0f)
+					);
+
+				texMaterial = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 32.0f);
+				HousePartTop->AddComponent(new PizzaBox::MeshRender("CubeModel", texMaterial));
+				texMaterial = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 32.0f);
+				HousePartBottom->AddComponent(new PizzaBox::MeshRender("CubeModel", texMaterial));
+
+
 				if (randomHousePart == 1) {
+
 					texMaterial = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 32.0f);
-					HousePartTop->AddComponent(new PizzaBox::MeshRender("CubeModel", texMaterial));
+					HousePartChimeny->AddComponent(new PizzaBox::MeshRender("CubeModel", texMaterial));
+
 				}
 
 				else if (randomHousePart == 2) {
+
 					texMaterial = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 32.0f);
-					HousePartBottom->AddComponent(new PizzaBox::MeshRender("CubeModel", texMaterial));
+					HousePartChimeny2->AddComponent(new PizzaBox::MeshRender("CubeModel", texMaterial));
+
 				}
 				else {
+
 					texMaterial = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 32.0f);
-					HousePartTop->AddComponent(new PizzaBox::MeshRender("CubeModel", texMaterial));
-					texMaterial = new PizzaBox::TexturedMaterial("ConcreteTexture", false, "", "", 32.0f, 32.0f);
-					HousePartBottom->AddComponent(new PizzaBox::MeshRender("CubeModel", texMaterial));
+					HousePartChimeny3->AddComponent(new PizzaBox::MeshRender("CubeModel", texMaterial));
+
 
 				}
 
