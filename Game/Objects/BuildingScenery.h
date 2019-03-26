@@ -2,11 +2,13 @@
 #define BUILDING_SCENERY_H
 
 #include <Core/SceneManager.h>
+#include <Graphics/Materials/ReflectiveMaterial.h>
 #include <Graphics/Materials/TexturedMaterial.h>
 #include <Graphics/Models/MeshRender.h>
 #include <Object/GameObject.h>
 #include <Physics/Collider.h>
 #include "Tools/Random.h"
+
 namespace GamePackage{
 	class BuildingScenery : public PizzaBox::GameObject{
 	public:
