@@ -57,9 +57,6 @@ void PlayerController::OnStart(){
 
 void PlayerController::Update(const float deltaTime_){
 	if(isDead){
-		auto effect = new PizzaBox::ParticleSystem(new PizzaBox::ParticleTexture("WaterSplashTexture", 1), 60.0f, 40.0f, 0.050f, 3.5f / 2.0f);
-		effect->SetRotationChange(90.0f);
-		gameObject->AddComponent(effect);
 		camera->GetGameObject()->GetComponent<CameraController>()->SetTarget(nullptr);
 		deathTimer += PizzaBox::Time::RealDeltaTime();
 		if(deathTimer >= 1.5f){
@@ -108,6 +105,10 @@ void PlayerController::Update(const float deltaTime_){
 	if(gameObject->GlobalPosition().y < 15.0f){
 		if(!isDead){
 			isDead = true;
+
+			auto effect = new PizzaBox::ParticleSystem(new PizzaBox::ParticleTexture("WaterSplashTexture", 1), 60.0f, 40.0f, 0.050f, 3.5f / 2.0f);
+			effect->SetRotationChange(90.0f);
+			gameObject->AddComponent(effect);
 
 			splashSFX->PlayOnce();
 			if(isSwinging){
