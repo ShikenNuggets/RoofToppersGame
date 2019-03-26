@@ -76,7 +76,7 @@ bool Level1::Initialize(){
 	dirLight->AddComponent(new PizzaBox::DirectionalLight(2.0f));
 	
 	auto gameController = CreateObject<PizzaBox::GameObject>();
-	gameController->AddComponent(new GameController(PizzaBox::Vector3(0.0f, 200.0f, 200.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f)));
+	gameController->AddComponent(new GameController(PizzaBox::Vector3(0.0f, 75.0f, 200.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f)));
 
 	//Grapple Point
 	//auto grapplePoint = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 50.0f, -50.0f), PizzaBox::Euler(), PizzaBox::Vector3::Fill(2.0f));
