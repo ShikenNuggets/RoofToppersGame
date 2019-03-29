@@ -92,7 +92,7 @@ void CameraController::Update(const float deltaTime_){
 
 	//Target's center is it's feet, so we'll adjust our target position based on half it's scale
 	//Multiplied by a fudge factor because our model is weird
-	targetPos.y += (target->GlobalScale().y / 2.0f) * 500.0f;
+	targetPos.y += (target->GlobalScale().y / 2.0f) * 750.0f;
 
 	//Sets camera position based on camera rotation and target position
 	float desiredFollowDistance = 10.0f;

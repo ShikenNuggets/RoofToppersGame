@@ -60,6 +60,7 @@ void PlayerController::Update(const float deltaTime_){
 		camera->GetGameObject()->GetComponent<CameraController>()->SetTarget(nullptr);
 		deathTimer += PizzaBox::Time::RealDeltaTime();
 		if(deathTimer >= 1.5f){
+
 			PizzaBox::RenderEngine::ShowCursor(true);
 			PizzaBox::UIManager::EnableSet("DeathSet");
 			auto cam = camera->GetGameObject()->GetComponent<CameraController>();
@@ -101,9 +102,14 @@ void PlayerController::Update(const float deltaTime_){
 		Swinging(deltaTime_);
 	}
 
-	if(gameObject->GlobalPosition().y < 22.0f){
+	if(gameObject->GlobalPosition().y < 15.0f){
 		if(!isDead){
 			isDead = true;
+
+			auto effect = new PizzaBox::ParticleSystem(new PizzaBox::ParticleTexture("WaterSplashTexture", 1), 60.0f, 40.0f, 0.050f, 3.5f / 2.0f);
+			effect->SetRotationChange(90.0f);
+			gameObject->AddComponent(effect);
+
 			splashSFX->PlayOnce();
 			if(isSwinging){
 				SwitchToGroundMovement();
@@ -254,7 +260,7 @@ void PlayerController::Swinging(float deltaTime_){
 	}
 
 	//Prevent player from dragging on ground. Physics doesnt like this
-	PizzaBox::Vector3 raycastNextPos = gameObject->GlobalPosition() + (nextPosition - gameObject->GlobalPosition()) * 2.0f;
+	PizzaBox::Vector3 raycastNextPos = gameObject->GlobalPosition() + (nextPosition - gameObject->GlobalPosition()).Normalized() * 2.0f;
 	std::vector<PizzaBox::RaycastInfo> info = PizzaBox::PhysicsEngine::Raycast(gameObject->GlobalPosition() + gameObject->GetTransform()->GetUp(), raycastNextPos);
 	
 	PizzaBox::RaycastInfo closest = PizzaBox::RaycastInfo(PizzaBox::Vector3(), PizzaBox::Vector3(), PizzaBox::Math::Infinity(), nullptr);
@@ -265,7 +271,7 @@ void PlayerController::Swinging(float deltaTime_){
 	}
 
 	if(closest.other != nullptr){
-		nextPosition += closest.normal * 0.3f * deltaTime_;
+		nextPosition += closest.normal * 8.0f * deltaTime_;
 	}
 
 	//This doesn't work at framerates higher than 999

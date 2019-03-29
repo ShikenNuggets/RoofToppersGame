@@ -5,6 +5,7 @@
 #include <Graphics/RenderEngine.h>
 #include <Graphics/Sky/SkyBox.h>
 #include <Graphics/UI/UIManager.h> 
+#include "Scripts/MusicScript.h"
 
 using namespace GamePackage;
 
@@ -17,6 +18,12 @@ MainMenuScene::~MainMenuScene(){
 bool MainMenuScene::Initialize(){
 	PizzaBox::RenderEngine::SetFogDensity(0.0f);
 	PizzaBox::RenderEngine::SetWaterFogDensity(0.0f);
+
+	//Music
+	auto mmu1 = new PizzaBox::AudioSource("MenuMusic", PizzaBox::AudioSource::SoundType::_2D, "Music");
+	PizzaBox::GameObject* music = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
+	music->AddComponent(mmu1);
+	music->AddComponent(new MusicScript(mmu1));
 
 	PizzaBox::RenderEngine::ShowCursor(true);
 	SetSky(new PizzaBox::SkyBox("CloudSkybox"));

@@ -243,6 +243,8 @@ echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Comman
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animators\PlayerAnimator.cpp" />
+    <ClCompile Include="Scripts\BuildingSink.cpp" />
+    <ClCompile Include="Scenes\Level2.cpp" />
     <ClCompile Include="Scripts\GameController.cpp" />
     <ClCompile Include="Scripts\EndLevelTrigger.cpp" />
     <ClCompile Include="Scripts\MusicScript.cpp" />
@@ -261,6 +263,8 @@ echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Comman
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animators\PlayerAnimator.h" />
+    <ClInclude Include="Scripts\BuildingSink.h" />
+    <ClInclude Include="Scenes\Level2.h" />
     <ClInclude Include="Objects\BuildingScenery.h" />
     <ClInclude Include="Scripts\EndLevelTrigger.h" />
     <ClInclude Include="Objects\Building.h" />
