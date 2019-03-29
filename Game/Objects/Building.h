@@ -7,10 +7,11 @@
 #include <Object/GameObject.h>
 #include <Physics/Collider.h>
 
+#include "Scripts/BuildingSink.h"
 namespace GamePackage{
 	class Building : public PizzaBox::GameObject{
 	public:
-		Building(const PizzaBox::Vector3& pos_ = PizzaBox::Vector3(), const PizzaBox::Euler& rot_ = PizzaBox::Euler(), const PizzaBox::Vector3& scale_ = PizzaBox::Vector3(1.0f, 1.0f, 1.0f), std::string texture_ ="BrickTexture", float textureSize_ = 32.0f,  bool collidabe = true, bool sinkable_ = false) : GameObject(pos_, rot_, scale_){
+		Building(const PizzaBox::Vector3& pos_ = PizzaBox::Vector3(), const PizzaBox::Euler& rot_ = PizzaBox::Euler(), const PizzaBox::Vector3& scale_ = PizzaBox::Vector3(1.0f, 1.0f, 1.0f), std::string texture_ ="BrickTexture", float textureSize_ = 32.0f,  bool collidabe = true, bool sinkable_ = false, float collapseRate_ = 4.0f) : GameObject(pos_, rot_, scale_){
 			AddComponent(new PizzaBox::MeshRender("CubeModel", new PizzaBox::TexturedMaterial(texture_, false, "", "", 32.0f, textureSize_)));
 			
 			if (collidabe == true) {
@@ -22,7 +23,8 @@ namespace GamePackage{
 			}
 
 			else if (sinkable_ == true) {
-				
+				SetStatic(false);
+				AddComponent(new BuildingSink(collapseRate_));
 			}
 
 			/*auto backgroundHouseWindow = PizzaBox::SceneManager::CurrentScene()->CreateObject<PizzaBox::GameObject>(
