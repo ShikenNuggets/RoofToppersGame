@@ -178,7 +178,9 @@ bool Level1::Initialize(){
 	auto water = new PizzaBox::WaterMaterial("WaterTexture", "", "", 32.0f, 256.0f);
 	water->SetWaveParamaters(PizzaBox::Vector4(2.0f, 4.0f, 4.0f, 2.0f), PizzaBox::Vector4(0.8f, 0.2f, 0.2f, 0.2f), PizzaBox::Vector4(0.4f, 0.4f, 0.4f, 0.2f));
 	water->SetFlowDirection(PizzaBox::Vector2(0.0f, 1.0f));
-	baseWater->AddComponent(new PizzaBox::MeshRender("WaterMesh", water));
+	auto mr = new PizzaBox::MeshRender("WaterMesh", water);
+	mr->SetCastsShadows(false);
+	baseWater->AddComponent(mr);
 
 	//Background Design
 	for(int i = 0; i < 30; i++){

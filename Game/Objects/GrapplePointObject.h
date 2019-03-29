@@ -17,7 +17,7 @@ namespace GamePackage{
 				AddChild(child);
 				child->GetTransform()->SetParent(GetTransform());
 				child->SetPosition(PizzaBox::Vector3(0.0f, -3.5f, 0.0f));
-				child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
+				//child->AddComponent(new PizzaBox::PointLight(1.0f, PizzaBox::Color::Yellow, 5.0f));
 		}
 
 		virtual ~GrapplePointObject() override{}
