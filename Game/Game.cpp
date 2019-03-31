@@ -184,6 +184,7 @@ void Game::SetupOptionsUI(){
 
 	button = new PizzaBox::ButtonUI("BackButton", backButtonFunc, PizzaBox::Rect(0.9f, 0.1f, 0.1f, 0.1f));
 	button->AddText("Back");
+	button->SetReceivesBackInput(true);
 	uiSet->AddElement(button);
 
 	PizzaBox::UIManager::AddSet(uiSet);
@@ -237,6 +238,7 @@ void Game::SetupPauseUI(){
 
 	auto button = new PizzaBox::ButtonUI("ContinueButton", continueButtonFunc, PizzaBox::Rect(0.5f, 0.45f, 0.18f, 0.1f));
 	button->AddText("Continue");
+	button->SetReceivesBackInput(true);
 	uiSet->elements.push_back(button);
 
 	button = new PizzaBox::ButtonUI("RestartButton", restartButtonFunc, PizzaBox::Rect(0.5f, 0.30f, 0.18f, 0.1f));
@@ -270,6 +272,7 @@ void Game::SetupWinUI(){
 
 	auto button = new PizzaBox::ButtonUI("ReturnButton", titleButtonFunc, PizzaBox::Rect(0.5f, 0.4f, 0.18f, 0.1f));
 	button->AddText("Back To Title");
+	button->SetReceivesBackInput(true);
 	uiSet->elements.push_back(button);
 
 	PizzaBox::UIManager::AddSet(uiSet);
@@ -298,6 +301,7 @@ void Game::SetupDeathUI(){
 
 	auto button = new PizzaBox::ButtonUI("ReturnButton", restartButtonFunc, PizzaBox::Rect(0.5f, 0.4f, 0.18f, 0.1f));
 	button->AddText("Restart");
+	button->SetReceivesBackInput(true);
 	uiSet->elements.push_back(button);
 
 	button = new PizzaBox::ButtonUI("QuitButton", titleButtonFunc, PizzaBox::Rect(0.5f, 0.25f, 0.18f, 0.1f));

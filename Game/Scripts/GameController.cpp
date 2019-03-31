@@ -31,7 +31,7 @@ void GameController::Update(const float deltaTime_){
 		PizzaBox::UIManager::ToggleSet("StatsSet");
 	}
 
-	if(PizzaBox::InputManager::GetButtonDown("Exit")){
+	if(PizzaBox::InputManager::GetButtonUp("Exit") && !isPaused){
 		TogglePause();
 	}
 }
