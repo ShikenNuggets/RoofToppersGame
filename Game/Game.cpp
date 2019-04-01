@@ -65,7 +65,14 @@ void Game::SetupLogoUI(){
 
 void Game::SetupStatsUI(){
 	auto uiSet = new PizzaBox::UISet("StatsSet");
-	uiSet->AddElement(new PizzaBox::StatsTextUI("StatsTextUI", PizzaBox::Rect(0.075f, 0.92f, 0.12f, 0.05f), "ArialFont"));
+
+	auto image = new PizzaBox::ImageUI("StatsImage", "BlackTexture", PizzaBox::Rect(0.09f, 0.95f, 0.175f, 0.05f));
+	image->SetTransparency(0.25f);
+	uiSet->AddElement(image);
+
+	auto text = new PizzaBox::StatsTextUI("StatsTextUI", PizzaBox::Rect(0.075f, 0.92f, 0.12f, 0.05f), "ArialFont");
+	text->SetColor(PizzaBox::Color::Yellow);
+	uiSet->AddElement(text);
 	PizzaBox::UIManager::AddSet(uiSet);
 }
 
