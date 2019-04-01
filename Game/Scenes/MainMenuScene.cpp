@@ -47,12 +47,6 @@ bool MainMenuScene::Initialize(){
 	PizzaBox::RenderEngine::SetFogDensity(0.0003f);
 	PizzaBox::RenderEngine::SetWaterFogDensity(0.00001f);
 
-	//Waves
-	auto wve1 = new PizzaBox::AudioSource("WavesSFX", PizzaBox::AudioSource::SoundType::_2D, "SFX");
-	PizzaBox::GameObject* waves = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
-	waves->AddComponent(wve1);
-	waves->AddComponent(new MusicScript(wve1));
-
 	//Directional Light
 	auto dirLight = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(), PizzaBox::Euler(-35.0f, 12.0f, 0.0f));
 	dirLight->AddComponent(new PizzaBox::DirectionalLight(2.0f));

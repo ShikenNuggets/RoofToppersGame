@@ -27,8 +27,6 @@ Game::~Game(){
 }
 
 bool Game::Initialize(){
-	PizzaBox::RenderEngine::SetWindowResolution(1280, 720);
-	PizzaBox::RenderEngine::SetWindowBorderless(false);
 	PizzaBox::RenderEngine::SetVSYNC(PizzaBox::Window::VSYNC::On);
 	//PizzaBox::RenderEngine::SetFogDensity(0.0003f);
 	//PizzaBox::RenderEngine::SetWaterFogDensity(0.00001f);
@@ -106,7 +104,7 @@ void Game::SetupMainMenuUI(){
 	uiSet->AddElement(button);
 
 	button = new PizzaBox::ButtonUI("QuitButton", quitButtonFunc, PizzaBox::Rect(0.5f, 0.1f, 0.15f, 0.1f));
-	button->AddText("Quit");
+	button->AddText("Quit Game");
 	uiSet->AddElement(button);
 
 	PizzaBox::UIManager::AddSet(uiSet);
