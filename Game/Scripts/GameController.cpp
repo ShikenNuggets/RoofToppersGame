@@ -5,6 +5,7 @@
 #include <Graphics/RenderEngine.h>
 #include <Graphics/UI/UIManager.h>
 #include <Input/InputManager.h>
+#include <Tools/EngineStats.h>
 
 #include "Objects/Player.h"
 
@@ -17,6 +18,8 @@ GameController::~GameController(){
 }
 
 void GameController::OnStart(){
+	PizzaBox::EngineStats::SetFloat("IGT", 0.0f);
+
 	camera = PizzaBox::SceneManager::CurrentScene()->GetComponentInScene<CameraController>();
 	if(camera == nullptr){
 		PizzaBox::Debug::LogError("No PizzaBox::Camera found in scene!", __FILE__, __LINE__);
@@ -27,6 +30,10 @@ void GameController::OnStart(){
 }
 
 void GameController::Update(const float deltaTime_){
+	if(player != nullptr && player->GetComponent<PlayerController>() != nullptr && player->GetComponent<PlayerController>()->HasControl()){
+		PizzaBox::EngineStats::AddToFloat("IGT", deltaTime_);
+	}
+
 	if(PizzaBox::InputManager::GetKeyDown(SDLK_BACKQUOTE)){
 		PizzaBox::UIManager::ToggleSet("StatsSet");
 	}
@@ -40,6 +47,7 @@ void GameController::OnDestroy(){
 }
 
 void GameController::ResetScene(){
+	PizzaBox::EngineStats::SetFloat("IGT", 0.0f);
 	isPaused = false;
 	PizzaBox::Time::SetTimeScale(1.0f);
 	PizzaBox::UIManager::DisableSet("PauseSet");

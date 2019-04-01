@@ -260,6 +260,7 @@ echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Comman
     <ClCompile Include="Scripts\CharacterController.cpp" />
     <ClCompile Include="Scripts\UI\LogoManager.cpp" />
     <ClCompile Include="Scripts\PlayerController.cpp" />
+    <ClCompile Include="UI\IGT.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animators\PlayerAnimator.h" />
@@ -284,6 +285,7 @@ echo D|xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)Resources" /y /E</Comman
     <ClInclude Include="Scripts\CharacterController.h" />
     <ClInclude Include="Scripts\UI\LogoManager.h" />
     <ClInclude Include="Scripts\PlayerController.h" />
+    <ClInclude Include="UI\IGT.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
