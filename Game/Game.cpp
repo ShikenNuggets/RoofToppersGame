@@ -165,7 +165,8 @@ void Game::SetupOptionsUI(){
 	});
 
 	auto uiSet = new PizzaBox::UISet("OptionsSet");
-	uiSet->AddElement(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.75f, 0.15f, 0.175f), true, "Options", "ArialFont"));
+	uiSet->AddElement(new PizzaBox::ImageUI("OptionsLogo", "OptionsLogo", PizzaBox::Rect(0.5f, 0.8f, 0.4f, 0.2f)));
+	//uiSet->AddElement(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.75f, 0.15f, 0.175f), true, "Options", "ArialFont"));
 
 	auto button = new PizzaBox::ButtonUI("FullscreenButton", fullScreenButtonFunc, PizzaBox::Rect(0.5f, 0.5f, 0.15f, 0.1f));
 	button->AddText("Fullscreen");
@@ -235,7 +236,8 @@ void Game::SetupPauseUI(){
 	});
 
 	auto uiSet = new PizzaBox::UISet("PauseSet");
-	uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.8f, 0.25f, 0.175f), true, "Game Paused", "ArialFont"));
+	uiSet->AddElement(new PizzaBox::ImageUI("PauseLogo", "PauseLogo", PizzaBox::Rect(0.5f, 0.8f, 0.4f, 0.2f)));
+	//uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.8f, 0.25f, 0.175f), true, "Game Paused", "ArialFont"));
 
 	auto button = new PizzaBox::ButtonUI("ContinueButton", continueButtonFunc, PizzaBox::Rect(0.5f, 0.45f, 0.18f, 0.1f));
 	button->AddText("Continue");
@@ -269,7 +271,8 @@ void Game::SetupWinUI(){
 	});
 	
 	auto uiSet = new PizzaBox::UISet("WinSet");
-	uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.8f, 0.15f, 0.1f), true, "You Win!", "ArialFont"));
+	uiSet->AddElement(new PizzaBox::ImageUI("WinLogo", "WinLogo", PizzaBox::Rect(0.5f, 0.8f, 0.4f, 0.2f)));
+	//uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.8f, 0.15f, 0.1f), true, "You Win!", "ArialFont"));
 
 	auto button = new PizzaBox::ButtonUI("ReturnButton", titleButtonFunc, PizzaBox::Rect(0.5f, 0.4f, 0.18f, 0.1f));
 	button->AddText("Back To Title");
@@ -298,7 +301,8 @@ void Game::SetupDeathUI(){
 	});
 
 	auto uiSet = new PizzaBox::UISet("DeathSet");
-	uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.8f, 0.15f, 0.1f), true, "You Died!", "ArialFont"));
+	uiSet->AddElement(new PizzaBox::ImageUI("DeathLogo", "DeathLogo", PizzaBox::Rect(0.5f, 0.8f, 0.4f, 0.2f)));
+	//uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.8f, 0.15f, 0.1f), true, "You Died!", "ArialFont"));
 
 	auto button = new PizzaBox::ButtonUI("ReturnButton", restartButtonFunc, PizzaBox::Rect(0.5f, 0.4f, 0.18f, 0.1f));
 	button->AddText("Restart");
