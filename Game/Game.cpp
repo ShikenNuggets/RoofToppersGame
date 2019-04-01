@@ -231,6 +231,7 @@ void Game::SetupPauseUI(){
 		if(e == PizzaBox::UIEvent::OnRelease){
 			PizzaBox::UIManager::DisableAllSets();
 			PizzaBox::UIManager::EnableSet("LoadingSet");
+			PizzaBox::Time::SetTimeScale(1.0f);
 			PizzaBox::SceneManager::LoadScene(1);
 		}
 	});
