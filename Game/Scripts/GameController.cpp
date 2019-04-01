@@ -40,6 +40,7 @@ void GameController::OnDestroy(){
 }
 
 void GameController::ResetScene(){
+	isPaused = false;
 	PizzaBox::Time::SetTimeScale(1.0f);
 	PizzaBox::UIManager::DisableSet("PauseSet");
 	PizzaBox::UIManager::DisableSet("WinSet");
