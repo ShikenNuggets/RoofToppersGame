@@ -123,6 +123,10 @@ void PlayerController::Update(const float deltaTime_){
 }
 
 void PlayerController::OnDestroy(){
+	if(grappleLine != nullptr){
+		PizzaBox::SceneManager::CurrentScene()->DestroyObject(grappleLine);
+		grappleLine = nullptr;
+	}
 }
 
 void PlayerController::OnCollision(const PizzaBox::CollisionInfo& other_){
