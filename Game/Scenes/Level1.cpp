@@ -10,6 +10,7 @@
 #include <Graphics/Materials/TexturedMaterial.h>
 #include <Graphics/Materials/WaterMaterial.h>
 #include <Graphics/Particles/ParticleSystem.h>
+#include <Graphics/UI/UIManager.h>
 #include <Physics/Collider.h>
 #include <Physics/Rigidbody.h>
 #include <Audio/AudioListener.h>
@@ -76,8 +77,7 @@ bool Level1::Initialize(){
 	dirLight->AddComponent(new PizzaBox::DirectionalLight(2.0f));
 	
 	auto gameController = CreateObject<PizzaBox::GameObject>();
-	//gameController->AddComponent(new GameController(PizzaBox::Vector3(0.0f, 80.0f, 200.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f)));
-	gameController->AddComponent(new GameController(PizzaBox::Vector3(0.0f, 80.0f, -1525.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f)));
+	gameController->AddComponent(new GameController(PizzaBox::Vector3(0.0f, 80.0f, 200.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f)));
 
 	//Grapple Point
 	//auto grapplePoint = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 50.0f, -50.0f), PizzaBox::Euler(), PizzaBox::Vector3::Fill(2.0f));
@@ -95,7 +95,7 @@ bool Level1::Initialize(){
 
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, 15.0f), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 100.0f, 50.0f),"BrickTextureTwo");
 
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -120.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 100.0f, 32.0f), "BrickTextureFive");
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, -15.0f, -120.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 100.0f, 32.0f), "BrickTextureFive");
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -280.0f), PizzaBox::Euler(/*-25.0f*/), PizzaBox::Vector3(20.0f, 100.0f, 20.0f), "BrickTextureTwo");
 
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, -10.0f, -805.0f), PizzaBox::Euler(/*-25.0f*/), PizzaBox::Vector3(40.0f, 100.0f, 20.0f));
@@ -111,7 +111,7 @@ bool Level1::Initialize(){
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -1800.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 300.0f, 60.0f), "BrickTextureFive");
 
 	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 40.0f, -55.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 2.0f, 32.0f));
-	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 45.0f, -150.0f), PizzaBox::Euler(), PizzaBox::Vector3(24.0f, 2.0f, 24.0f));
+	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 30.0f, -150.0f), PizzaBox::Euler(), PizzaBox::Vector3(24.0f, 2.0f, 24.0f));
 	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 40.0f, -375.0f), PizzaBox::Euler(), PizzaBox::Vector3(24.0f, 2.0f, 24.0f));
 	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 35.0f, -450.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 5.0f, 32.0f));
 	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 35.0f, -500.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 5.0f, 32.0f));
@@ -152,18 +152,16 @@ bool Level1::Initialize(){
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 65.0f, -725.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 65.0f, -780.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(-20.0f, 65.0f, -850.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
-	CreateObject<GrapplePointObject>(PizzaBox::Vector3(-20.0f, 70.0f, -875.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
-	CreateObject<GrapplePointObject>(PizzaBox::Vector3(-20.0f, 70.0f, -900.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(-20.0f, 70.0f, -925.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
-	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 60.0f, -1010.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
-	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 60.0f, -1050.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
+	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 60.0f, -1020.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
+	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 60.0f, -1060.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(20.0f, 60.0f, -1150.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(10.0f, 60.0f, -1200.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 60.0f, -1250.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(10.0f, 60.0f, -1300.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(20.0f, 60.0f, -1350.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 60.0f, -1400.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
-	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 70.0f, -1475.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
+	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 70.0f, -1500.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 70.0f, -1560.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 
 	
