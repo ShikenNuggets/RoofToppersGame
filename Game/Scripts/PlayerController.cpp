@@ -60,8 +60,6 @@ void PlayerController::Update(const float deltaTime_){
 		camera->GetGameObject()->GetComponent<CameraController>()->SetTarget(nullptr);
 		deathTimer += PizzaBox::Time::RealDeltaTime();
 		if(deathTimer >= 1.5f){
-
-			PizzaBox::RenderEngine::ShowCursor(true);
 			PizzaBox::UIManager::EnableSet("DeathSet");
 			auto cam = camera->GetGameObject()->GetComponent<CameraController>();
 			if(cam != nullptr){

@@ -26,7 +26,6 @@ void CameraController::OnStart(){
 
 	shakeTime = 0.05f;
 	rotateSpeed = 45.0f;
-	PizzaBox::RenderEngine::ShowCursor(false);
 
 	//TODO - Set up ini mouse sensitivity settings and usage
 	mouseSensitivity = 100.0f;
