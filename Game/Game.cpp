@@ -206,15 +206,11 @@ void Game::SetupOptionsUI(){
 void Game::SetupTutorialUI(){
 	auto uiSet = new PizzaBox::UISet("TutorialSet");
 
-	std::string text;
-	text = "W A S D to move";
-	uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.1f, 0.85f, 0.04f, 0.05f), true, text, "ArialFont"));
+	uiSet->AddElement(new PizzaBox::ImageUI("XImage", "XImage", PizzaBox::Rect(0.8f, 0.2f, 0.28125000000000012304687500000005f / 8.0f, 0.5f / 8.0f)));
+	uiSet->AddElement(new PizzaBox::TextUI("XText", PizzaBox::Rect(0.86f, 0.15f, 0.07f, 0.0725f), false, " to jump", "ArialFont"));
 
-	text = "Space To Jump";
-	uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.1f, 0.8f, 0.04f, 0.05f), true, text, "ArialFont"));
-
-	text = "Left Click to grapple to that yellow thing";
-	uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.1f, 0.75f, 0.04f, 0.05f), true, text, "ArialFont"));
+	uiSet->AddElement(new PizzaBox::ImageUI("CircleImage", "CircleImage", PizzaBox::Rect(0.8f, 0.1f, 0.28125000000000012304687500000005f / 8.0f, 0.5f / 8.0f)));
+	uiSet->AddElement(new PizzaBox::TextUI("CircleText", PizzaBox::Rect(0.875f, 0.05f, 0.1f, 0.08f), false, " to grapple", "ArialFont"));
 
 	PizzaBox::UIManager::AddSet(uiSet);
 }

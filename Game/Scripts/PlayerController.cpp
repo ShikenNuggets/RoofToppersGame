@@ -115,6 +115,10 @@ void PlayerController::Update(const float deltaTime_){
 		}
 	}
 
+	if(gameObject->GlobalPosition().z < 0.0f){
+		gameController->CompleteTutorial();
+	}
+
 	if(IsOnGround()){
 		animator->isJumping = false;
 	}else{
