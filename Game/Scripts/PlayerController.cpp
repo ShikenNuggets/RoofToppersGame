@@ -301,15 +301,14 @@ void PlayerController::Swinging(float deltaTime_){
 }
 
 void PlayerController::SwitchToSwinging(){
-
-	rigidbody->SetLinearVelocityDamping(0.0f);
-	rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
-
 	currentGrapplePoint = FindNearestGrapple();
 	if(currentGrapplePoint == nullptr){
 		isSwinging = false;
 		return;
 	}
+
+	rigidbody->SetLinearVelocityDamping(0.0f);
+	rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
 
 	PizzaBox::GameObject* grapplePoint = currentGrapplePoint->GetGameObject();
 
