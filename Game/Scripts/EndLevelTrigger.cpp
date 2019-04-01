@@ -9,7 +9,6 @@ using namespace GamePackage;
 
 void EndLevelTrigger::OnCollision(const PizzaBox::CollisionInfo& other_){
 	if(other_.other->HasTag("Player")){
-		PizzaBox::RenderEngine::ShowCursor(true);
 		PizzaBox::UIManager::EnableSet("WinSet");
 
 		auto cam = PizzaBox::SceneManager::CurrentScene()->GetComponentInScene<CameraController>();

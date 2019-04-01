@@ -41,7 +41,6 @@ void GameController::OnDestroy(){
 
 void GameController::ResetScene(){
 	PizzaBox::Time::SetTimeScale(1.0f);
-	PizzaBox::RenderEngine::ShowCursor(false);
 	PizzaBox::UIManager::DisableSet("PauseSet");
 	PizzaBox::UIManager::DisableSet("WinSet");
 	PizzaBox::UIManager::DisableSet("DeathSet");
@@ -68,12 +67,10 @@ void GameController::TogglePause(){
 
 	if(isPaused){
 		PizzaBox::Time::SetTimeScale(0.0f);
-		PizzaBox::RenderEngine::ShowCursor(true);
 		PizzaBox::UIManager::EnableSet("PauseSet");
 		camera->SetHasControl(false);
 	}else{
 		PizzaBox::Time::SetTimeScale(1.0f);
-		PizzaBox::RenderEngine::ShowCursor(false);
 		PizzaBox::UIManager::DisableSet("PauseSet");
 		camera->SetHasControl(true);
 	}
