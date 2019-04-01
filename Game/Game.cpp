@@ -327,6 +327,6 @@ void Game::SetupDeathUI(){
 void Game::SetupLoadingUI(){
 	auto uiSet = new PizzaBox::UISet("LoadingSet");
 	uiSet->AddElement(new PizzaBox::ImageUI("BackgroundImage", "BlackTexture", PizzaBox::Rect(0.5f, 0.5f, 1.0f, 1.0f), false));
-	uiSet->AddElement(new PizzaBox::TextUI("LoadingText", PizzaBox::Rect(0.5f, 0.8f, 0.15f, 0.175f), true, "Loading...", "ArialFont"));
+	uiSet->AddElement(new PizzaBox::TextUI("LoadingText", PizzaBox::Rect(0.5f, 0.85f, 0.175f, 0.15f), true, "Loading...", "ArialFont"));
 	PizzaBox::UIManager::AddSet(uiSet);
 }
