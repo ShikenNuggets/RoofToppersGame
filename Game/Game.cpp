@@ -94,7 +94,8 @@ void Game::SetupMainMenuUI(){
 	});
 
 	auto uiSet = new PizzaBox::UISet("MainMenuSet");
-	uiSet->AddElement(new PizzaBox::TextUI("GameName", PizzaBox::Rect(0.5f, 0.8f, 0.3f, 0.15f), true, "Roof Toppers", "ArialFont"));
+	uiSet->AddElement(new PizzaBox::ImageUI("GameLogo", "GameLogo", PizzaBox::Rect(0.5f, 0.8f, 0.4f, 0.2f)));
+	//uiSet->AddElement(new PizzaBox::TextUI("GameName", PizzaBox::Rect(0.5f, 0.8f, 0.3f, 0.15f), true, "Roof Toppers", "ArialFont"));
 
 	auto button = new PizzaBox::ButtonUI("PlayButton", playButtonFunc, PizzaBox::Rect(0.5f, 0.4f, 0.15f, 0.1f));
 	button->AddText("Play");
