@@ -115,6 +115,10 @@ void PlayerController::Update(const float deltaTime_){
 		}
 	}
 
+	if(gameObject->GlobalPosition().z < 0.0f){
+		gameController->CompleteTutorial();
+	}
+
 	if(IsOnGround()){
 		animator->isJumping = false;
 	}else{
@@ -123,6 +127,10 @@ void PlayerController::Update(const float deltaTime_){
 }
 
 void PlayerController::OnDestroy(){
+	if(grappleLine != nullptr){
+		PizzaBox::SceneManager::CurrentScene()->DestroyObject(grappleLine);
+		grappleLine = nullptr;
+	}
 }
 
 void PlayerController::OnCollision(const PizzaBox::CollisionInfo& other_){
@@ -205,7 +213,7 @@ void PlayerController::GroundMovement(float deltaTime_){
 	PizzaBox::Vector3 impulse = -gameObject->GetTransform()->GetForward() * moveValue;
 
 	if(IsOnGround()){
-		rigidbody->Impulse(impulse * 7500.0f * 80.0f * 2.5f * deltaTime_ / 3.5f);
+		rigidbody->Impulse(impulse * 7500.0f * 80.0f * 2.5f * deltaTime_ / 3.5f * 1.25f);
 	}else{
 		rigidbody->Impulse(impulse * 7500.0f * 80.0f * deltaTime_ / 5.0f);
 	}
@@ -301,15 +309,14 @@ void PlayerController::Swinging(float deltaTime_){
 }
 
 void PlayerController::SwitchToSwinging(){
-
-	rigidbody->SetLinearVelocityDamping(0.0f);
-	rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
-
 	currentGrapplePoint = FindNearestGrapple();
 	if(currentGrapplePoint == nullptr){
 		isSwinging = false;
 		return;
 	}
+
+	rigidbody->SetLinearVelocityDamping(0.0f);
+	rigidbody->SetLinearVelocityLimits(-PizzaBox::Math::Infinity(), PizzaBox::Math::Infinity());
 
 	PizzaBox::GameObject* grapplePoint = currentGrapplePoint->GetGameObject();
 

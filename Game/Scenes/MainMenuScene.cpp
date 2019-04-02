@@ -42,7 +42,6 @@ bool MainMenuScene::Initialize(){
 	cam->SetFarPlane(skySize);
 	mainCamera->AddComponent(cam);
 	mainCamera->AddComponent(new PizzaBox::AudioListener());
-	mainCamera->AddComponent(new CharacterController());
 	 
 	PizzaBox::RenderEngine::SetFogDensity(0.0003f);
 	PizzaBox::RenderEngine::SetWaterFogDensity(0.00001f);

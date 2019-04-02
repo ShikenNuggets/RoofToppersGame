@@ -20,12 +20,20 @@ namespace GamePackage{
 
 		inline bool IsPaused(){ return isPaused; }
 
+		void CompleteTutorial();
+
 	private:
 		PizzaBox::GameObject* player;
 		CameraController* camera;
 		PizzaBox::Vector3 spawnPos;
 		PizzaBox::Euler spawnRotation;
 		bool isPaused;
+		bool hasCompletedTutorial;
+		float tutorialFadeOutTimer;
+		bool isFadingIn;
+		float tutorialFadeInTimer;
+
+		void SetTutorialUITransparency(float transparency_);
 	};
 }
 

@@ -17,6 +17,7 @@
 #include <Resource/ResourceManager.h>
 
 #include "Scripts/GameController.h"
+#include "UI/IGT.h"
 
 using namespace GamePackage;
 
@@ -65,7 +66,19 @@ void Game::SetupLogoUI(){
 
 void Game::SetupStatsUI(){
 	auto uiSet = new PizzaBox::UISet("StatsSet");
-	uiSet->AddElement(new PizzaBox::StatsTextUI("StatsTextUI", PizzaBox::Rect(0.075f, 0.92f, 0.12f, 0.05f), "ArialFont"));
+
+	auto image = new PizzaBox::ImageUI("StatsImage", "BlackTexture", PizzaBox::Rect(0.09f, 0.925f, 0.175f, 0.095f));
+	image->SetTransparency(0.25f);
+	uiSet->AddElement(image);
+
+	PizzaBox::TextUI* text = new PizzaBox::StatsTextUI("StatsTextUI", PizzaBox::Rect(0.075f, 0.92f, 0.12f, 0.05f), "ArialFont");
+	text->SetColor(PizzaBox::Color::Yellow);
+	uiSet->AddElement(text);
+
+	text = new IGT("IGTText", PizzaBox::Rect(0.075f, 0.87f, 0.05f, 0.05f), "ArialFont");
+	text->SetColor(PizzaBox::Color::Yellow);
+	uiSet->AddElement(text);
+
 	PizzaBox::UIManager::AddSet(uiSet);
 }
 
@@ -193,15 +206,11 @@ void Game::SetupOptionsUI(){
 void Game::SetupTutorialUI(){
 	auto uiSet = new PizzaBox::UISet("TutorialSet");
 
-	std::string text;
-	text = "W A S D to move";
-	uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.1f, 0.85f, 0.04f, 0.05f), true, text, "ArialFont"));
+	uiSet->AddElement(new PizzaBox::ImageUI("XImage", "XImage", PizzaBox::Rect(0.8f, 0.2f, 0.28125000000000012304687500000005f / 8.0f, 0.5f / 8.0f)));
+	uiSet->AddElement(new PizzaBox::TextUI("XText", PizzaBox::Rect(0.86f, 0.15f, 0.07f, 0.0725f), false, " to jump", "ArialFont"));
 
-	text = "Space To Jump";
-	uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.1f, 0.8f, 0.04f, 0.05f), true, text, "ArialFont"));
-
-	text = "Left Click to grapple to that yellow thing";
-	uiSet->elements.push_back(new PizzaBox::TextUI("TutorialText", PizzaBox::Rect(0.1f, 0.75f, 0.04f, 0.05f), true, text, "ArialFont"));
+	uiSet->AddElement(new PizzaBox::ImageUI("CircleImage", "CircleImage", PizzaBox::Rect(0.8f, 0.1f, 0.28125000000000012304687500000005f / 8.0f, 0.5f / 8.0f)));
+	uiSet->AddElement(new PizzaBox::TextUI("CircleText", PizzaBox::Rect(0.875f, 0.05f, 0.1f, 0.08f), false, " to grapple", "ArialFont"));
 
 	PizzaBox::UIManager::AddSet(uiSet);
 }
@@ -318,6 +327,6 @@ void Game::SetupDeathUI(){
 void Game::SetupLoadingUI(){
 	auto uiSet = new PizzaBox::UISet("LoadingSet");
 	uiSet->AddElement(new PizzaBox::ImageUI("BackgroundImage", "BlackTexture", PizzaBox::Rect(0.5f, 0.5f, 1.0f, 1.0f), false));
-	uiSet->AddElement(new PizzaBox::TextUI("LoadingText", PizzaBox::Rect(0.5f, 0.8f, 0.15f, 0.175f), true, "Loading...", "ArialFont"));
+	uiSet->AddElement(new PizzaBox::TextUI("LoadingText", PizzaBox::Rect(0.5f, 0.85f, 0.175f, 0.15f), true, "Loading...", "ArialFont"));
 	PizzaBox::UIManager::AddSet(uiSet);
 }

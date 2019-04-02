@@ -3,20 +3,25 @@
 #include <Core/SceneManager.h>
 #include <Core/Time.h>
 #include <Graphics/RenderEngine.h>
+#include <Graphics/UI/ImageUI.h>
+#include <Graphics/UI/TextUI.h>
 #include <Graphics/UI/UIManager.h>
 #include <Input/InputManager.h>
+#include <Tools/EngineStats.h>
 
 #include "Objects/Player.h"
 
 using namespace GamePackage;
 
-GameController::GameController(const PizzaBox::Vector3& pos_, const PizzaBox::Euler& rot_) : player(nullptr), camera(nullptr), spawnPos(pos_), spawnRotation(rot_), isPaused(false){
+GameController::GameController(const PizzaBox::Vector3& pos_, const PizzaBox::Euler& rot_) : player(nullptr), camera(nullptr), spawnPos(pos_), spawnRotation(rot_), isPaused(false), hasCompletedTutorial(false), tutorialFadeOutTimer(0.0f), isFadingIn(true), tutorialFadeInTimer(0.0f){
 }
 
 GameController::~GameController(){
 }
 
 void GameController::OnStart(){
+	PizzaBox::EngineStats::SetFloat("IGT", 0.0f);
+
 	camera = PizzaBox::SceneManager::CurrentScene()->GetComponentInScene<CameraController>();
 	if(camera == nullptr){
 		PizzaBox::Debug::LogError("No PizzaBox::Camera found in scene!", __FILE__, __LINE__);
@@ -24,9 +29,26 @@ void GameController::OnStart(){
 	}
 
 	ResetScene();
+
+	PizzaBox::UIManager::EnableSet("TutorialSet");
+	SetTutorialUITransparency(1.0f);
 }
 
 void GameController::Update(const float deltaTime_){
+	if(isFadingIn && !hasCompletedTutorial){
+		tutorialFadeInTimer += PizzaBox::Time::RealDeltaTime();
+		if(tutorialFadeInTimer > 0.5){
+			SetTutorialUITransparency(1.0f);
+			isFadingIn = false;
+		}else{
+			SetTutorialUITransparency(tutorialFadeInTimer * 2.0f);
+		}
+	}
+
+	if(player != nullptr && player->GetComponent<PlayerController>() != nullptr && player->GetComponent<PlayerController>()->HasControl()){
+		PizzaBox::EngineStats::AddToFloat("IGT", deltaTime_);
+	}
+
 	if(PizzaBox::InputManager::GetKeyDown(SDLK_BACKQUOTE)){
 		PizzaBox::UIManager::ToggleSet("StatsSet");
 	}
@@ -40,6 +62,8 @@ void GameController::OnDestroy(){
 }
 
 void GameController::ResetScene(){
+	PizzaBox::EngineStats::SetFloat("IGT", 0.0f);
+	isPaused = false;
 	PizzaBox::Time::SetTimeScale(1.0f);
 	PizzaBox::UIManager::DisableSet("PauseSet");
 	PizzaBox::UIManager::DisableSet("WinSet");
@@ -74,4 +98,36 @@ void GameController::TogglePause(){
 		PizzaBox::UIManager::DisableSet("PauseSet");
 		camera->SetHasControl(true);
 	}
+}
+
+void GameController::CompleteTutorial(){
+	isFadingIn = false;
+	hasCompletedTutorial = true;
+
+	tutorialFadeOutTimer += PizzaBox::Time::RealDeltaTime();
+
+	if(tutorialFadeOutTimer > 0.5f){
+		SetTutorialUITransparency(1.0f);
+		PizzaBox::UIManager::DisableSet("TutorialSet");
+		return;
+	}
+
+	SetTutorialUITransparency(1.0f - (tutorialFadeOutTimer * 2.0f));
+}
+
+void GameController::SetTutorialUITransparency(float transparency_){
+	if(!PizzaBox::UIManager::IsSetActive("TutorialSet")){
+		return;
+	}
+
+	PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "XImage")->SetTransparency(transparency_);
+	PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "CircleImage")->SetTransparency(transparency_);
+
+	auto xText = PizzaBox::UIManager::GetElementFromSet<PizzaBox::TextUI>("TutorialSet", "XText");
+	auto c = xText->GetColor();
+	xText->SetColor(PizzaBox::Color(c.r, c.g, c.b, transparency_));
+
+	auto circleText = PizzaBox::UIManager::GetElementFromSet<PizzaBox::TextUI>("TutorialSet", "CircleText");
+	c = circleText->GetColor();
+	circleText->SetColor(PizzaBox::Color(c.r, c.g, c.b, transparency_));
 }
