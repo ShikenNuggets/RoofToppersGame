@@ -84,7 +84,7 @@ void PlayerController::Update(const float deltaTime_){
 		PizzaBox::SceneManager::LoadScene(0);
 	}
 
-	if(PizzaBox::InputManager::GetButtonDown("Grapple1") || PizzaBox::InputManager::GetButtonDown("Grapple2")){
+	if(PizzaBox::InputManager::GetButtonDown("Grapple1") || PizzaBox::InputManager::GetButtonDown("Grapple2") || (isSwinging && PizzaBox::InputManager::GetButtonDown("JumpButton"))){
 		isSwinging = !isSwinging;
 		if(isSwinging){
 			SwitchToSwinging();		
