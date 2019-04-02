@@ -383,7 +383,7 @@ GrapplePoint* PlayerController::FindNearestGrapple(){
 				}
 			}
 			grappleTarget = point;
-			mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), camera->GetGameObject()->GetTransform()->GetForward());
+			mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), PizzaBox::Vector3(camera->GetGameObject()->GetTransform()->GetForward().x, 0.0f, camera->GetGameObject()->GetTransform()->GetForward().z));
 		}
 	}
 
