@@ -210,7 +210,7 @@ void Game::SetupTutorialUI(){
 	uiSet->AddElement(new PizzaBox::TextUI("XText", PizzaBox::Rect(0.86f, 0.15f, 0.07f, 0.0725f), false, " to jump", "ArialFont"));
 
 	uiSet->AddElement(new PizzaBox::ImageUI("CircleImage", "CircleImage", PizzaBox::Rect(0.8f, 0.1f, 0.28125000000000012304687500000005f / 8.0f, 0.5f / 8.0f)));
-	uiSet->AddElement(new PizzaBox::TextUI("CircleText", PizzaBox::Rect(0.875f, 0.05f, 0.1f, 0.08f), false, " to grapple", "ArialFont"));
+	uiSet->AddElement(new PizzaBox::TextUI("CircleText", PizzaBox::Rect(0.87f, 0.05f, 0.095f, 0.08f), false, " to swing", "ArialFont"));
 
 	PizzaBox::UIManager::AddSet(uiSet);
 }
