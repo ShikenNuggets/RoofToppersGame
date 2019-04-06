@@ -309,7 +309,7 @@ void Game::SetupDeathUI(){
 	});
 
 	auto uiSet = new PizzaBox::UISet("DeathSet");
-	uiSet->AddElement(new PizzaBox::ImageUI("DeathLogo", "DeathLogo", PizzaBox::Rect(0.5f, 0.8f, 0.4f, 0.2f)));
+	uiSet->AddElement(new PizzaBox::ImageUI("FiredLogo", "FiredLogo", PizzaBox::Rect(0.5f, 0.8f, 0.4f, 0.2f)));
 	//uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.8f, 0.15f, 0.1f), true, "You Died!", "ArialFont"));
 
 	auto button = new PizzaBox::ButtonUI("ReturnButton", restartButtonFunc, PizzaBox::Rect(0.5f, 0.4f, 0.18f, 0.1f));
