@@ -49,7 +49,7 @@ bool Tutorial::Initialize() {
 	SetSky(new PizzaBox::SkyBox("SummerSkyBox", skySize));
 
 	//Music
-	auto gpm1 = new PizzaBox::AudioSource("GameplayMusic1", PizzaBox::AudioSource::SoundType::_2D, "Music");
+	auto gpm1 = new PizzaBox::AudioSource("TutorialMusic", PizzaBox::AudioSource::SoundType::_2D, "Music");
 	PizzaBox::GameObject* music = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
 	music->AddComponent(gpm1);
 	music->AddComponent(new MusicScript(gpm1));
