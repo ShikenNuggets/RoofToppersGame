@@ -77,7 +77,7 @@ bool Tutorial::Initialize() {
 	dirLight->AddComponent(new PizzaBox::DirectionalLight(2.0f));
 
 	auto gameController = CreateObject<PizzaBox::GameObject>();
-	gameController->AddComponent(new GameController(PizzaBox::Vector3(0.0f, 80.0f, 200.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f)));
+	gameController->AddComponent(new GameController(PizzaBox::Vector3(0.0f, 80.0f, 300.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f)));
 
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, 30.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(1250.0f, 100.0f, 8000.0f), "BrickTexture",1024);
 
