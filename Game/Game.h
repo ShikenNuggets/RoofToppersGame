@@ -17,6 +17,7 @@ namespace GamePackage{
 		void SetupStatsUI();
 		void SetupMainMenuUI();
 		void SetupOptionsUI();
+		void SetupCreditsUI();
 		void SetupTutorialUI();
 		void SetupPauseUI();
 		void SetupWinUI();
