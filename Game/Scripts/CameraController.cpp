@@ -1,6 +1,7 @@
 #include "CameraController.h"
 
 #include <Audio/AudioSource.h>
+#include <Core/Config.h>
 #include <Core/SceneManager.h>
 #include <Core/Time.h>
 #include <Input/InputManager.h>
@@ -12,7 +13,7 @@
 
 using namespace GamePackage;
 
-CameraController::CameraController(PizzaBox::GameObject* target_) : camera(nullptr), isShaking(false), shakeStartPos(), shakeDuration(0.0f), shakeFrequency(0.0f), shakeDir(), shakeTargetPos(), shakeTimer(0.0f), shakeTime(0.0f), rotateSpeed(0.0f), mouseSensitivity(100.0f), gamepadSensitivity(2.5f), hasControl(true), minRotation(-60.0f), maxRotation(12.5f){
+CameraController::CameraController(PizzaBox::GameObject* target_) : camera(nullptr), isShaking(false), shakeStartPos(), shakeDuration(0.0f), shakeFrequency(0.0f), shakeDir(), shakeTargetPos(), shakeTimer(0.0f), shakeTime(0.0f), rotateSpeed(0.0f), gamepadSensitivity(2.5f), hasControl(true), minRotation(-60.0f), maxRotation(12.5f){
 	target = target_;
 }
 
@@ -27,8 +28,6 @@ void CameraController::OnStart(){
 	shakeTime = 0.05f;
 	rotateSpeed = 45.0f;
 
-	//TODO - Set up ini mouse sensitivity settings and usage
-	mouseSensitivity = 100.0f;
 	gamepadSensitivity = 2.5f;
 }
 
@@ -53,6 +52,8 @@ void CameraController::Update(const float deltaTime_){
 	if(isShaking){
 		gameObject->SetPosition(shakeStartPos);
 	}
+
+	float mouseSensitivity = static_cast<float>(PizzaBox::Config::GetInt("MouseSensitivity"));
 
 	//Camera rotation
 	float rotX = -PizzaBox::InputManager::GetAxis("MouseX") * mouseSensitivity * 75.0f;

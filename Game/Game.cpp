@@ -49,6 +49,10 @@ bool Game::Initialize(){
 		PizzaBox::Config::SetInt("ControlUIType", 0); //0 = PS4 (default), 1 = Xbox
 	}
 
+	if(!PizzaBox::Config::SettingExists("MouseSensitivity")){
+		PizzaBox::Config::SetInt("MouseSensitivity", 500); //Has to be an int due to how the config system works
+	}
+
 	//Audio Channels
 	//PizzaBox::AudioManager::CreateVolumeChannel("Music");
 

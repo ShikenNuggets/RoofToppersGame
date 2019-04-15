@@ -33,7 +33,6 @@ namespace GamePackage {
 		float shakeTimer;
 		float shakeTime;
 		PizzaBox::GameObject* target;
-		float mouseSensitivity;
 		float gamepadSensitivity;
 		bool hasControl;
 

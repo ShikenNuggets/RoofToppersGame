@@ -66,6 +66,15 @@ void GameController::Update(const float deltaTime_){
 			PizzaBox::Config::SetInt("ControlUIType", 0);
 		}
 	}
+
+	int ms = PizzaBox::Config::GetInt("MouseSensitivity");
+	if(PizzaBox::InputManager::GetKeyDown(SDLK_EQUALS)){
+		ms += 100;
+	}else if(PizzaBox::InputManager::GetKeyDown(SDLK_MINUS)){
+		ms -= 100;	
+	}
+
+	PizzaBox::Config::SetInt("MouseSensitivity", PizzaBox::Math::Clamp(100, 1000, ms));
 }
 
 void GameController::OnDestroy(){
