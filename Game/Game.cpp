@@ -4,6 +4,7 @@
 #include "Scenes/MainMenuScene.h"
 #include "Scenes/Level1.h"
 // Engine Includes
+#include <Core/Config.h>
 #include <Core/SceneManager.h>
 #include <Core/GameManager.h>
 #include <Core/Time.h>
@@ -43,6 +44,10 @@ bool Game::Initialize(){
 	SetupWinUI();
 	SetupDeathUI();
 	SetupLoadingUI();
+
+	if(!PizzaBox::Config::SettingExists("ControlUIType")){
+		PizzaBox::Config::SetInt("ControlUIType", 0); //0 = PS4 (default), 1 = Xbox
+	}
 
 	//Audio Channels
 	//PizzaBox::AudioManager::CreateVolumeChannel("Music");
@@ -267,6 +272,9 @@ void Game::SetupTutorialUI(){
 
 	uiSet->AddElement(new PizzaBox::ImageUI("CircleImage", "CircleImage", PizzaBox::Rect(0.8f, 0.1f, 0.28125000000000012304687500000005f / 8.0f, 0.5f / 8.0f)));
 	uiSet->AddElement(new PizzaBox::TextUI("CircleText", PizzaBox::Rect(0.87f, 0.05f, 0.095f, 0.08f), false, " to swing", "ArialFont"));
+
+	uiSet->AddElement(new PizzaBox::ImageUI("AImage", "AImage", PizzaBox::Rect(0.8f, 0.2f, 0.28125000000000012304687500000005f / 8.0f, 0.5f / 8.0f)));
+	uiSet->AddElement(new PizzaBox::ImageUI("BImage", "BImage", PizzaBox::Rect(0.8f, 0.1f, 0.28125000000000012304687500000005f / 8.0f, 0.5f / 8.0f)));
 
 	PizzaBox::UIManager::AddSet(uiSet);
 }

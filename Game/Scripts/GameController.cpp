@@ -1,5 +1,6 @@
 #include "GameController.h"
 
+#include <Core/Config.h>
 #include <Core/SceneManager.h>
 #include <Core/Time.h>
 #include <Graphics/RenderEngine.h>
@@ -31,6 +32,7 @@ void GameController::OnStart(){
 	ResetScene();
 
 	PizzaBox::UIManager::EnableSet("TutorialSet");
+	SetTutorialUIControllerType(PizzaBox::Config::GetInt("ControlUIType"));
 	SetTutorialUITransparency(1.0f);
 }
 
@@ -55,6 +57,14 @@ void GameController::Update(const float deltaTime_){
 
 	if(PizzaBox::InputManager::GetButtonUp("Exit") && !isPaused){
 		TogglePause();
+	}
+
+	if(PizzaBox::InputManager::GetKeyDown(SDLK_k)){
+		if(PizzaBox::Config::GetInt("ControlUIType") == 0){
+			PizzaBox::Config::SetInt("ControlUIType", 1);
+		}else{
+			PizzaBox::Config::SetInt("ControlUIType", 0);
+		}
 	}
 }
 
@@ -122,6 +132,8 @@ void GameController::SetTutorialUITransparency(float transparency_){
 
 	PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "XImage")->SetTransparency(transparency_);
 	PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "CircleImage")->SetTransparency(transparency_);
+	PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "AImage")->SetTransparency(transparency_);
+	PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "BImage")->SetTransparency(transparency_);
 
 	auto xText = PizzaBox::UIManager::GetElementFromSet<PizzaBox::TextUI>("TutorialSet", "XText");
 	auto c = xText->GetColor();
@@ -130,4 +142,20 @@ void GameController::SetTutorialUITransparency(float transparency_){
 	auto circleText = PizzaBox::UIManager::GetElementFromSet<PizzaBox::TextUI>("TutorialSet", "CircleText");
 	c = circleText->GetColor();
 	circleText->SetColor(PizzaBox::Color(c.r, c.g, c.b, transparency_));
+}
+
+void GameController::SetTutorialUIControllerType(int type_){
+	if(type_ == 0){
+		//PS4
+		PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "XImage")->SetEnable(true);
+		PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "CircleImage")->SetEnable(true);
+		PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "AImage")->SetEnable(false);
+		PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "BImage")->SetEnable(false);
+	}else if(type_ == 1){
+		//Xbox
+		PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "XImage")->SetEnable(false);
+		PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "CircleImage")->SetEnable(false);
+		PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "AImage")->SetEnable(true);
+		PizzaBox::UIManager::GetElementFromSet<PizzaBox::ImageUI>("TutorialSet", "BImage")->SetEnable(true);
+	}
 }
