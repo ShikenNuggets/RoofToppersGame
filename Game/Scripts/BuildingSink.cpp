@@ -22,7 +22,7 @@ void BuildingSink::Update(const float deltaTime_) {
 		gameObject->GetTransform()->Translate(PizzaBox::Vector3(0.0f, -collapseSpeed * deltaTime_, 0.0f));
 		collapseTimer += deltaTime_;
 		if (collapseTimer >= collapseTime) {
-			PizzaBox::SceneManager::CurrentScene()->DestroyObject(gameObject);
+			collapse = false;
 		}
 	}
 }
