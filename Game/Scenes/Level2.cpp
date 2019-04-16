@@ -58,6 +58,14 @@ bool Level2::Initialize() {
 	PizzaBox::GameObject* waves = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 55.0f, 80.0f), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
 	waves->AddComponent(wve1);
 	waves->AddComponent(new MusicScript(wve1));
+	//Water
+	PizzaBox::GameObject* baseWater = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -20.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(140.0f, 40.0f, 140.0f));
+	auto water = new PizzaBox::WaterMaterial("WaterTexture", "", "", 32.0f, 256.0f);
+	water->SetWaveParamaters(PizzaBox::Vector4(2.0f, 4.0f, 4.0f, 2.0f), PizzaBox::Vector4(0.8f, 0.2f, 0.2f, 0.2f), PizzaBox::Vector4(0.4f, 0.4f, 0.4f, 0.2f));
+	water->SetFlowDirection(PizzaBox::Vector2(0.0f, 1.0f));
+	auto mr = new PizzaBox::MeshRender("WaterMesh", water);
+	mr->SetCastsShadows(false);
+	baseWater->AddComponent(mr);
 
 	//Camera
 	PizzaBox::GameObject* mainCamera = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 0.0f, -1600), PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
@@ -78,19 +86,14 @@ bool Level2::Initialize() {
 	auto gameController = CreateObject<PizzaBox::GameObject>();
 	gameController->AddComponent(new GameController(PizzaBox::Vector3(0.0f, 200.0f, -1600.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f)));
 
-
-
-
-
-
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, -20.0f, -1105.0f), PizzaBox::Euler(/*-25.0f*/), PizzaBox::Vector3(40.0f, 100.0f, 40.0f), "BrickTextureThree");
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 60.0f, -1600.0f), PizzaBox::Euler(), PizzaBox::Vector3(70.0f, 10.0f, 30.0f), "GoldTexture", 128,false);
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 80.0f, -1600.0f), PizzaBox::Euler(), PizzaBox::Vector3(70.0f, 10.0f, 30.0f), "GoldTexture", 128, false);
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 100.0f, -1600.0f), PizzaBox::Euler(), PizzaBox::Vector3(70.0f, 10.0f, 30.0f), "GoldTexture", 128, false);
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 120.0f, -1600.0f), PizzaBox::Euler(), PizzaBox::Vector3(70.0f, 10.0f, 30.0f), "GoldTexture", 128, false);
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -1600.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 300.0f, 20.0f), "BrickTextureTwo", 64);
-
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -1700.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 295.0f, 60.0f));
+	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 60.0f, -1600.0f), PizzaBox::Euler(), PizzaBox::Vector3(70.0f, 10.0f, 30.0f), "GoldTexture", 128,false);
+	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 80.0f, -1600.0f), PizzaBox::Euler(), PizzaBox::Vector3(70.0f, 10.0f, 30.0f), "GoldTexture", 128, false);
+	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 100.0f, -1600.0f), PizzaBox::Euler(), PizzaBox::Vector3(70.0f, 10.0f, 30.0f), "GoldTexture", 128, false);
+	CreateObject<Platform>(PizzaBox::Vector3(0.0f, 120.0f, -1600.0f), PizzaBox::Euler(), PizzaBox::Vector3(70.0f, 10.0f, 30.0f), "GoldTexture", 128, false);
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -1600.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 300.0f, 20.0f), "BrickTextureTwo", 64, true);
+	//2nd building
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -1700.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 295.0f, 60.0f), "BrickTextureFour", 64, true, true, 20.0f);
 	CreateObject<Building>(PizzaBox::Vector3(2.0f, -5.0f, -1800.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 295.0f, 60.0f), "BrickTextureTwo", 64);
 	CreateObject<Building>(PizzaBox::Vector3(4.0f, -5.0f, -1950.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 295.0f, 60.0f), "BrickTextureThree", 64);
 	CreateObject<Building>(PizzaBox::Vector3(6.0f, -5.0f, -2050.0f), PizzaBox::Euler(), PizzaBox::Vector3(60.0f, 295.0f, 60.0f), "BrickTextureFour", 64);
@@ -185,22 +188,12 @@ bool Level2::Initialize() {
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(-40.0f, 65.0f, -4450.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(-40.0f, 65.0f, -4550.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(-40.0f, 65.0f, -4650.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
-	PizzaBox::GameObject* baseWater = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, -20.0f, 0.0f), PizzaBox::Euler(), PizzaBox::Vector3(140.0f, 40.0f, 140.0f));
-	auto water = new PizzaBox::WaterMaterial("WaterTexture", "", "", 32.0f, 256.0f);
-	water->SetWaveParamaters(PizzaBox::Vector4(2.0f, 4.0f, 4.0f, 2.0f), PizzaBox::Vector4(0.8f, 0.2f, 0.2f, 0.2f), PizzaBox::Vector4(0.4f, 0.4f, 0.4f, 0.2f));
-	water->SetFlowDirection(PizzaBox::Vector2(0.0f, 1.0f));
-	baseWater->AddComponent(new PizzaBox::MeshRender("WaterMesh", water));
 
-
-	
-	
 	auto endLevelObj = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(0.0f, 48.2f, -4689.25f), PizzaBox::Euler(-90.0f, 90.0f, 0.0f), PizzaBox::Vector3(0.85f, 0.85f, 0.85f));
 	endLevelObj->SetTag("EndLevelTrigger");
 	endLevelObj->AddComponent(new PizzaBox::MeshRender("DoorModel", "DoorTexture"));
 	endLevelObj->AddComponent(new PizzaBox::Collider(endLevelObj->GlobalScale()));
 	endLevelObj->AddComponent(new EndLevelTrigger());
-	
-	
 	
 	//LEVEL ONE BACKGROUND DETAILS
 
@@ -211,9 +204,6 @@ bool Level2::Initialize() {
 
 
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, 15.0f), PizzaBox::Euler(), PizzaBox::Vector3(50.0f, 100.0f, 50.0f), "BrickTextureTwo", 32.0f, false);
-
-
-
 
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -120.0f), PizzaBox::Euler(), PizzaBox::Vector3(32.0f, 100.0f, 32.0f), "BrickTextureFive", 32.0f, false);
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, -5.0f, -280.0f), PizzaBox::Euler(/*-25.0f*/), PizzaBox::Vector3(20.0f, 100.0f, 20.0f), "BrickTextureTwo", 32.0f, false);
