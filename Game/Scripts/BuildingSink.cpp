@@ -3,7 +3,7 @@
 #include <Graphics/Particles/ParticleSystem.h>
 
 using namespace GamePackage;
-BuildingSink::BuildingSink(PizzaBox::Vector3 startPositon_, float collapseTime_, float collapseSpeed_): collapseSpeed(collapseSpeed_), collapseTimer(0.0f), collapseTime(collapseTime_), collapse(false),startPositon(startPositon_){	
+BuildingSink::BuildingSink(PizzaBox::Vector3 startPositon_, float collapseTime_, float collapseSpeed_, float delayTimer_): collapseSpeed(collapseSpeed_), collapseTimer(0.0f), collapseTime(collapseTime_), collapse(false),startPositon(startPositon_),delayTimer(delayTimer_){
 }
 
 BuildingSink::~BuildingSink(){
@@ -19,10 +19,12 @@ void BuildingSink::OnStart(){
 
 void BuildingSink::Update(const float deltaTime_) {
 	if (collapse == true) {
-		gameObject->GetTransform()->Translate(PizzaBox::Vector3(0.0f, -collapseSpeed * deltaTime_, 0.0f));
 		collapseTimer += deltaTime_;
-		if (collapseTimer >= collapseTime) {
-			collapse = false;
+		if (collapseTimer >= delayTimer) {
+			gameObject->GetTransform()->Translate(PizzaBox::Vector3(0.0f, -collapseSpeed * deltaTime_, 0.0f));
+			if (collapseTimer >= (collapseTime + delayTimer)){
+				collapse = false;
+			}
 		}
 	}
 }

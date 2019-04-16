@@ -8,7 +8,7 @@
 namespace GamePackage{
 	class BuildingSink : public PizzaBox::Script{	
 	public:
-		BuildingSink(PizzaBox::Vector3 startPositon_,float collapseTime_ = 5.0f,float collapseSpeed_ = 5.0f);
+		BuildingSink(PizzaBox::Vector3 startPositon_,float collapseTime_ = 5.0f,float collapseSpeed_ = 5.0f,float delayTimer_ = 2.0f);
 		~BuildingSink();
 		virtual void OnStart() override;
 		virtual void Update(const float deltaTime_) override;
@@ -19,6 +19,7 @@ namespace GamePackage{
 		float collapseSpeed;
 		float collapseTimer;
 		float collapseTime;
+		float delayTimer;
 		bool collapse;
 		void BeginDestruction();
 	};
