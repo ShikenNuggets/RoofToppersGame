@@ -34,6 +34,7 @@ namespace GamePackage{
 		float tutorialFadeInTimer;
 
 		void SetTutorialUITransparency(float transparency_);
+		void SetTutorialUIControllerType(int type_);
 	};
 }
 

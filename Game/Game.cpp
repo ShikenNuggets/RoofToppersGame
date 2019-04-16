@@ -4,6 +4,7 @@
 #include "Scenes/MainMenuScene.h"
 #include "Scenes/Level1.h"
 // Engine Includes
+#include <Core/Config.h>
 #include <Core/SceneManager.h>
 #include <Core/GameManager.h>
 #include <Core/Time.h>
@@ -37,11 +38,20 @@ bool Game::Initialize(){
 	SetupStatsUI();
 	SetupMainMenuUI();
 	SetupOptionsUI();
+	SetupCreditsUI();
 	SetupTutorialUI();
 	SetupPauseUI();
 	SetupWinUI();
 	SetupDeathUI();
 	SetupLoadingUI();
+
+	if(!PizzaBox::Config::SettingExists("ControlUIType")){
+		PizzaBox::Config::SetInt("ControlUIType", 0); //0 = PS4 (default), 1 = Xbox
+	}
+
+	if(!PizzaBox::Config::SettingExists("MouseSensitivity")){
+		PizzaBox::Config::SetInt("MouseSensitivity", 500); //Has to be an int due to how the config system works
+	}
 
 	//Audio Channels
 	//PizzaBox::AudioManager::CreateVolumeChannel("Music");
@@ -98,6 +108,13 @@ void Game::SetupMainMenuUI(){
 		}
 	});
 
+	auto creditsButtonFunc = UIEventFunc([](PizzaBox::UIEvent e){
+		if(e == PizzaBox::UIEvent::OnRelease){
+			PizzaBox::UIManager::DisableSet("MainMenuSet");
+			PizzaBox::UIManager::EnableSet("CreditsSet");
+		}
+	});
+
 	auto quitButtonFunc = UIEventFunc([](PizzaBox::UIEvent e){
 		if(e == PizzaBox::UIEvent::OnRelease){
 			PizzaBox::GameManager::Stop();
@@ -108,12 +125,16 @@ void Game::SetupMainMenuUI(){
 	uiSet->AddElement(new PizzaBox::ImageUI("GameLogo", "GameLogo", PizzaBox::Rect(0.5f, 0.8f, 0.4f, 0.2f)));
 	//uiSet->AddElement(new PizzaBox::TextUI("GameName", PizzaBox::Rect(0.5f, 0.8f, 0.3f, 0.15f), true, "Roof Toppers", "ArialFont"));
 
-	auto button = new PizzaBox::ButtonUI("PlayButton", playButtonFunc, PizzaBox::Rect(0.5f, 0.4f, 0.15f, 0.1f));
+	auto button = new PizzaBox::ButtonUI("PlayButton", playButtonFunc, PizzaBox::Rect(0.5f, 0.475f, 0.15f, 0.1f));
 	button->AddText("Play");
 	uiSet->AddElement(button);
 
-	button = new PizzaBox::ButtonUI("OptionsButton", optionButtonFunc, PizzaBox::Rect(0.5f, 0.25f, 0.15f, 0.1f));
+	button = new PizzaBox::ButtonUI("OptionsButton", optionButtonFunc, PizzaBox::Rect(0.5f, 0.35f, 0.15f, 0.1f));
 	button->AddText("Options");
+	uiSet->AddElement(button);
+
+	button = new PizzaBox::ButtonUI("CreditsButton", creditsButtonFunc, PizzaBox::Rect(0.5f, 0.225f, 0.15f, 0.1f));
+	button->AddText("Credits");
 	uiSet->AddElement(button);
 
 	button = new PizzaBox::ButtonUI("QuitButton", quitButtonFunc, PizzaBox::Rect(0.5f, 0.1f, 0.15f, 0.1f));
@@ -203,6 +224,50 @@ void Game::SetupOptionsUI(){
 	PizzaBox::UIManager::AddSet(uiSet);
 }
 
+void Game::SetupCreditsUI(){
+	auto backButtonFunc = std::function<void(PizzaBox::UIEvent)>([](PizzaBox::UIEvent e){
+		if(e == PizzaBox::UIEvent::OnRelease){
+			PizzaBox::UIManager::DisableSet("CreditsSet");
+			PizzaBox::UIManager::EnableSet("MainMenuSet");
+		}
+	});
+
+	auto uiSet = new PizzaBox::UISet("CreditsSet");
+	uiSet->AddElement(new PizzaBox::ImageUI("CreditsLogo", "CreditsLogo", PizzaBox::Rect(0.5f, 0.8f, 0.4f, 0.2f)));
+
+	auto image = new PizzaBox::ImageUI("CreditsPanel", "BlackTexture", PizzaBox::Rect(0.5f, 0.4f, 0.35f, 0.45f));
+	image->SetTransparency(0.5f);
+	uiSet->AddElement(image);
+
+	auto text = new PizzaBox::TextUI("CreditsText0", PizzaBox::Rect(0.485f, 0.55f, 0.2f, 0.075f), false, "PizzaBox Engine Team:", "ArialFont");
+	uiSet->AddElement(text);
+
+	text = new PizzaBox::TextUI("CreditsText1", PizzaBox::Rect(0.485f, 0.5f, 0.125f, 0.075f), false, "Carter Rennick", "ArialFont");
+	uiSet->AddElement(text);
+
+	text = new PizzaBox::TextUI("CreditsText2", PizzaBox::Rect(0.46f, 0.45f, 0.075f, 0.075f), false, "Devon Ly", "ArialFont");
+	uiSet->AddElement(text);
+
+	text = new PizzaBox::TextUI("CreditsText3", PizzaBox::Rect(0.485f, 0.4f, 0.125f, 0.075f), false, "Jared Fukumoto", "ArialFont");
+	uiSet->AddElement(text);
+
+	text = new PizzaBox::TextUI("CreditsText4", PizzaBox::Rect(0.485f, 0.35f, 0.125f, 0.075f), false, "Sean Gallagher", "ArialFont");
+	uiSet->AddElement(text);
+
+	text = new PizzaBox::TextUI("CreditsText5", PizzaBox::Rect(0.485f, 0.25f, 0.21f, 0.06f), false, "Art and Animations gathered online", "ArialFont");
+	uiSet->AddElement(text);
+
+	text = new PizzaBox::TextUI("CreditsText6", PizzaBox::Rect(0.485f, 0.2f, 0.18f, 0.06f), false, "SFX and Music by Sean", "ArialFont");
+	uiSet->AddElement(text);
+
+	auto button = new PizzaBox::ButtonUI("BackButton", backButtonFunc, PizzaBox::Rect(0.9f, 0.1f, 0.1f, 0.1f));
+	button->AddText("Back");
+	button->SetReceivesBackInput(true);
+	uiSet->AddElement(button);
+
+	PizzaBox::UIManager::AddSet(uiSet);
+}
+
 void Game::SetupTutorialUI(){
 	auto uiSet = new PizzaBox::UISet("TutorialSet");
 
@@ -210,7 +275,10 @@ void Game::SetupTutorialUI(){
 	uiSet->AddElement(new PizzaBox::TextUI("XText", PizzaBox::Rect(0.86f, 0.15f, 0.07f, 0.0725f), false, " to jump", "ArialFont"));
 
 	uiSet->AddElement(new PizzaBox::ImageUI("CircleImage", "CircleImage", PizzaBox::Rect(0.8f, 0.1f, 0.28125000000000012304687500000005f / 8.0f, 0.5f / 8.0f)));
-	uiSet->AddElement(new PizzaBox::TextUI("CircleText", PizzaBox::Rect(0.875f, 0.05f, 0.1f, 0.08f), false, " to grapple", "ArialFont"));
+	uiSet->AddElement(new PizzaBox::TextUI("CircleText", PizzaBox::Rect(0.87f, 0.05f, 0.095f, 0.08f), false, " to swing", "ArialFont"));
+
+	uiSet->AddElement(new PizzaBox::ImageUI("AImage", "AImage", PizzaBox::Rect(0.8f, 0.2f, 0.28125000000000012304687500000005f / 8.0f, 0.5f / 8.0f)));
+	uiSet->AddElement(new PizzaBox::ImageUI("BImage", "BImage", PizzaBox::Rect(0.8f, 0.1f, 0.28125000000000012304687500000005f / 8.0f, 0.5f / 8.0f)));
 
 	PizzaBox::UIManager::AddSet(uiSet);
 }
@@ -309,7 +377,7 @@ void Game::SetupDeathUI(){
 	});
 
 	auto uiSet = new PizzaBox::UISet("DeathSet");
-	uiSet->AddElement(new PizzaBox::ImageUI("DeathLogo", "DeathLogo", PizzaBox::Rect(0.5f, 0.8f, 0.4f, 0.2f)));
+	uiSet->AddElement(new PizzaBox::ImageUI("FiredLogo", "FiredLogo", PizzaBox::Rect(0.5f, 0.8f, 0.4f, 0.2f)));
 	//uiSet->elements.push_back(new PizzaBox::TextUI("MenuText", PizzaBox::Rect(0.5f, 0.8f, 0.15f, 0.1f), true, "You Died!", "ArialFont"));
 
 	auto button = new PizzaBox::ButtonUI("ReturnButton", restartButtonFunc, PizzaBox::Rect(0.5f, 0.4f, 0.18f, 0.1f));
