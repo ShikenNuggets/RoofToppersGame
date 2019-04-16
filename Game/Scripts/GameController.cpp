@@ -9,9 +9,8 @@
 #include <Graphics/UI/UIManager.h>
 #include <Input/InputManager.h>
 #include <Tools/EngineStats.h>
-
 #include "Objects/Player.h"
-
+#include "Scripts/BuildingSink.h"
 using namespace GamePackage;
 
 GameController::GameController(const PizzaBox::Vector3& pos_, const PizzaBox::Euler& rot_) : player(nullptr), camera(nullptr), spawnPos(pos_), spawnRotation(rot_), isPaused(false), hasCompletedTutorial(false), tutorialFadeOutTimer(0.0f), isFadingIn(true), tutorialFadeInTimer(0.0f){
@@ -99,6 +98,10 @@ void GameController::ResetScene(){
 	camera->GetGameObject()->SetPosition(PizzaBox::Vector3(0.0f, 55.0f, 80.0f));
 	camera->GetGameObject()->SetRotation(PizzaBox::Euler(-15.0f, 0.0f, 0.0f));
 	camera->SetHasControl(true);
+
+	for (BuildingSink* bs : PizzaBox::SceneManager::CurrentScene()->GetComponentsInScene<BuildingSink>()) {
+		bs->OnStart();
+	}
 }
 
 void GameController::TogglePause(){
