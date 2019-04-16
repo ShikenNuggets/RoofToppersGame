@@ -354,7 +354,6 @@ GrapplePoint* PlayerController::FindNearestGrapple(){
 	GrapplePoint* grappleTarget = nullptr;
 	float mostForward = 0.0f;
 	for(const auto& point : grapplePoints){
-		maxGrappleLength = point->swingDistance * 1.5f;
 		if((point->GetGameObject()->GlobalPosition() - gameObject->GlobalPosition()).Magnitude() > maxGrappleLength){
 			continue;
 		}
@@ -371,27 +370,20 @@ GrapplePoint* PlayerController::FindNearestGrapple(){
 		if(!isValid){
 			continue;
 		}
-		
+
 		if(grappleTarget != nullptr){
-			if (PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), camera->GetGameObject()->GetTransform()->GetForward()) < 0.0f) {
-				if ((point->GetGameObject()->GlobalPosition() - gameObject->GlobalPosition()).Magnitude() < maxGrappleLength / 2.0f) {
-					grappleTarget = point;
-					mostForward = (point->GetGameObject()->GlobalPosition() - gameObject->GlobalPosition()).Magnitude() / 2.0f;
-				}
-			}
-			if((point->GetGameObject()->GlobalPosition() - gameObject->GlobalPosition()).Magnitude() < mostForward){
+			if(PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), camera->GetGameObject()->GetTransform()->GetForward()) > mostForward){
 				grappleTarget = point;
-				mostForward = (point->GetGameObject()->GlobalPosition() - gameObject->GlobalPosition()).Magnitude();
+				mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), camera->GetGameObject()->GetTransform()->GetForward());
 			}
 		}else{
-			if (PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), camera->GetGameObject()->GetTransform()->GetForward()) < 0.0f) {
-				if ((point->GetGameObject()->GlobalPosition() - gameObject->GlobalPosition()).Magnitude() > maxGrappleLength / 2.0f) {
+			if(PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), camera->GetGameObject()->GetTransform()->GetForward()) < 0.0f){
+				if((point->GetGameObject()->GlobalPosition() - gameObject->GlobalPosition()).Magnitude() > maxGrappleLength / 2.0f){
 					continue;
 				}
 			}
 			grappleTarget = point;
-			//mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), PizzaBox::Vector3(camera->GetGameObject()->GetTransform()->GetForward().x, 0.0f, camera->GetGameObject()->GetTransform()->GetForward().z));
-			mostForward = (gameObject->GetPosition() - point->GetGameObject()->GetPosition()).Magnitude();
+			mostForward = PizzaBox::Vector3::Dot(point->GetGameObject()->GlobalPosition(), PizzaBox::Vector3(camera->GetGameObject()->GetTransform()->GetForward().x, 0.0f, camera->GetGameObject()->GetTransform()->GetForward().z));
 		}
 	}
 
