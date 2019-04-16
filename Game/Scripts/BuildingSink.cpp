@@ -12,7 +12,6 @@ BuildingSink::~BuildingSink(){
 void BuildingSink::OnStart(){
 	gameObject->SetPosition(startPositon);
 	collapse = false;
-	collapseSpeed = 10.0f;
 	collapseTimer = 0.0f;
 	//collapseTime = 25.0f;
 }
