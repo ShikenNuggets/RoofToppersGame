@@ -79,16 +79,16 @@ bool Tutorial::Initialize() {
 	auto gameController = CreateObject<PizzaBox::GameObject>();
 	gameController->AddComponent(new GameController(PizzaBox::Vector3(0.0f, 80.0f, 300.0f), PizzaBox::Euler(0.0f, 180.0f, 0.0f)));
 
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 30.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(1250.0f, 100.0f, 1000.0f), "BrickTexture",1024);
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, 30.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(1250.0f, 100.0f, 1000.0f), "BrickTexture", 1024.0f);
 
 
 
-	CreateObject<Building>(PizzaBox::Vector3(-200.0f, 30.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(10.0f, 200.0f, 1000.0f), "BrickTextureTwo", 64);
-	CreateObject<Building>(PizzaBox::Vector3(200.0f, 30.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(10.0f, 200.0f, 1000.0f), "BrickTextureTwo", 64);
+	CreateObject<Building>(PizzaBox::Vector3(-200.0f, 30.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(10.0f, 200.0f, 1000.0f), "BrickTextureTwo", 64.0f);
+	CreateObject<Building>(PizzaBox::Vector3(200.0f, 30.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(10.0f, 200.0f, 1000.0f), "BrickTextureTwo", 64.0f);
 
 	
 
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 30.0f, 400.0f), PizzaBox::Euler(), PizzaBox::Vector3(1000.0f, 200.0f, 10.0f), "BrickTextureFive", 64);
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, 30.0f, 400.0f), PizzaBox::Euler(), PizzaBox::Vector3(1000.0f, 200.0f, 10.0f), "BrickTextureFive", 64.0f);
 
 	
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, 40.0f, 200.0f), PizzaBox::Euler(), PizzaBox::Vector3(40.0f, 100.0f, 40.0f), "BrickTextureThree");
@@ -99,15 +99,15 @@ bool Tutorial::Initialize() {
 
 	CreateObject<Building>(PizzaBox::Vector3(0.0f, 50.0f, 85.0f), PizzaBox::Euler(), PizzaBox::Vector3(400.0f, 100.0f, 30.0f), "BrickTextureThree");
 
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 50.0f, 35.0f), PizzaBox::Euler(), PizzaBox::Vector3(30.0f, 100.0f, 30.0f), "BrickTextureFour", 64);
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, 50.0f, 35.0f), PizzaBox::Euler(), PizzaBox::Vector3(30.0f, 100.0f, 30.0f), "BrickTextureFour", 64.0f);
 	
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 50.0f, -35.0f), PizzaBox::Euler(), PizzaBox::Vector3(30.0f, 100.0f, 30.0f), "BrickTextureTwo", 64);
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, 50.0f, -35.0f), PizzaBox::Euler(), PizzaBox::Vector3(30.0f, 100.0f, 30.0f), "BrickTextureTwo", 64.0f);
 
-	CreateObject<Building>(PizzaBox::Vector3(-50.0f, 37.0f, 70.0f), PizzaBox::Euler(), PizzaBox::Vector3(25.0f, 100.0f, 24.5f), "BrickTextureFive", 64);
-	CreateObject<Building>(PizzaBox::Vector3(50.0f, 37.0f, 70.0f), PizzaBox::Euler(), PizzaBox::Vector3(25.0f, 100.0f, 24.5f), "BrickTextureFive", 64);
+	CreateObject<Building>(PizzaBox::Vector3(-50.0f, 37.0f, 70.0f), PizzaBox::Euler(), PizzaBox::Vector3(25.0f, 100.0f, 24.5f), "BrickTextureFive", 64.0f);
+	CreateObject<Building>(PizzaBox::Vector3(50.0f, 37.0f, 70.0f), PizzaBox::Euler(), PizzaBox::Vector3(25.0f, 100.0f, 24.5f), "BrickTextureFive", 64.0f);
 
-	CreateObject<Building>(PizzaBox::Vector3(-65.0f, 42.0f, 70.0f), PizzaBox::Euler(), PizzaBox::Vector3(25.0f, 100.0f, 25.0f), "BrickTexture", 64);
-	CreateObject<Building>(PizzaBox::Vector3(65.0f, 42.0f, 70.0f), PizzaBox::Euler(), PizzaBox::Vector3(25.0f, 100.0f, 25.0f), "BrickTexture", 64);
+	CreateObject<Building>(PizzaBox::Vector3(-65.0f, 42.0f, 70.0f), PizzaBox::Euler(), PizzaBox::Vector3(25.0f, 100.0f, 25.0f), "BrickTexture", 64.0f);
+	CreateObject<Building>(PizzaBox::Vector3(65.0f, 42.0f, 70.0f), PizzaBox::Euler(), PizzaBox::Vector3(25.0f, 100.0f, 25.0f), "BrickTexture", 64.0f);
 
 
 	PizzaBox::GameObject* spotlightOne = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(-50.0f,140.0f,95.0f), PizzaBox::Euler(), PizzaBox::Vector3());
@@ -115,9 +115,9 @@ bool Tutorial::Initialize() {
 
 	PizzaBox::GameObject* spotlightTwo = CreateObject<PizzaBox::GameObject>(PizzaBox::Vector3(50.0f, 140.0f, 95.0f), PizzaBox::Euler(), PizzaBox::Vector3());
 	spotlightTwo->AddComponent(new PizzaBox::SpotLight(2.0f));
-	CreateObject<Building>(PizzaBox::Vector3(0.0f, 50.0f, -170.0f), PizzaBox::Euler(), PizzaBox::Vector3(500.0f, 100.0f, 40.0f), "BrickTextureTwo", 256);
+	CreateObject<Building>(PizzaBox::Vector3(0.0f, 50.0f, -170.0f), PizzaBox::Euler(), PizzaBox::Vector3(500.0f, 100.0f, 40.0f), "BrickTextureTwo", 256.0f);
 
-	CreateObject<Building>(PizzaBox::Vector3(0.0, 30.0f, -185.0f), PizzaBox::Euler(), PizzaBox::Vector3(500.0f, 200.0f, 10.0f), "BrickTextureFive", 256);
+	CreateObject<Building>(PizzaBox::Vector3(0.0, 30.0f, -185.0f), PizzaBox::Euler(), PizzaBox::Vector3(500.0f, 200.0f, 10.0f), "BrickTextureFive", 256.0f);
 
 	CreateObject<GrapplePointObject>(PizzaBox::Vector3(0.0f, 120.0f, 115.0f), PizzaBox::Euler(), PizzaBox::Vector3(0.5f, 0.5f, 0.5f));
 
